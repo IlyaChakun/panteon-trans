@@ -5,11 +5,12 @@ import by.iba.domain.User;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-
+@RestController
 @Slf4j
 @AllArgsConstructor
 public class UserControllerImpl implements UserController {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@RestController
+
 @RequestMapping("/users")
 @CrossOrigin(origins = "*")
 public interface UserController {
