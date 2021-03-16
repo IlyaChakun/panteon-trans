@@ -1,0 +1,60 @@
+##########################################################
+##########            ACCOUNT_SERVICE           ##########
+##########################################################
+
+security:
+  oauth2:
+    client:
+      clientId: account-service
+      clientSecret: pass
+      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+
+server:
+  servlet:
+    context-path: /accounts
+  port: 6000
+
+
+#eureka:
+#  client:
+#    fetchRegistry: true
+
+
+feign:
+  hystrix:
+    enabled: true
+
+spring:
+  application:
+    name: account-service
+
+  ##################### DATA SOURCE #################################
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 100
+    initialization-mode: always
+    ##################### MY SQL DATABASE #################################
+    #    url: jdbc:mysql://localhost:3306/test_iba_base?serverTimezone=Europe/Moscow
+    #    password: 1111
+    #    username: root
+    url: jdbc:mysql://db_mysql:3306/test_iba_base?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+    password: password
+    username: user
+  ##################### JPA USED SPRING DATA #################################
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      format-sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        event:
+          merge:
+            entity_copy_observer: allow
+      use_sql_comments: true
+    show-sql: true
+
+
