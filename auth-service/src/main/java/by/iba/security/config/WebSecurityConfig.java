@@ -1,6 +1,6 @@
-package by.iba.config;
+package by.iba.security.config;
 
-import by.iba.service.security.CustomUserDetailsService;
+import by.iba.security.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

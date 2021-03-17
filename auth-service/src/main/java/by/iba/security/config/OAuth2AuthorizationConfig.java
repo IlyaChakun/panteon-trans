@@ -1,6 +1,6 @@
-package by.iba.config;
+package by.iba.security.config;
 
-import by.iba.service.security.CustomUserDetailsService;
+import by.iba.security.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -41,8 +41,8 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .scopes("ui")
                 .and()
                 .withClient("account-service")
-//                .secret(env.getProperty("ACCOUNT_SERVICE_PASSWORD"))
-                .secret("pass")
+                .secret(env.getProperty("ACCOUNT_SERVICE_PASSWORD"))
+                //.secret("pass")
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server")
                 .and()

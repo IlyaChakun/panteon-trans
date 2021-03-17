@@ -1,9 +1,9 @@
 package by.iba.service;
 
-import by.iba.domain.User;
+import by.iba.dto.UserDTO;
 
 public interface UserService {
 
-    void create(User user);
+    UserDTO save(UserDTO userDTO);
 
 }

@@ -1,6 +1,7 @@
 package by.iba.controller;
 
-import by.iba.domain.User;
+import by.iba.dto.UserDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,6 @@ public interface UserController {
 
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping()
-    void createUser(@Valid @RequestBody User user);
+    ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO user);
 
 }
