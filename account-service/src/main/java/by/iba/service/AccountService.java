@@ -1,18 +1,9 @@
 package by.iba.service;
 
-import by.iba.domain.User;
+import by.iba.dto.AccountDTO;
 
 public interface AccountService {
 
-
-	/**
-	 * Checks if account with the same name already exists
-	 * Invokes Auth Service user creation
-	 * Creates new account with default parameters
-	 *
-	 * @param user
-	 * @return created account
-	 */
-	User create(User user);
+    AccountDTO create(AccountDTO accountDTO);
 
 }

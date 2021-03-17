@@ -1,33 +1,47 @@
 package by.iba.service;
 
 import by.iba.client.AuthServiceClient;
-import by.iba.domain.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.iba.domain.Account;
+import by.iba.dto.AccountDTO;
+import by.iba.dto.UserDTO;
+import by.iba.dto.mapper.AccountMapperDTO;
+import by.iba.repository.AccountRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+    private final AuthServiceClient authClient;
+
+    private final AccountRepository accountRepository;
+    private final AccountMapperDTO accountMapper;
 
 
+    @Override
+    public AccountDTO create(AccountDTO accountDTO) {
+        log.info("in AccountServiceImpl method create");
 
-	@Autowired
-	private AuthServiceClient authClient;
+        UserDTO savedUser = saveUser(accountDTO);
 
+        log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
+        log.info("new account has been created: email={} ", savedUser.getEmail());
 
-	@Override
-	public User create(User user) {
+        Account account = new Account();
+        account.setUserId(1L);
+        account.setCompanyId(1L);
 
+        Account savedAccount = accountRepository.save(account);
 
-		authClient.createUser(user);
+        return accountMapper.toDto(savedAccount);
+    }
 
-		log.info("new account has been created: " + user);
-
-		return user;
-	}
+    private UserDTO saveUser(AccountDTO accountDTO) {
+        return authClient.save(accountDTO.getUser()).getBody();
+    }
 
 
 }
