@@ -1,3 +1,9 @@
+##########################################################
+##########            DEV CONFIGURATION        ###########
+##########            COMMON PROPERTIES        ###########
+##########################################################
+
+
 logging:
   level:
     org.springframework.security: INFO
@@ -9,20 +15,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 80000
-#
-#eureka:
-#  instance:
-#    prefer-ip-address: true
-#  client:
-#    serviceUrl:
-#      defaultZone: http://registry:8761/eureka/
-#
-#security:
-#  oauth2:
-#    resource:
-#      user-info-uri: http://auth-service:5000/uaa/users/current
-
-
 
 eureka:
   instance:
@@ -34,8 +26,4 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:5000/uaa/users/current
-
-#spring:
-#  rabbitmq:
-#    host: rabbitmq
+      user-info-uri: http://localhost:5000/users/current

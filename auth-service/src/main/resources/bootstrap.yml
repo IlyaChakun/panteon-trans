@@ -3,9 +3,3 @@ spring:
     name: auth-service
   main:
     allow-bean-definition-overriding: true #important for security part
-  cloud:
-    config:
-      uri: http://localhost:8888 #config
-      fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user

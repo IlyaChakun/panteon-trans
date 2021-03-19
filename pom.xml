@@ -11,15 +11,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version><!-- 2.0.3 -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>2.3.4.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <java.version>1.8</java.version>
-
+        <!-- versions -->
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <model-mapper-version>2.3.8</model-mapper-version>
         <lombok-version>1.18.12</lombok-version>
     </properties>
@@ -62,6 +62,7 @@
         <module>auth-service</module>
         <module>account-service</module>
         <module>api-gateway-service</module>
+        <module>companies-service</module>
     </modules>
 
 </project>

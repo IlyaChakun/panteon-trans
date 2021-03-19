@@ -1,5 +1,5 @@
 
-http://localhost:8080/uaa/oauth/token   (5000)
+http://localhost:8080/oauth/token   (5000)
 
 
 scope           ui

@@ -20,6 +20,7 @@ services:
 
   registry:
     environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: registry
     restart: always
@@ -38,6 +39,7 @@ services:
 
   api-gateway-service:
     environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: api-gateway-service
     restart: always
@@ -65,11 +67,12 @@ services:
       db_mysql:
         condition: service_started
     environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_mysql:3306/panteon_trans?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
+      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
+      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
     logging:
       options:
         max-size: "10m"
@@ -89,11 +92,12 @@ services:
       db_mysql:
         condition: service_started
     environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_mysql:3306/panteon_trans?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
+      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
+      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
     logging:
       options:
         max-size: "10m"

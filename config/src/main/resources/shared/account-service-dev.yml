@@ -1,35 +1,40 @@
 ##########################################################
-##########            AUTH SERVICE              ##########
+##########            DEV CONFIGURATION        ###########
+##########            ACCOUNT_SERVICE          ###########
 ##########################################################
 
+security:
+  oauth2:
+    client:
+      clientId: account-service
+      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      accessTokenUri: http://localhost:5000/oauth/token
+      grant-type: client_credentials
+      scope: server
 
-##################### SERVER PROP #################################
 server:
-  port: 5000
-  servlet:
-    context-path: /uaa
+  port: 6000
 
 
-##################### SPRING GLOBAL #################################
+feign:
+  hystrix:
+    enabled: false
 
 spring:
   application:
-    name: auth-service
+    name: account-service
 
-  ##################### DATA SOURCE #################################
+  ##################### DATA SOURCE ############################################
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
-    ##################### MY SQL DATABASE #################################
+  ##################### MY SQL DATABASE ########################################
     url: jdbc:mysql://localhost:3306/panteon_trans?serverTimezone=Europe/Moscow
     password: 1111
     username: root
-#    url: jdbc:mysql://db_mysql:3306/panteon_trans?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-#    password: password
-#    username: user
-  ##################### JPA USED SPRING DATA #################################
+  ##################### JPA USED SPRING DATA ###################################
   jpa:
     hibernate:
       ddl-auto: update
@@ -42,8 +47,5 @@ spring:
             entity_copy_observer: allow
       use_sql_comments: true
     show-sql: true
-
-
-
 
 

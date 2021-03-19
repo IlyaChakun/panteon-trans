@@ -15,3 +15,16 @@ The project is represented by the transport exchange.
   * User registration
       * Email confirmation (send link with token to email)
       
+
+    
+1. добавить интеранлизацию\локализацию
+2. сделать коммон модуль
+3. хатеос
+4. profile на dev и prod
+
+
+
+docker-compose --env-file ./.env up
+
+
+

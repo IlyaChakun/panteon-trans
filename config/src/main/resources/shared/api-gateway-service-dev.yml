@@ -1,5 +1,6 @@
 ##########################################################
-##########            API GATEWAY SERVICE       ##########
+##########            DEV CONFIGURATION       ############
+##########            API GATEWAY SERVICE     ############
 ##########################################################
 server:
   port: 8080
@@ -25,8 +26,7 @@ zuul:
 
   routes:
     auth-service:
-      path: /uaa/**
-      #url: http://auth-service:5000
+      path: /users/**
       url: http://localhost:5000
       stripPrefix: false
       sensitiveHeaders:
