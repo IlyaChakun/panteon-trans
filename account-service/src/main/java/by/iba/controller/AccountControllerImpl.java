@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Locale;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class AccountControllerImpl implements AccountController {
     @Override
     public ResponseEntity<AccountDTO> createNewAccount(@Valid AccountDTO accountDTO) {
         log.info("in create new acc ");
-        AccountDTO savedAccount = accountService.create(accountDTO);
+        AccountDTO savedAccount = accountService.save(accountDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -33,6 +34,17 @@ public class AccountControllerImpl implements AccountController {
 
         return ResponseEntity
                 .created(location)
+                .body(savedAccount);
+    }
+
+    @Override
+    public ResponseEntity<AccountDTO> findById(String accountId, Locale locale) {
+        log.info("in findById ");
+        log.info("locale={}", locale);
+        AccountDTO savedAccount = accountService.findById(Long.valueOf(accountId));
+
+        return ResponseEntity
+                .ok()
                 .body(savedAccount);
     }
 }

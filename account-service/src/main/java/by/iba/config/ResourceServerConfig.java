@@ -1,6 +1,6 @@
 package by.iba.config;
 
-import by.iba.service.security.CustomUserInfoTokenServices;
+import by.iba.common.security.CustomUserInfoTokenServices;
 import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;

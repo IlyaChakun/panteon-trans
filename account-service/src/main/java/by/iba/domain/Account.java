@@ -1,5 +1,6 @@
 package by.iba.domain;
 
+import by.iba.common.domain.AbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +21,10 @@ public class Account extends AbstractEntity {
     private Long accountId;
 
     @Id
+    @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;
 
-    @Id
+    @Column(name = "company_id", nullable = false)
     private Long companyId;
 
 }

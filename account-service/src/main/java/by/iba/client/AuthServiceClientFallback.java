@@ -1,6 +1,6 @@
 package by.iba.client;
 
-import by.iba.exception.ServiceException;
+import by.iba.common.exception.ServiceException;
 import feign.FeignException;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;

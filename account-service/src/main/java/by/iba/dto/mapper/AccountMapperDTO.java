@@ -1,6 +1,7 @@
 package by.iba.dto.mapper;
 
 
+import by.iba.common.dto.mapper.AbstractMapperDTO;
 import by.iba.domain.Account;
 import by.iba.dto.AccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,6 +4,8 @@ import by.iba.dto.AccountDTO;
 
 public interface AccountService {
 
-    AccountDTO create(AccountDTO accountDTO);
+    AccountDTO save(AccountDTO accountDTO);
+
+    AccountDTO findById(Long accountId);
 
 }

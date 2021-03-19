@@ -1,5 +1,6 @@
 package by.iba.dto;
 
+import by.iba.common.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

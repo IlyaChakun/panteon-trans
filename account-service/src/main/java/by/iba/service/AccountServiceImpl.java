@@ -1,6 +1,7 @@
 package by.iba.service;
 
 import by.iba.client.AuthServiceClient;
+import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
 import by.iba.dto.AccountDTO;
 import by.iba.dto.UserDTO;
@@ -20,9 +21,8 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapperDTO accountMapper;
 
-
     @Override
-    public AccountDTO create(AccountDTO accountDTO) {
+    public AccountDTO save(AccountDTO accountDTO) {
         log.info("in AccountServiceImpl method create");
 
         UserDTO savedUser = saveUser(accountDTO);
@@ -31,12 +31,25 @@ public class AccountServiceImpl implements AccountService {
         log.info("new account has been created: email={} ", savedUser.getEmail());
 
         Account account = new Account();
-        account.setUserId(1L);
+        account.setUserId(savedUser.getUserId());
         account.setCompanyId(1L);
 
         Account savedAccount = accountRepository.save(account);
 
         return accountMapper.toDto(savedAccount);
+    }
+
+    @Override
+    public AccountDTO findById(Long accountId) {
+        log.info("in AccountServiceImpl method findById");
+        log.info("accountId={}", accountId);
+
+        Account account = accountRepository.findByAccountId(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.account.not_found_exception"));
+
+        log.info("account with id={} has been found!", accountId);
+
+        return accountMapper.toDto(account);
     }
 
     private UserDTO saveUser(AccountDTO accountDTO) {
