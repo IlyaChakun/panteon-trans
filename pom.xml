@@ -53,6 +53,20 @@
                 <version>${model-mapper-version}</version>
             </dependency>
 
+
+            <!-- local dependencies -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>lib-internationalization</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>lib-common-payload</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -63,6 +77,7 @@
         <module>account-service</module>
         <module>api-gateway-service</module>
         <module>companies-service</module>
+        <module>libs-module</module>
     </modules>
 
 </project>

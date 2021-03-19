@@ -1,4 +1,4 @@
-package by.iba.exception;
+package by.iba.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ public final class ErrorMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer code;
+    private final Integer httpCode;
 
     private final String error;
 

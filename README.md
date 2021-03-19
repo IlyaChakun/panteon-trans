@@ -20,9 +20,10 @@ The project is represented by the transport exchange.
 1. добавить интеранлизацию\локализацию
 2. сделать коммон модуль
 3. хатеос
-4. profile на dev и prod
 
 
+
+# how to run with docker?
 
 docker-compose --env-file ./.env up
 
