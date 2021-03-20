@@ -32,6 +32,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
+        System.out.println("PROPERTY: " + env.getProperty("ACCOUNT_SERVICE_PASSWORD"));
         // TODO persist clients details
 
         // @formatter:off

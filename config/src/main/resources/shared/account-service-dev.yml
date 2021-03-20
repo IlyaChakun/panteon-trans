@@ -18,7 +18,8 @@ server:
 
 feign:
   hystrix:
-    enabled: false
+    enabled: true
+
 
 spring:
   application:

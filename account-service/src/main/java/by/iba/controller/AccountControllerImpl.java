@@ -38,9 +38,9 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<AccountDTO> findById(String accountId, Locale locale) {
+    public ResponseEntity<AccountDTO> findById(String accountId) {
         log.info("in findById ");
-        log.info("locale={}", locale);
+
         AccountDTO savedAccount = accountService.findById(Long.valueOf(accountId));
 
         return ResponseEntity

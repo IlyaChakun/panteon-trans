@@ -15,6 +15,6 @@ public interface AccountController {
      ResponseEntity<AccountDTO> createNewAccount(@Valid @RequestBody AccountDTO accountDTO);
 
     @GetMapping("/{id}")
-    ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId, Locale locale);
+    ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId);
 
 }
