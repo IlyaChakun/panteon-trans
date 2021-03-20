@@ -2,30 +2,9 @@
 The project is represented by the transport exchange.
 
 
+# How to run with docker?
 
-# Development stages
-
-  * Develop Spring cloud infrastracture (Discovery service, Api gateway service, Config service, Authentification service)
-  * Develop Docker infrastracture (docker-compose and etc)
-  * Create CI\CD based on AWS Pipelines
-  * Deploy project to AWS
-  
-
-# Auth service
-  * User registration
-      * Email confirmation (send link with token to email)
-      
-
-    
-1. добавить интеранлизацию\локализацию
-2. сделать коммон модуль
-3. хатеос
-
-
-
-# how to run with docker?
-
-docker-compose --env-file ./.env up
+docker-compose --env-file config-files/.env up
 
 
 

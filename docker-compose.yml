@@ -6,7 +6,7 @@ services:
   config:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: config
+    build: infrastructure-microservices-module/config
     restart: always
     ports:
       - 8888:8888
@@ -22,7 +22,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: registry
+    build: infrastructure-microservices-module/registry
     restart: always
     depends_on:
       config:
@@ -41,7 +41,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: api-gateway-service
+    build: infrastructure-microservices-module/api-gateway-service
     restart: always
     depends_on:
       config:

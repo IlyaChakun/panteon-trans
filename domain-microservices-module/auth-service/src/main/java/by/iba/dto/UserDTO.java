@@ -1,8 +1,6 @@
 package by.iba.dto;
 
 import by.iba.common.dto.AbstractDTO;
-import by.iba.dto.RoleDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
