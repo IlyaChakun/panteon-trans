@@ -1,9 +1,9 @@
 package by.iba.service;
 
+import by.iba.common.exception.ServiceException;
 import by.iba.domain.User;
 import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.UserMapperDTO;
-import by.iba.exception.ServiceException;
 import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
     private void validateEmailAvailabilityOrThrowException(final String email) {
         if (userRepository.existsByEmail(email)) {
-            throw new ServiceException(HttpStatus.CONFLICT.value(), "duplicate_email_error", "User already exists: " + email);
+            throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.user.duplicate_email_error");
         }
     }
 

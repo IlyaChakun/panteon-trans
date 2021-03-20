@@ -8,13 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Locale;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 @AllArgsConstructor
-public class ErrorHandlerController {
+public class BaseErrorHandlerController {
 
 
     private final MessageSource messageSource;
@@ -32,7 +33,6 @@ public class ErrorHandlerController {
         log.info("in handleAbstractException");
         log.info("local={}", locale);
 
-        ex.printStackTrace();
         final String localizedMessage = messageSource.getMessage(ex.getError(), (Object[]) null, locale);
 
         log.info("localizedMessage={}", localizedMessage);

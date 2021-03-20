@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     private final TokenStore tokenStore = new InMemoryTokenStore();
-    private final String NOOP_PASSWORD_ENCODE = "{noop}";
 
     @Qualifier("authenticationManagerBean")
     private  final AuthenticationManager authenticationManager;
@@ -31,9 +30,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-        System.out.println("PROPERTY: " + env.getProperty("ACCOUNT_SERVICE_PASSWORD"));
-        // TODO persist clients details
 
         // @formatter:off
         clients.inMemory()

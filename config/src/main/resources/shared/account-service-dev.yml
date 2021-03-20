@@ -19,7 +19,11 @@ server:
 feign:
   hystrix:
     enabled: true
-
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
 
 spring:
   application:
@@ -31,7 +35,7 @@ spring:
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
-  ##################### MY SQL DATABASE ########################################
+    ##################### MY SQL DATABASE ########################################
     url: jdbc:mysql://localhost:3306/panteon_trans?serverTimezone=Europe/Moscow
     password: 1111
     username: root
