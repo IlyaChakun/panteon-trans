@@ -4,7 +4,19 @@ The project is represented by the transport exchange.
 
 # How to run with docker?
 
-docker-compose --env-file config-files/.env up
+mysql on port 3306
+
+1. run mvn install
+2. docker-compose --env-file config-files/.env up
+
+# How to run local?
+
+Use dev profile with all services except config service.
+
+1. Run config service
+2. Run registry service
+3. Run other services
+
 
 
 
