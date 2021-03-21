@@ -57,7 +57,7 @@ services:
 
 
   auth-service:
-    build: auth-service
+    build: domain-microservices-module/auth-service
     restart: always
     ports:
       - 5000:5000
@@ -82,7 +82,7 @@ services:
 
 
   account-service:
-    build: account-service
+    build: domain-microservices-module/account-service
     restart: always
     ports:
       - 6000:6000
