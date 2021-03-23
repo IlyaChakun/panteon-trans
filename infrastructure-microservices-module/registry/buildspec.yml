@@ -5,6 +5,7 @@ phases:
     commands:
       - Install phase, update services
       - yum update -y
+
   pre_build:
     commands:
       - echo Pre build
