@@ -1,0 +1,56 @@
+##########################################################
+##########            DEV CONFIGURATION        ###########
+##########            COMPANY SERVICE          ###########
+##########################################################
+
+security:
+  oauth2:
+    client:
+      clientId: company-service
+      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      accessTokenUri: http://localhost:5000/oauth/token
+      grant-type: client_credentials
+      scope: server
+
+server:
+  port: 8081
+
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
+
+spring:
+  application:
+    name: company-service
+
+  ##################### DATA SOURCE ############################################
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 100
+    initialization-mode: always
+    ##################### MY SQL DATABASE ########################################
+    url: jdbc:mysql://localhost:3306/panteon_trans?serverTimezone=Europe/Moscow
+    password: 1111
+    username: root
+  ##################### JPA USED SPRING DATA ###################################
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      format-sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        event:
+          merge:
+            entity_copy_observer: allow
+      use_sql_comments: true
+    show-sql: true
+
+
