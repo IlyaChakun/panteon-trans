@@ -17,7 +17,8 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - echo Build Registry service
-      - cd registry
+      - ls
+      - cd infrastructure-microservices-module/registry
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
