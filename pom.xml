@@ -88,4 +88,25 @@
     </build>
 
 
+
+
+
+    <profiles>
+        <profile>
+            <id>transport-exchange--transport-exchange</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>transport-exchange--transport-exchange</id>
+                    <url>https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+
+
+
+
 </project>

@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - pip3 install awscli --upgrade --user
+      - echo Logging in to Amazon ECR...
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain transport-exchange --domain-owner 908085288135 --query authorizationToken --output text`
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - mvn clean install deploy
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
