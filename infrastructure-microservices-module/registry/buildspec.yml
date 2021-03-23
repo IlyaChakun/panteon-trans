@@ -1,11 +1,6 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - Install phase, update services
-      - yum update -y
-
   pre_build:
     commands:
       - echo Pre build
