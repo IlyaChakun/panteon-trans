@@ -5,7 +5,7 @@ server:
 ---
 spring:
   profiles:
-    active: prod
+    active: prod #dev
   cloud:
     config:
       server:
@@ -27,7 +27,9 @@ spring:
           uri: https://github.com/IlyaChakun/panteon-trans/
           search-paths:
             - "services-config-files/{profile}"
-
+          username: IlyaChakun
+          password: 1999IlyaChekun
+      label: master
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD}
