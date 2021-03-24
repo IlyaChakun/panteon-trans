@@ -35,4 +35,3 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-    - target/registry.jar
