@@ -4,7 +4,6 @@ phases:
   pre_build:
     commands:
       - echo Pre build
-      - mvn clean install
       - ls
       - echo Logging in to Amazon ECR...
       - aws --version
