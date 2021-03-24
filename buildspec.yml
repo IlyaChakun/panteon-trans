@@ -6,5 +6,5 @@ phases:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
       - git log -1 HEAD
       - echo Start build phase `date`
-      - cd $CODEBUILD_SRC_DIR
+      - cd $SRC_DIR
 
