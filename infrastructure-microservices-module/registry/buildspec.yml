@@ -4,8 +4,7 @@ phases:
   pre_build:
     commands:
       - echo Pre build
-      - echo Do maven clean install
-      - mvn clean install
+      - ls
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
