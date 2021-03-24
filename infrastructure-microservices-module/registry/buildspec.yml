@@ -30,6 +30,8 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"registry","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
+      - echo final files
+      - ls
 artifacts:
   files:
     - imagedefinitions.json
