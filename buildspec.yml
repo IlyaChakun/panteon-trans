@@ -1,10 +1,12 @@
 version: 0.2
 
 phases:
-
   pre_build:
-    - echo prepare codeartifact token
-    - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain transport-exchange --domain-owner 908085288135 --query authorizationToken --output text`
+    commands:
+      - echo Pre build
+      - pip3 install awscli --upgrade --user
+      - echo prepare codeartifact token
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain transport-exchange --domain-owner 908085288135 --query authorizationToken --output text`
   build:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
