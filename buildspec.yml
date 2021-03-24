@@ -3,8 +3,8 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Pre build
-      - echo Do maven clean install
-      - mvn clean install
-  post_build:
-      - echo Maven install successfully
+      - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
+      - git log -1 HEAD
+      - echo Start build phase `date`
+      - cd $CODEBUILD_SRC_DIR
+
