@@ -31,6 +31,9 @@ phases:
       - cat imagedefinitions.json
       - echo final files
       - ls
+      - cd target
+      - ls
 artifacts:
   files:
     - imagedefinitions.json
+    - target/registry.jar
