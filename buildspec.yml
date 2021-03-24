@@ -1,10 +1,13 @@
 version: 0.2
 
 phases:
+
   build:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
       - echo Start build phase `date`
       - mvn clean install
 
-
+artifacts:
+  files:
+     - '**/*'
