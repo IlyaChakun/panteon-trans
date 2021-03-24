@@ -87,13 +87,13 @@
         </pluginManagement>
     </build>
 
-
-
     <distributionManagement>
         <repository>
             <id>transport-exchange--transport-exchange</id>
             <name>transport-exchange--transport-exchange</name>
-            <url>https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/</url>
+            <url>
+                https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/
+            </url>
         </repository>
     </distributionManagement>
 

@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - cp config-files/settings.xml /root/.m2/settings.xml
   pre_build:
     commands:
       - echo Pre build
@@ -17,4 +20,4 @@ phases:
 
 artifacts:
   files:
-     - '**/*'
+    - '**/*'
