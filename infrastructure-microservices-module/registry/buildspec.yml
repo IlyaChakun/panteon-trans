@@ -35,5 +35,5 @@ phases:
       - ls
 artifacts:
   files:
-    - imagedefinitions.json
+    - ./imagedefinitions.json
     - target/registry.jar

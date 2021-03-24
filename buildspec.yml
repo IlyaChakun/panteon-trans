@@ -14,9 +14,8 @@ phases:
     commands:
       - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
       - echo Start build phase `date`
-      - mvn clean install
+      - mvn clean install deploy
       - echo DEPLOY ARTIFACTS
-      - mvn deploy
 
 artifacts:
   files:
