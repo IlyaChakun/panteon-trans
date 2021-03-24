@@ -1,6 +1,6 @@
 [
   {
-    "name": "product_service",
-    "imageUri": "flower_shop_services/product_service"
+    "name": "registry",
+    "imageUri": "infrastructure-microservices-module/registry"
   }
 ]
