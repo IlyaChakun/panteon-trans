@@ -4,20 +4,21 @@ phases:
   pre_build:
     commands:
       - echo Pre build
-      - ls
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=$REPOSITORY_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - IMAGE_TAG=$SERVICE_NAME
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo Build Registry service
+      - echo Build $SERVICE_PATH service
+      - echo Go to src
+      - cd ..
       - ls
-      - cd infrastructure-microservices-module/registry
+      - cd $SERVICE_PATH
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
@@ -27,13 +28,9 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"registry","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
+      - printf '[{"name":$SERVICE_NAME,"imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
       - cat imagedefinitions.json
-      - echo final files
-      - ls
-      - cd target
-      - ls
 artifacts:
   files:
     - ./imagedefinitions.json
-    - target/registry.jar
+    - target/$SERVICE_NAME.jar
