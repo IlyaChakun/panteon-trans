@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Company extends AbstractEntity {
 
 
-    private Long ownerId;
+    private Long ownerId;// подумать что лучше userId или accountId
 
     @Id
     @Column(name = "unp", nullable = false, unique = true)
