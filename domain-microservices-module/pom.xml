@@ -16,6 +16,7 @@
         <module>auth-service</module>
         <module>account-service</module>
         <module>companies-service</module>
+        <module>transport-exchange</module>
     </modules>
 
 </project>
