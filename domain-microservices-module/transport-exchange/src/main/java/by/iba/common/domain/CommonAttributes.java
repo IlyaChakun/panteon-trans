@@ -1,7 +1,5 @@
 package by.iba.common.domain;
 
-import by.iba.cargo.domain.CargoStowageMethod;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
