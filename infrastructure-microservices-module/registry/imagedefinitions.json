@@ -1,0 +1,6 @@
+[
+  {
+    "name": "registry",
+    "imageUri": "infrastructure-microservices-module/registry"
+  }
+]

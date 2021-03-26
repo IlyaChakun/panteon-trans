@@ -26,7 +26,7 @@ public class Company extends AbstractEntity {
 
     private String description;
 
-    private String address;
+    private String address; //адрес  + юр адрес
 
     private String phoneNumber;
 

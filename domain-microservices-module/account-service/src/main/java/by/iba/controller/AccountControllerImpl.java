@@ -22,7 +22,7 @@ public class AccountControllerImpl implements AccountController {
 
 
     @Override
-    public ResponseEntity<AccountDTO> createNewAccount(@Valid AccountDTO accountDTO) {
+    public ResponseEntity<AccountDTO> save(@Valid AccountDTO accountDTO) {
         log.info("in create new acc ");
         AccountDTO savedAccount = accountService.save(accountDTO);
 

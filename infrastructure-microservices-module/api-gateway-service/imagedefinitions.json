@@ -1,0 +1,6 @@
+[
+  {
+    "name": "api-gateway-service",
+    "imageUri": "infrastructure-microservices-module/api-gateway-service"
+  }
+]
