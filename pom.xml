@@ -87,15 +87,15 @@
         </pluginManagement>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>transport-exchange--transport-exchange</id>
-            <name>transport-exchange--transport-exchange</name>
-            <url>
-                https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/
-            </url>
-        </repository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>transport-exchange&#45;&#45;transport-exchange</id>-->
+<!--            <name>transport-exchange&#45;&#45;transport-exchange</name>-->
+<!--            <url>-->
+<!--                https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/-->
+<!--            </url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
 
 
 </project>

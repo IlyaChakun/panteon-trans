@@ -12,7 +12,7 @@ import java.util.Locale;
 public interface AccountController {
 
     @PostMapping
-     ResponseEntity<AccountDTO> createNewAccount(@Valid @RequestBody AccountDTO accountDTO);
+     ResponseEntity<AccountDTO> save(@Valid @RequestBody AccountDTO accountDTO);
 
     @GetMapping("/{id}")
     ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId);
