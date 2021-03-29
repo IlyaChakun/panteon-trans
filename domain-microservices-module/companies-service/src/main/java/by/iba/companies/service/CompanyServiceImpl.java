@@ -50,10 +50,11 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDTO findByUNP(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
-        final CompanyDTO foundCompanyDTO = companyMapper.toDto(getCompanyByUNP(unp));
+        final Company company = getCompanyByUNP(unp);
+
         log.info("Company with unp = {} has been found!", unp);
 
-        return foundCompanyDTO;
+        return companyMapper.toDto(company);
     }
 
     @Override
@@ -70,6 +71,18 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public PageWrapper<CompanyDTO> findAll() {
+        //TODO    Pageable pageable = commonServiceHelper.getPageable(page, size);
+        //
+        ////        Specification<Flower> specification = getSpecification(searchAndSortParamDto);
+        ////        Page<Flower> flowers = flowerRepository.findAll(specification, pageable);
+        //        Page<Product> products = productRepository.findAll(pageable);
+        //
+        //        return
+        //                new PageWrapper<>(
+        //                        productMapper.toDtoList(products.toList()),
+        //                        products.getTotalPages(),
+        //                        products.getTotalElements());
+
         log.info("Start finding all companies");
 
         final List<CompanyDTO> companies = new ArrayList<>();

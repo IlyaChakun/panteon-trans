@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -16,8 +18,10 @@ public class CompanyDTO extends AbstractDTO {
 
     private Long companyId;
 
+    @NotBlank(message = "validation.company.unp.not_presented")
     private String UNP;
 
+    @NotNull(message = "validation.company.owner_id_not_presented")
     private Long ownerId;
 
     private String email;

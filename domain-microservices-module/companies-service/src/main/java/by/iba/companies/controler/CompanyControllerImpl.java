@@ -1,5 +1,6 @@
 package by.iba.companies.controler;
 
+import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
 import by.iba.companies.dto.CompanyDTO;
 import by.iba.companies.service.CompanyService;
@@ -21,7 +22,11 @@ public class CompanyControllerImpl implements CompanyController {
     private final CompanyService companyService;
 
     @Override
-    public ResponseEntity<CompanyDTO> save(@Valid final CompanyDTO companyDTO) {
+    public ResponseEntity<CompanyDTO> save(@Valid final CompanyDTO companyDTO,
+                                           final BindingResult bindingResult) {
+
+        ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);//TODO  это для проверки валидации (успешно не успешно )
+
         log.info("Received a request to save the company with unp = {}", companyDTO.getUNP());
 
         final CompanyDTO savedCompany = companyService.save(companyDTO);

@@ -5,7 +5,7 @@ server:
 ---
 spring:
   profiles:
-    active: prod #dev
+    active: dev
   cloud:
     config:
       server:
@@ -19,7 +19,7 @@ spring:
 ---
 spring:
   profiles:
-    active: dev #prod!
+    active: prod
   cloud:
     config:
       server:
