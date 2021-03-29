@@ -2,11 +2,12 @@ package by.iba.companies.dto;
 
 import by.iba.common.dto.AbstractDTO;
 import by.iba.companies.domain.BusinessType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,13 +26,14 @@ public class CompanyDTO extends AbstractDTO {
 
     private String description;
 
-    private String country;
+    private Long countryId;
 
     private String address;
 
     private String phoneNumber;
 
-    private Date foundationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate foundationDate;
 
     private BusinessType businessType;
 

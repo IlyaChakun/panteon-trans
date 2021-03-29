@@ -15,4 +15,6 @@ public class CompanyId implements Serializable {
 
     private Long ownerId;
 
+    private Long companyId;
+
 }

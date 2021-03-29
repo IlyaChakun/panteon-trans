@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @IdClass(CompanyId.class)
@@ -17,8 +17,13 @@ import java.util.Date;
 public class Company extends AbstractEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "company_id")
+    private Long companyId;
+
+    @Id
     @Column(name = "unp", nullable = false, unique = true)
-    private String UNP; //Payer account number
+    private String UNP;
 
     @Id
     @Column(name = "owner_id", nullable = false)
@@ -37,16 +42,16 @@ public class Company extends AbstractEntity {
     private String description;
 
     @Column(name = "country", nullable = false)
-    private String country;
+    private Long countryId;
 
     @Column(name = "address", nullable = false)
-    private String address; //адрес  + юр адрес
+    private String address;
 
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(name = "foundation_date", nullable = false)
-    private Date foundationDate;
+    private LocalDate foundationDate;
 
     @Column(name = "business_type")
     @Enumerated
