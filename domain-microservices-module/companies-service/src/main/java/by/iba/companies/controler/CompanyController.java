@@ -13,18 +13,18 @@ import javax.validation.Valid;
 public interface CompanyController {
 
     @PostMapping
-    ResponseEntity<CompanyDTO> save(@Valid @RequestBody CompanyDTO companyDTO);
+    ResponseEntity<CompanyDTO> save(@Valid @RequestBody final CompanyDTO companyDTO);
 
-    @PutMapping("/{id}")
-    ResponseEntity<CompanyDTO> update(@PathVariable("id") @PositiveLong String companyId,
-                                    @RequestBody @Valid CompanyDTO companyDTO,
-                                    BindingResult bindingResult);
+    @PutMapping("/{unp}")
+    ResponseEntity<CompanyDTO> update(@PathVariable("unp") @PositiveLong final String unp,
+                                      @RequestBody @Valid final CompanyDTO companyDTO,
+                                      final BindingResult bindingResult);
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable("id") @PositiveLong String companyId);
+    @DeleteMapping("/{unp}")
+    ResponseEntity<Void> delete(@PathVariable("unp") @PositiveLong final String unp);
 
-    @GetMapping("/{id}")
-    ResponseEntity<CompanyDTO> findById(@PathVariable("id") @PositiveLong String companyId);
+    @GetMapping("/{unp}")
+    ResponseEntity<CompanyDTO> findByUNP(@PathVariable("unp") @PositiveLong final String unp);
 
     @GetMapping
     ResponseEntity<PageWrapper<CompanyDTO>> findAll();

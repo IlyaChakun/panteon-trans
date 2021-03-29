@@ -106,6 +106,28 @@ services:
     networks:
       - backend
 
+  companies-service:
+    build: domain-microservices-module/companies-service
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      config:
+        condition: service_healthy
+      db_mysql:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
+      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
+      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - backend
 
   db_mysql:
     image: mysql:5.7
