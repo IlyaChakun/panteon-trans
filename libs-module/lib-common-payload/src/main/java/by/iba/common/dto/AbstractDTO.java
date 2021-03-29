@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AbstractDTO {
+public abstract class AbstractDTO extends BaseDTO {
 
-    @Null(message = "dateOfCreation does not required")
+    @Null(message = "dateOfCreation does not required")//TODO add locale
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH.mm")
     private LocalDateTime dateOfCreation;
 

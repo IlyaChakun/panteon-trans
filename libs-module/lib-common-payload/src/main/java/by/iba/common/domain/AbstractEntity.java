@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class AbstractEntity {
+public abstract class AbstractEntity extends BaseEntity {
 
     @Column(name = "date_of_creation")
     private LocalDateTime dateOfCreation;

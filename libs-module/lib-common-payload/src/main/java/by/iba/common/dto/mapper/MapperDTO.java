@@ -1,12 +1,12 @@
 package by.iba.common.dto.mapper;
 
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.common.dto.AbstractDTO;
+import by.iba.common.domain.BaseEntity;
+import by.iba.common.dto.BaseDTO;
 
 import java.util.List;
 
-public interface MapperDTO<E extends AbstractEntity, D extends AbstractDTO> {
+public interface MapperDTO<E extends BaseEntity, D extends BaseDTO> {
 
     E toEntity(final D d);
 

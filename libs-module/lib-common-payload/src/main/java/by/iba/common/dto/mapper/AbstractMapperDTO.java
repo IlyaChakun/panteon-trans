@@ -1,8 +1,8 @@
 package by.iba.common.dto.mapper;
 
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.common.dto.AbstractDTO;
+import by.iba.common.domain.BaseEntity;
+import by.iba.common.dto.BaseDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public abstract class AbstractMapperDTO<E extends AbstractEntity, D extends AbstractDTO>
+public abstract class AbstractMapperDTO<E extends BaseEntity, D extends BaseDTO>
         implements MapperDTO<E, D> {
 
     private final Class<E> entityClass;
