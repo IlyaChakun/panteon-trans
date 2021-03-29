@@ -16,15 +16,18 @@ public interface CompanyController {
     ResponseEntity<CompanyDTO> save(@Valid @RequestBody final CompanyDTO companyDTO);
 
     @PutMapping("/{unp}")
-    ResponseEntity<CompanyDTO> update(@PathVariable("unp") @PositiveLong final String unp,
+    ResponseEntity<CompanyDTO> update(@PathVariable("unp") final String unp,
                                       @RequestBody @Valid final CompanyDTO companyDTO,
                                       final BindingResult bindingResult);
 
     @DeleteMapping("/{unp}")
-    ResponseEntity<Void> delete(@PathVariable("unp") @PositiveLong final String unp);
+    ResponseEntity<Void> delete(@PathVariable("unp") final String unp);
 
-    @GetMapping("/{unp}")
-    ResponseEntity<CompanyDTO> findByUNP(@PathVariable("unp") @PositiveLong final String unp);
+    @GetMapping("/unp/{unp}")
+    ResponseEntity<CompanyDTO> findByUNP(@PathVariable("unp") final String unp);
+
+    @GetMapping("/{id}")
+    ResponseEntity<CompanyDTO> findById(@PathVariable("id") @PositiveLong final Long id);
 
     @GetMapping
     ResponseEntity<PageWrapper<CompanyDTO>> findAll();

@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CompanyDTO extends AbstractDTO {
 
+    private Long companyId;
+
     private String UNP;
 
     private Long ownerId;

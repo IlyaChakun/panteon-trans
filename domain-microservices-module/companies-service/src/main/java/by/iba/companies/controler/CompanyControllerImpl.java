@@ -64,6 +64,17 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
+    public ResponseEntity<CompanyDTO> findById(final Long id) {
+        log.info("Received a request to find the company by id = {}", id);
+
+        final CompanyDTO companyDTO = companyService.findById(id);
+
+        return ResponseEntity
+                .ok()
+                .body(companyDTO);
+    }
+
+    @Override
     public ResponseEntity<PageWrapper<CompanyDTO>> findAll() {
         log.info("Received a request to find all companies");
 

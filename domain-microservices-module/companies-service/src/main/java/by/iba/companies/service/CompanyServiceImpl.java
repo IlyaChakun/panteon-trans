@@ -41,10 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void delete(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
-        final Company company = companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
-
-        companyRepository.delete(company);
+        companyRepository.delete(getCompanyByUNP(unp));
 
         log.info("Company with unp = {} has been deleted!", unp);
     }
@@ -53,25 +50,40 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDTO findByUNP(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
-        final Company company = companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
-
+        final CompanyDTO foundCompanyDTO = companyMapper.toDto(getCompanyByUNP(unp));
         log.info("Company with unp = {} has been found!", unp);
 
-        return companyMapper.toDto(company);
+        return foundCompanyDTO;
+    }
+
+    @Override
+    public CompanyDTO findById(final Long id) {
+        log.info("Start finding the company by id = {}", id);
+
+        final Company company = companyRepository.findByCompanyId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+        final CompanyDTO companyDTO = companyMapper.toDto(company);
+        log.info("Company with id = {} has been found!", id);
+
+        return companyDTO;
     }
 
     @Override
     public PageWrapper<CompanyDTO> findAll() {
         log.info("Start finding all companies");
 
-        final List<CompanyDTO> companyDtos = new ArrayList<>();
-        companyRepository.findAll().forEach(company -> companyDtos.add(companyMapper.toDto(company)));
+        final List<CompanyDTO> companies = new ArrayList<>();
+        companyRepository.findAll().forEach(company -> companies.add(companyMapper.toDto(company)));
 
-        final PageWrapper<CompanyDTO> pageWrapper = new PageWrapper<>(companyDtos, 0, 0);
+        final PageWrapper<CompanyDTO> pageWrapper = new PageWrapper<>(companies, 0, 0);
 
         log.info("Finish finding all companies");
 
         return pageWrapper;
+    }
+
+    private Company getCompanyByUNP(final String unp) {
+        return companyRepository.findByUNP(unp)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
     }
 }

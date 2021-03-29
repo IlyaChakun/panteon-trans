@@ -13,5 +13,7 @@ public interface CompanyService {
 
     CompanyDTO findByUNP(final String unp);
 
+    CompanyDTO findById(final Long id);
+
     PageWrapper<CompanyDTO> findAll();
 }
