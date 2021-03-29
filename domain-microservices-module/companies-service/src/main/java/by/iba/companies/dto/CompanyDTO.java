@@ -10,6 +10,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,7 +38,7 @@ public class CompanyDTO extends AbstractDTO {
 
     private String address;
 
-    private String phoneNumber;
+    private List<String> phoneNumbers = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate foundationDate;

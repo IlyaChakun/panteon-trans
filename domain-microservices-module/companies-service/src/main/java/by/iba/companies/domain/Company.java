@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @IdClass(CompanyId.class)
@@ -47,8 +49,8 @@ public class Company extends AbstractEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "phone_number", nullable = false, unique = true)
-    private String phoneNumber;
+    @OneToMany(mappedBy = "companyId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @Column(name = "foundation_date", nullable = false)
     private LocalDate foundationDate;
