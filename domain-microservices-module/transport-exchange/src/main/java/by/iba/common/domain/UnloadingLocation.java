@@ -2,10 +2,10 @@ package by.iba.common.domain;
 
 public class UnloadingLocation {
 
-    private Country country;
+    private Long countryId;
 
-    private Region region;
+    private Long regionId;
 
-    private City city;
+    private Long cityId;
 
 }
