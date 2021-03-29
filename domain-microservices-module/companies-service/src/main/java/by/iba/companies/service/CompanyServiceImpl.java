@@ -25,6 +25,9 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDTO save(final CompanyDTO companyDTO) {
         log.info("Start saving the company with UNP = {}", companyDTO.getUNP());
 
+        //TODO валидации
+
+
         companyRepository.save(companyMapper.toEntity(companyDTO));
 
         log.info("Finish saving the company with UNP = {}", companyDTO.getUNP());
@@ -41,8 +44,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void delete(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
-        final Company company = companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+        final Company company = getCompanyByUNP(unp);
 
         companyRepository.delete(company);
 
@@ -53,16 +55,32 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyDTO findByUNP(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
-        final Company company = companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+        final Company company = getCompanyByUNP(unp);
 
         log.info("Company with unp = {} has been found!", unp);
 
         return companyMapper.toDto(company);
     }
 
+    private Company getCompanyByUNP(final String unp) {
+        return companyRepository.findByUNP(unp)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.by_unp_not_found_exception"));
+    }
+
     @Override
     public PageWrapper<CompanyDTO> findAll() {
+        //TODO    Pageable pageable = commonServiceHelper.getPageable(page, size);
+        //
+        ////        Specification<Flower> specification = getSpecification(searchAndSortParamDto);
+        ////        Page<Flower> flowers = flowerRepository.findAll(specification, pageable);
+        //        Page<Product> products = productRepository.findAll(pageable);
+        //
+        //        return
+        //                new PageWrapper<>(
+        //                        productMapper.toDtoList(products.toList()),
+        //                        products.getTotalPages(),
+        //                        products.getTotalElements());
+
         log.info("Start finding all companies");
 
         final List<CompanyDTO> companyDtos = new ArrayList<>();
