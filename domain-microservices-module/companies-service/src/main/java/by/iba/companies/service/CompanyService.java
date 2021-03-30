@@ -15,5 +15,5 @@ public interface CompanyService {
 
     CompanyDTO findById(final Long id);
 
-    PageWrapper<CompanyDTO> findAll();
+    PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size);
 }

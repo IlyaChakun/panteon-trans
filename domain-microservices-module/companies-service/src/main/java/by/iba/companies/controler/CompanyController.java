@@ -30,6 +30,7 @@ public interface CompanyController {
     ResponseEntity<CompanyDTO> findById(@PathVariable("id") final Long id);
 
     @GetMapping
-    ResponseEntity<PageWrapper<CompanyDTO>> findAll();
+    ResponseEntity<PageWrapper<CompanyDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
+                                                    @RequestParam(defaultValue = "10", required = false) final Integer size);
 
 }

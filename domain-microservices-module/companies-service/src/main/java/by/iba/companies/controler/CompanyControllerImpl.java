@@ -80,10 +80,10 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CompanyDTO>> findAll() {
+    public ResponseEntity<PageWrapper<CompanyDTO>> findAll(final Integer page, final Integer size) {
         log.info("Received a request to find all companies");
 
-        final PageWrapper<CompanyDTO> allCompanies = companyService.findAll();
+        final PageWrapper<CompanyDTO> allCompanies = companyService.findAll(page, size);
 
         return ResponseEntity
                 .ok()
