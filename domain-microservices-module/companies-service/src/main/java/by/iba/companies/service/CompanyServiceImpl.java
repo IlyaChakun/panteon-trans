@@ -10,6 +10,9 @@ import by.iba.companies.repository.CompanyRepository;
 import by.iba.companies.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -66,11 +69,20 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "companies", allEntries = true),
+            @CacheEvict(value = "company-unp", key = "#unp"),
+            @CacheEvict(value = "company-id", key = "#companyDTO.companyId")
+    })
     public CompanyDTO update(final String unp, final CompanyDTO companyDTO) {
         return null;
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "companies", allEntries = true),
+            @CacheEvict(value = "company-unp", key = "#unp")
+    })
     public void delete(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
@@ -80,6 +92,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Cacheable(value = "company-unp")
     public CompanyDTO findByUNP(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
@@ -91,6 +104,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Cacheable(value = "company-id")
     public CompanyDTO findById(final Long id) {
         log.info("Start finding the company by id = {}", id);
 
@@ -103,6 +117,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Cacheable(value = "companies")
     public PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size) {
 
         log.info("Start finding all companies");
