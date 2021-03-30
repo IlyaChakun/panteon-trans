@@ -23,8 +23,11 @@ public interface CompanyController {
     @DeleteMapping("/{unp}")
     ResponseEntity<Void> delete(@PathVariable("unp") final String unp);
 
-    @GetMapping("/{unp}")
+    @GetMapping("/unp/{unp}")
     ResponseEntity<CompanyDTO> findByUNP(@PathVariable("unp") final String unp);
+
+    @GetMapping("/{id}")
+    ResponseEntity<CompanyDTO> findById(@PathVariable("id") final Long id);
 
     @GetMapping
     ResponseEntity<PageWrapper<CompanyDTO>> findAll();

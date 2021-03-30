@@ -1,6 +1,8 @@
 package by.iba.companies.dto;
 
 import by.iba.common.dto.AbstractDTO;
+import by.iba.common.validation.annotation.ValidEmail;
+import by.iba.common.validation.annotation.ValidPhones;
 import by.iba.companies.domain.BusinessType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -8,35 +10,50 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class CompanyDTO extends AbstractDTO {
 
-    @NotNull(message = "validation.company.owner_id_not_presented")
-    private Long ownerId;
+    private Long companyId;
 
     @NotBlank(message = "validation.company.unp.not_presented")
     private String UNP;
 
+    @NotNull(message = "validation.company.owner_id.not_presented")
+    private Long ownerId;
+
+    @NotBlank(message = "validation.company.email.not_presented")
+    @ValidEmail
     private String email;
 
     private String site;
 
+    @NotBlank(message = "validation.company.title.not_presented")
     private String title;
 
     private String description;
 
+    @NotNull(message = "validation.company.company_id.not_presented")
     private Long countryId;
 
+    @NotBlank(message = "validation.company.address.not_presented")
     private String address;
 
-    private String phoneNumber;
+    @NotEmpty(message = "validation.company.phone_number.not_presented")
+    @ValidPhones
+    private List<String> phoneNumbers = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @NotNull(message = "validation.company.foundation_date.not_presented")
+    @PastOrPresent
     private LocalDate foundationDate;
 
     private BusinessType businessType;
