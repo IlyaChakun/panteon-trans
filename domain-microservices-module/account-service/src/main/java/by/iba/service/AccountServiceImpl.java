@@ -4,6 +4,7 @@ import by.iba.client.AuthServiceClient;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
 import by.iba.dto.AccountDTO;
+import by.iba.dto.CompanyDTO;
 import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.AccountMapperDTO;
 import by.iba.repository.AccountRepository;
@@ -26,9 +27,11 @@ public class AccountServiceImpl implements AccountService {
         log.info("in AccountServiceImpl method create");
 
         UserDTO savedUser = saveUser(accountDTO);
+        CompanyDTO savedCompany = saveCompany(accountDTO);
 
         log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
         log.info("new account has been created: email={} ", savedUser.getEmail());
+        log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUNP());
 
         Account account = new Account();
         account.setUserId(savedUser.getUserId());
@@ -53,6 +56,10 @@ public class AccountServiceImpl implements AccountService {
 
     private UserDTO saveUser(AccountDTO accountDTO) {
         return authClient.save(accountDTO.getUser()).getBody();
+    }
+
+    private CompanyDTO saveCompany(AccountDTO accountDTO) {
+        return authClient.saveCompany(accountDTO.getCompany()).getBody();
     }
 
 

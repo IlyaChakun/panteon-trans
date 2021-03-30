@@ -16,7 +16,7 @@ public class AccountDTO extends AbstractDTO {
     @Null(message = "Account ID could not be set")
     private Long accountId;
 
-    private Long companyId; //TODo company DTO
+    private CompanyDTO company;
 
     @Valid
     private UserDTO user;
