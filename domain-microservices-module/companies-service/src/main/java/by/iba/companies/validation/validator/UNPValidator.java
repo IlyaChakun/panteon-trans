@@ -1,6 +1,6 @@
-package by.iba.common.validation.validator;
+package by.iba.companies.validation.validator;
 
-import by.iba.common.validation.annotation.ValidUNP;
+import by.iba.companies.validation.annotation.ValidUNP;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static by.iba.common.validation.validator.CommonHolder.UNP_PATTERN;
+import static by.iba.companies.validation.validator.CommonHolder.UNP_PATTERN;
+
 
 public class UNPValidator implements ConstraintValidator<ValidUNP, String> {
 
