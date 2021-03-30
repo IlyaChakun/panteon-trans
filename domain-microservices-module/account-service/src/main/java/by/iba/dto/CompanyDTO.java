@@ -4,7 +4,6 @@ import by.iba.common.dto.AbstractDTO;
 import by.iba.common.validation.annotation.ValidEmail;
 import by.iba.common.validation.annotation.ValidPhones;
 import by.iba.common.validation.annotation.ValidSite;
-import by.iba.common.validation.annotation.ValidUNP;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +25,6 @@ public class CompanyDTO extends AbstractDTO {
     private Long companyId;
 
     @NotBlank(message = "validation.company.unp.not_presented")
-    @ValidUNP
     private String UNP;
 
     @NotNull(message = "validation.company.owner_id.not_presented")
@@ -44,8 +42,8 @@ public class CompanyDTO extends AbstractDTO {
 
     private String description;
 
-    @NotNull(message = "validation.company.company_id.not_presented")
-    private Long countryId;
+    @NotNull(message = "validation.company.company.not_presented")
+    private CountryDTO country;
 
     @NotBlank(message = "validation.company.address.not_presented")
     private String address;
