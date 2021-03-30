@@ -74,8 +74,22 @@ public class CompanyServiceImpl implements CompanyService {
             @CacheEvict(value = "company-unp", key = "#unp"),
             @CacheEvict(value = "company-id", key = "#companyDTO.companyId")
     })
-    public CompanyDTO update(final String unp, final CompanyDTO companyDTO) {
-        return null;
+    public CompanyDTO update(final Long companyId, final CompanyDTO companyDTO) {
+
+        log.info("Start updating the company by id = {}", companyId);
+
+        final Company company = getCompanyById(companyId);
+        company.setEmail(companyDTO.getEmail());
+        company.setSite(companyDTO.getSite());
+        company.setDescription(companyDTO.getDescription());
+        company.setTitle(companyDTO.getTitle());
+        company.setAddress(companyDTO.getAddress());
+
+        final Company savedCompany = companyRepository.save(company);
+        log.info("Company with id = {} has been updated!", savedCompany.getCompanyId());
+
+        return companyMapper.toDto(savedCompany);
+
     }
 
     @Override
@@ -103,17 +117,26 @@ public class CompanyServiceImpl implements CompanyService {
         return companyMapper.toDto(company);
     }
 
+    private Company getCompanyByUNP(final String unp) {
+        return companyRepository.findByUNP(unp)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+    }
+
     @Override
     @Cacheable(value = "company-id")
     public CompanyDTO findById(final Long id) {
         log.info("Start finding the company by id = {}", id);
 
-        final Company company = companyRepository.findByCompanyId(id)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+        final Company company = getCompanyById(id);
         final CompanyDTO companyDTO = companyMapper.toDto(company);
         log.info("Company with id = {} has been found!", id);
 
         return companyDTO;
+    }
+
+    private Company getCompanyById(Long id) {
+        return companyRepository.findByCompanyId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
     }
 
     @Override
@@ -134,8 +157,4 @@ public class CompanyServiceImpl implements CompanyService {
                 products.getTotalElements());
     }
 
-    private Company getCompanyByUNP(final String unp) {
-        return companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
-    }
 }

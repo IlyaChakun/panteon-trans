@@ -43,9 +43,15 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<CompanyDTO> update(final String companyId, final @Valid CompanyDTO companyDTO,
+    public ResponseEntity<CompanyDTO> update(final Long companyId, final @Valid CompanyDTO companyDTO,
                                              final BindingResult bindingResult) {
-        return null;
+        log.info("Received a request to update the company with id = {}", companyDTO);
+
+        final CompanyDTO updatedCompany = companyService.update(companyId, companyDTO);
+
+        return ResponseEntity
+                .ok()
+                .body(updatedCompany);
     }
 
     @Override
