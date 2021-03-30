@@ -2,6 +2,7 @@ package by.iba.companies.dto;
 
 import by.iba.common.dto.AbstractDTO;
 import by.iba.common.validation.annotation.ValidEmail;
+import by.iba.common.validation.annotation.ValidPhones;
 import by.iba.companies.domain.BusinessType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class CompanyDTO extends AbstractDTO {
     private String address;
 
     @NotEmpty(message = "validation.company.phone_number.not_presented")
+    @ValidPhones
     private List<String> phoneNumbers = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
