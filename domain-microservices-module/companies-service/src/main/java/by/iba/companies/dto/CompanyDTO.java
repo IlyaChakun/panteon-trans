@@ -3,6 +3,7 @@ package by.iba.companies.dto;
 import by.iba.common.dto.AbstractDTO;
 import by.iba.common.validation.annotation.ValidEmail;
 import by.iba.common.validation.annotation.ValidPhones;
+import by.iba.common.validation.annotation.ValidSite;
 import by.iba.common.validation.annotation.ValidUNP;
 import by.iba.companies.domain.BusinessType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,6 +37,7 @@ public class CompanyDTO extends AbstractDTO {
     @ValidEmail
     private String email;
 
+    @ValidSite
     private String site;
 
     @NotBlank(message = "validation.company.title.not_presented")
