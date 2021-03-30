@@ -10,10 +10,12 @@ import by.iba.companies.repository.CompanyRepository;
 import by.iba.companies.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -101,29 +103,20 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public PageWrapper<CompanyDTO> findAll() {
-        //TODO    Pageable pageable = commonServiceHelper.getPageable(page, size);
-        //
-        ////        Specification<Flower> specification = getSpecification(searchAndSortParamDto);
-        ////        Page<Flower> flowers = flowerRepository.findAll(specification, pageable);
-        //        Page<Product> products = productRepository.findAll(pageable);
-        //
-        //        return
-        //                new PageWrapper<>(
-        //                        productMapper.toDtoList(products.toList()),
-        //                        products.getTotalPages(),
-        //                        products.getTotalElements());
+    public PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size) {
 
         log.info("Start finding all companies");
 
-        final List<CompanyDTO> companies = new ArrayList<>();
-        companyRepository.findAll().forEach(company -> companies.add(companyMapper.toDto(company)));
-
-        final PageWrapper<CompanyDTO> pageWrapper = new PageWrapper<>(companies, 0, 0);
+        final Pageable pageable =
+                PageRequest.of(page, size);
+        final Page<Company> products = companyRepository.findAll(pageable);
 
         log.info("Finish finding all companies");
 
-        return pageWrapper;
+        return new PageWrapper<>(
+                companyMapper.toDtoList(products.toList()),
+                products.getTotalPages(),
+                products.getTotalElements());
     }
 
     private Company getCompanyByUNP(final String unp) {
