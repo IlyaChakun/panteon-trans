@@ -37,7 +37,7 @@ spring:
     initialization-mode: always
     ##################### MY SQL DATABASE ########################################
     url: jdbc:mysql://localhost:3306/panteon_trans?serverTimezone=Europe/Moscow
-    password: 1111
+    password: root
     username: root
   ##################### JPA USED SPRING DATA ###################################
   jpa:

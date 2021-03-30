@@ -7,7 +7,7 @@ public interface CompanyService {
 
     CompanyDTO save(final CompanyDTO companyDTO);
 
-    CompanyDTO update(final String unp, final CompanyDTO companyDTO);
+    CompanyDTO update(final Long companyId, final CompanyDTO companyDTO);
 
     void delete(final String unp);
 
@@ -15,5 +15,5 @@ public interface CompanyService {
 
     CompanyDTO findById(final Long id);
 
-    PageWrapper<CompanyDTO> findAll();
+    PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size);
 }

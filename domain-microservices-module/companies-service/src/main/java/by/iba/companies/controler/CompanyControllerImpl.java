@@ -43,9 +43,15 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<CompanyDTO> update(final String companyId, final @Valid CompanyDTO companyDTO,
+    public ResponseEntity<CompanyDTO> update(final Long companyId, final @Valid CompanyDTO companyDTO,
                                              final BindingResult bindingResult) {
-        return null;
+        log.info("Received a request to update the company with id = {}", companyDTO);
+
+        final CompanyDTO updatedCompany = companyService.update(companyId, companyDTO);
+
+        return ResponseEntity
+                .ok()
+                .body(updatedCompany);
     }
 
     @Override
@@ -80,10 +86,10 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CompanyDTO>> findAll() {
+    public ResponseEntity<PageWrapper<CompanyDTO>> findAll(final Integer page, final Integer size) {
         log.info("Received a request to find all companies");
 
-        final PageWrapper<CompanyDTO> allCompanies = companyService.findAll();
+        final PageWrapper<CompanyDTO> allCompanies = companyService.findAll(page, size);
 
         return ResponseEntity
                 .ok()

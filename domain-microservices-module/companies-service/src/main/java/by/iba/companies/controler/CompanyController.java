@@ -1,6 +1,7 @@
 package by.iba.companies.controler;
 
 import by.iba.common.dto.PageWrapper;
+import by.iba.common.validation.annotation.PositiveLong;
 import by.iba.companies.dto.CompanyDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,8 +16,8 @@ public interface CompanyController {
     ResponseEntity<CompanyDTO> save(@Valid @RequestBody final CompanyDTO companyDTO,
                                     final BindingResult bindingResult);
 
-    @PutMapping("/{unp}")
-    ResponseEntity<CompanyDTO> update(@PathVariable("unp") final String unp,
+    @PutMapping("/{id}")
+    ResponseEntity<CompanyDTO> update(@PathVariable("id") @PositiveLong final Long id,
                                       @RequestBody @Valid final CompanyDTO companyDTO,
                                       final BindingResult bindingResult);
 
@@ -30,6 +31,7 @@ public interface CompanyController {
     ResponseEntity<CompanyDTO> findById(@PathVariable("id") final Long id);
 
     @GetMapping
-    ResponseEntity<PageWrapper<CompanyDTO>> findAll();
+    ResponseEntity<PageWrapper<CompanyDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
+                                                    @RequestParam(defaultValue = "10", required = false) final Integer size);
 
 }

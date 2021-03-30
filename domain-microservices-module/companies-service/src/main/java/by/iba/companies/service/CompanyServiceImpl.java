@@ -10,10 +10,15 @@ import by.iba.companies.repository.CompanyRepository;
 import by.iba.companies.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,11 +69,34 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDTO update(final String unp, final CompanyDTO companyDTO) {
-        return null;
+    @Caching(evict = {
+            @CacheEvict(value = "companies", allEntries = true),
+            @CacheEvict(value = "company-unp", key = "#unp"),
+            @CacheEvict(value = "company-id", key = "#companyDTO.companyId")
+    })
+    public CompanyDTO update(final Long companyId, final CompanyDTO companyDTO) {
+
+        log.info("Start updating the company by id = {}", companyId);
+
+        final Company company = getCompanyById(companyId);
+        company.setEmail(companyDTO.getEmail());
+        company.setSite(companyDTO.getSite());
+        company.setDescription(companyDTO.getDescription());
+        company.setTitle(companyDTO.getTitle());
+        company.setAddress(companyDTO.getAddress());
+
+        final Company savedCompany = companyRepository.save(company);
+        log.info("Company with id = {} has been updated!", savedCompany.getCompanyId());
+
+        return companyMapper.toDto(savedCompany);
+
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "companies", allEntries = true),
+            @CacheEvict(value = "company-unp", key = "#unp")
+    })
     public void delete(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
@@ -78,6 +106,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Cacheable(value = "company-unp")
     public CompanyDTO findByUNP(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
@@ -88,46 +117,44 @@ public class CompanyServiceImpl implements CompanyService {
         return companyMapper.toDto(company);
     }
 
+    private Company getCompanyByUNP(final String unp) {
+        return companyRepository.findByUNP(unp)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+    }
+
     @Override
+    @Cacheable(value = "company-id")
     public CompanyDTO findById(final Long id) {
         log.info("Start finding the company by id = {}", id);
 
-        final Company company = companyRepository.findByCompanyId(id)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+        final Company company = getCompanyById(id);
         final CompanyDTO companyDTO = companyMapper.toDto(company);
         log.info("Company with id = {} has been found!", id);
 
         return companyDTO;
     }
 
+    private Company getCompanyById(Long id) {
+        return companyRepository.findByCompanyId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
+    }
+
     @Override
-    public PageWrapper<CompanyDTO> findAll() {
-        //TODO    Pageable pageable = commonServiceHelper.getPageable(page, size);
-        //
-        ////        Specification<Flower> specification = getSpecification(searchAndSortParamDto);
-        ////        Page<Flower> flowers = flowerRepository.findAll(specification, pageable);
-        //        Page<Product> products = productRepository.findAll(pageable);
-        //
-        //        return
-        //                new PageWrapper<>(
-        //                        productMapper.toDtoList(products.toList()),
-        //                        products.getTotalPages(),
-        //                        products.getTotalElements());
+    @Cacheable(value = "companies")
+    public PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size) {
 
         log.info("Start finding all companies");
 
-        final List<CompanyDTO> companies = new ArrayList<>();
-        companyRepository.findAll().forEach(company -> companies.add(companyMapper.toDto(company)));
-
-        final PageWrapper<CompanyDTO> pageWrapper = new PageWrapper<>(companies, 0, 0);
+        final Pageable pageable =
+                PageRequest.of(page, size);
+        final Page<Company> products = companyRepository.findAll(pageable);
 
         log.info("Finish finding all companies");
 
-        return pageWrapper;
+        return new PageWrapper<>(
+                companyMapper.toDtoList(products.toList()),
+                products.getTotalPages(),
+                products.getTotalElements());
     }
 
-    private Company getCompanyByUNP(final String unp) {
-        return companyRepository.findByUNP(unp)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
-    }
 }

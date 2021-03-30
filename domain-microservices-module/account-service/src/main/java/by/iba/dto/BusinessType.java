@@ -1,4 +1,4 @@
-package by.iba.companies.domain;
+package by.iba.dto;
 
 public enum BusinessType {
     FREIGHT_OWNER,

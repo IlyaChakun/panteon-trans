@@ -1,7 +1,6 @@
 package by.iba.common.validation.annotation;
 
-
-import by.iba.common.validation.validator.PhonesValidator;
+import by.iba.common.validation.validator.UNPValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,13 +12,14 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = PhonesValidator.class)
+@Constraint(validatedBy = UNPValidator.class)
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-public @interface ValidPhones {
-    String message() default "Bad phone numbers";
+public @interface ValidUNP {
+    String message() default "Bad company's UNP";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }
