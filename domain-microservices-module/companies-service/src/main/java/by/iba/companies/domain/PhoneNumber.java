@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class PhoneNumber {
 
     @Id
-    @Column(name = "phone_number", nullable = false, unique = true)
-    private String phoneNumber;
+    @Column(name = "value", nullable = false, unique = true)
+    private String value;
 
     @ManyToOne
     @JoinColumn(name = "company_id")
