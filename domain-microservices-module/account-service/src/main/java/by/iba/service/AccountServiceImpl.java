@@ -1,6 +1,7 @@
 package by.iba.service;
 
 import by.iba.client.AuthServiceClient;
+import by.iba.client.CompanyServiceClient;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
 import by.iba.dto.AccountDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     private final AuthServiceClient authClient;
+    private final CompanyServiceClient companiesClient;
 
     private final AccountRepository accountRepository;
     private final AccountMapperDTO accountMapper;
@@ -59,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private CompanyDTO saveCompany(AccountDTO accountDTO) {
-        return authClient.saveCompany(accountDTO.getCompany()).getBody();
+        return companiesClient.save(accountDTO.getCompany()).getBody();
     }
 
 
