@@ -1,19 +1,19 @@
 ##########################################################
 ##########            DEV CONFIGURATION        ###########
-##########            COMPANY SERVICE          ###########
+##########        TRANSPORT EXCHANGE SERVICE   ###########
 ##########################################################
 
 security:
   oauth2:
     client:
-      clientId: company-service
-      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      clientId: transport-exchange-service
+      clientSecret: ${TRANSPORT-EXCHANGE-SERVICE-PASSWORD}
       accessTokenUri: http://localhost:5000/oauth/token
       grant-type: client_credentials
       scope: server
 
 server:
-  port: 8081
+  port: 8082
 
 
 feign:
@@ -27,7 +27,7 @@ feign:
 
 spring:
   application:
-    name: company-service
+    name: transport-exchange-service
 
   ##################### DATA SOURCE ############################################
   datasource:

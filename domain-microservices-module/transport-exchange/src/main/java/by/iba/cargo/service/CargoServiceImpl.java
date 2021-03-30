@@ -23,23 +23,24 @@ public class CargoServiceImpl implements CargoService{
     }
 
     @Override
-    public CargoDTO update(String cargoId, CargoDTO cargoDTO) {
+    public CargoDTO update(Long cargoId, CargoDTO cargoDTO) {
         return null;
     }
 
     @Override
-    public void delete(String cargoId) {
+    public void delete(Long cargoId) {
 
     }
 
     @Override
-    public CargoDTO findById(String cargoId) {
+    public CargoDTO findById(Long cargoId) {
         return null;
     }
 
     @Override
-    public PageWrapper<CargoDTO> findAll() {
-        //cargoRepository.findAll();
+    public PageWrapper<CargoDTO> findAll(Integer page, Integer size) {
         return null;
     }
+
+
 }

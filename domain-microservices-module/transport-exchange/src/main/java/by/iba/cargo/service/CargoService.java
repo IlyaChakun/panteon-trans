@@ -6,8 +6,12 @@ import by.iba.common.dto.PageWrapper;
 public interface CargoService {
 
     CargoDTO save(CargoDTO cargoDTO);
-    CargoDTO update(String cargoId, CargoDTO cargoDTO);
-    void delete(String cargoId);
-    CargoDTO findById(String cargoId);
-    PageWrapper<CargoDTO> findAll();
+
+    CargoDTO update(Long cargoId, CargoDTO cargoDTO);
+
+    void delete(Long cargoId);
+
+    CargoDTO findById(Long cargoId);
+
+    PageWrapper<CargoDTO> findAll(final Integer page, final Integer size);
 }

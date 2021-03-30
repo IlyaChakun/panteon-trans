@@ -1,10 +1,9 @@
 package by.iba.cargo.repository;
 
 import by.iba.cargo.domain.Cargo;
-import by.iba.cargo.domain.CargoId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CargoRepository extends JpaRepository<Cargo, CargoId> {
+public interface CargoRepository extends JpaRepository<Cargo, Long> {
 }
