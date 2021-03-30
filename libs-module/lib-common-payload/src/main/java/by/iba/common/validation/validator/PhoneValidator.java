@@ -9,11 +9,11 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static by.iba.common.validation.validator.CommonHolder.PHONE_PATTER;
+import static by.iba.common.validation.validator.CommonHolder.PHONE_PATTERN;
 
 public class PhoneValidator implements ConstraintValidator<ValidPhone, String> {
 
-    private static final Pattern PATTERN = Pattern.compile(PHONE_PATTER);
+    private static final Pattern PATTERN = Pattern.compile(PHONE_PATTERN);
 
     @Override
     public boolean isValid(final String phoneNumber, final ConstraintValidatorContext context) {

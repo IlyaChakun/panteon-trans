@@ -3,6 +3,7 @@ package by.iba.companies.dto;
 import by.iba.common.dto.AbstractDTO;
 import by.iba.common.validation.annotation.ValidEmail;
 import by.iba.common.validation.annotation.ValidPhones;
+import by.iba.common.validation.annotation.ValidUNP;
 import by.iba.companies.domain.BusinessType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class CompanyDTO extends AbstractDTO {
     private Long companyId;
 
     @NotBlank(message = "validation.company.unp.not_presented")
+    @ValidUNP
     private String UNP;
 
     @NotNull(message = "validation.company.owner_id.not_presented")
@@ -53,7 +55,7 @@ public class CompanyDTO extends AbstractDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = "validation.company.foundation_date.not_presented")
-    @PastOrPresent
+    @Past
     private LocalDate foundationDate;
 
     private BusinessType businessType;
