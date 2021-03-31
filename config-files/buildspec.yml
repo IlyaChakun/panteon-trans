@@ -8,6 +8,7 @@ phases:
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=$REPOSITORY_URI
+      - mvn clean install
   build:
     commands:
       - echo Build started on `date`
