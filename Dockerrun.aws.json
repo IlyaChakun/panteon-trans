@@ -1,18 +1,26 @@
-
 {
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "client",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config",
-      "hostname": "config",
-      "essential": false,
-      "memory": 256
+      "name": "nginx",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/nginx:nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "config"
+      ],
+      "memory": 100
     },
     {
-      "name": "registry",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry",
-      "hostname": "registry",
+      "name": "config",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:config",
+      "hostname": "config",
       "essential": false,
       "memory": 256
     }
