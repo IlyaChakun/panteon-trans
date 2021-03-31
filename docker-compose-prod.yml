@@ -6,9 +6,10 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/config
+
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/config
     restart: always
-    env_file: config-files/.env
+
     ports:
       - 8888:8888
     logging:
@@ -23,9 +24,10 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/registry
+
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/registry
     restart: always
-    env_file: config-files/.env
+
     depends_on:
       config:
         condition: service_healthy
