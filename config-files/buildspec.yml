@@ -11,7 +11,7 @@ phases:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - mvn clean install
       - IMAGE_TAG_CONFIG=config
-      - IMAGE_TAG_REGISTRY=nginx
+      - IMAGE_TAG_NGINX=nginx
   build:
     commands:
       - echo Build started on `date`
@@ -25,8 +25,8 @@ phases:
 
 
       - echo build ngix
-      - docker build -t $REPOSITORY_URI_REGISTRY:latest ./infrastructure-microservices-module/nginx
-      - docker tag $REPOSITORY_URI_REGISTRY:latest $REPOSITORY_URI_REGISTRY:$IMAGE_TAG_REGISTRY
+      - docker build -t $REPOSITORY_URI_NGINX:latest ./infrastructure-microservices-module/nginx
+      - docker tag $REPOSITORY_URI_NGINX:latest $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
 
   post_build:
     commands:
@@ -35,8 +35,8 @@ phases:
       - docker-compose --file=docker-compose-prod.yml push
       - echo push config
       - docker push $REPOSITORY_URI_CONFIG:$IMAGE_TAG_CONFIG
-      - echo push registry
-      - docker push $REPOSITORY_URI_REGISTRY:$IMAGE_TAG_REGISTRY
+      - echo push ngix
+      - docker push $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
 artifacts:
   files:
     - 'Dockerrun.aws.json'
