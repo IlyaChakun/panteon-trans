@@ -13,7 +13,8 @@
         }
       ],
       "links": [
-        "config"
+        "config",
+        "registry"
       ],
       "memory": 100
     },
@@ -22,13 +23,32 @@
       "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:config",
       "hostname": "config",
       "essential": false,
-      "memory": 256
+      "memory": 256,
+      "environment": [
+        {
+          "name": "CONFIG_SERVICE_PASSWORD",
+          "value": "password"
+        }
+      ]
     },
     {
       "name": "registry",
       "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry",
-      "hostname": "config",
+      "hostname": "registry",
       "essential": false,
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "prod"
+        },
+        {
+          "name": "CONFIG_SERVICE_PASSWORD",
+          "value": "password"
+        }
+      ],
+      "links": [
+        "config"
+      ],
       "memory": 256
     }
   ]
