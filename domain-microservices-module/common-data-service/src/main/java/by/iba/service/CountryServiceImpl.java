@@ -6,10 +6,8 @@ import by.iba.dto.CountryDTO;
 import by.iba.dto.mapper.CountryMapperDTO;
 import by.iba.entity.Country;
 import by.iba.repository.CountryRepository;
-import by.iba.service.core.BaseSearchService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +15,8 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class CountryServiceImpl implements BaseSearchService<CountryDTO> {
-
-    private static final Logger log = LoggerFactory.getLogger(CountryServiceImpl.class);
+@Slf4j
+public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
     private final CountryMapperDTO countryMapper;
@@ -27,6 +24,8 @@ public class CountryServiceImpl implements BaseSearchService<CountryDTO> {
     @Override
     @Cacheable("countries")
     public List<CountryDTO> findAll() {
+        log.info("find all countries");
+
         List<Country> countries = countryRepository.findAll();
         return countryMapper.toDtoList(countries);
     }
@@ -34,6 +33,8 @@ public class CountryServiceImpl implements BaseSearchService<CountryDTO> {
     @Override
     @Cacheable("country")
     public CountryDTO getOne(Long id) {
+        log.info("get one country by id={}", id);
+
         Country country = findCountryById(id);
         return countryMapper.toDto(country);
     }
@@ -50,6 +51,7 @@ public class CountryServiceImpl implements BaseSearchService<CountryDTO> {
 
     @Override
     public Boolean existById(Long id) {
+        log.info("exist country by id={}", id);
         return countryRepository.existsById(id);
     }
 

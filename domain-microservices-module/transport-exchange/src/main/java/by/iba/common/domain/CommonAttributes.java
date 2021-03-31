@@ -1,11 +1,15 @@
 package by.iba.common.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@MappedSuperclass
+@Getter
+@Setter
 public abstract class CommonAttributes extends AbstractEntity {
 
     @Id
@@ -13,11 +17,13 @@ public abstract class CommonAttributes extends AbstractEntity {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private LoadingLocation loadingLocation;
 
+    @ManyToOne(cascade = CascadeType.ALL)
     private UnloadingLocation unloadingLocation;
 
-    private Set<CargoStowageMethod> cargoStowageMethods; // способ загрузки
-
+    @ManyToMany
+    private Set<CargoStowageMethod> cargoStowageMethods= new HashSet<>(); // способ загрузки
 
 }

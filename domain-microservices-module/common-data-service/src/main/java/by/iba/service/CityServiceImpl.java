@@ -7,8 +7,7 @@ import by.iba.dto.mapper.CityMapperDTO;
 import by.iba.entity.City;
 import by.iba.repository.CityRepository;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,8 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CityServiceImpl implements CityService {
-
-    private static final Logger log = LoggerFactory.getLogger(CityServiceImpl.class);
 
     private final CityRepository cityRepository;
     private final CityMapperDTO cityMapper;
@@ -26,6 +24,8 @@ public class CityServiceImpl implements CityService {
     @Override
     @Cacheable("cities")
     public List<CityDTO> findAll() {
+        log.info("Find all cities");
+
         List<City> cities = cityRepository.findAll();
         return cityMapper.toDtoList(cities);
     }
@@ -33,6 +33,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Cacheable("city")
     public CityDTO getOne(Long id) {
+        log.info("Find city by id={}", id);
         City city = resolveById(id);
         return cityMapper.toDto(city);
     }
@@ -49,6 +50,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Boolean existById(Long id) {
+        log.info("exist city by id={}", id);
         return cityRepository.existsById(id);
     }
 

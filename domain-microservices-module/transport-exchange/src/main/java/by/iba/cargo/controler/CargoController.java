@@ -14,7 +14,8 @@ import javax.validation.Valid;
 public interface CargoController {
 
     @PostMapping
-    ResponseEntity<CargoDTO> save(@Valid @RequestBody CargoDTO cargoDTO);
+    ResponseEntity<CargoDTO> save(@Valid @RequestBody CargoDTO cargoDTO,
+                                  final BindingResult bindingResult);
 
     @PutMapping("/{id}")
     ResponseEntity<CargoDTO> update(@PathVariable("id") @PositiveLong String cargoId,
@@ -28,6 +29,7 @@ public interface CargoController {
     ResponseEntity<CargoDTO> findById(@PathVariable("id") @PositiveLong String cargoId);
 
     @GetMapping
-    ResponseEntity<PageWrapper<CargoDTO>> findAll();
+    ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
+                                                  @RequestParam(defaultValue = "10", required = false) final Integer size);
 
 }

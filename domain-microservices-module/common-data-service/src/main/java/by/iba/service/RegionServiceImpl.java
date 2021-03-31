@@ -7,8 +7,7 @@ import by.iba.dto.mapper.RegionMapperDTO;
 import by.iba.entity.Region;
 import by.iba.repository.RegionRepository;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,8 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class RegionServiceImpl implements RegionService {
-
-    private static final Logger log = LoggerFactory.getLogger(RegionServiceImpl.class);
 
     private final RegionRepository regionRepository;
     private final RegionMapperDTO regionMapper;
@@ -27,6 +25,8 @@ public class RegionServiceImpl implements RegionService {
     @Override
     @Cacheable("regions")
     public List<RegionDTO> findAll() {
+        log.info("find all regions");
+
         List<Region> regions = regionRepository.findAll();
         return regionMapper.toDtoList(regions);
     }
@@ -34,6 +34,8 @@ public class RegionServiceImpl implements RegionService {
     @Override
     @Cacheable("region")
     public RegionDTO getOne(Long id) {
+        log.info("get one region by id={}", id);
+
         Region region = resolveById(id);
         return regionMapper.toDto(region);
     }
@@ -50,6 +52,8 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public Boolean existById(Long id) {
+        log.info("exist region by id={}", id);
+
         return regionRepository.existsById(id);
     }
 
