@@ -49,7 +49,7 @@ public class Company extends AbstractEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "companyId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     @Column(name = "foundation_date", nullable = false)

@@ -111,15 +111,13 @@ public class CompanyServiceImpl implements CompanyService {
             @CacheEvict(value = "companies"),
             @CacheEvict(value = "company-unp", key = "#unp"),
     })
-    public Long deleteByUnp(final String unp) {
+    public void deleteByUnp(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
         final Company company = getCompanyByUNP(unp);
         companyRepository.delete(company);
 
         log.info("Company with unp = {} has been deleted!", unp);
-
-        return company.getCompanyId();
     }
 
     @Override
