@@ -4,14 +4,14 @@
   "containerDefinitions": [
     {
       "name": "client",
-      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/transport-exchange-config",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/config",
       "hostname": "config",
       "essential": false,
       "memory": 256
     },
     {
       "name": "registry",
-      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/transport-exchange-registry",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/registry",
       "hostname": "registry",
       "essential": false,
       "memory": 256
