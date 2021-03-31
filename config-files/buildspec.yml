@@ -28,6 +28,11 @@ phases:
       - docker build -t $REPOSITORY_URI_NGINX:latest ./infrastructure-microservices-module/nginx
       - docker tag $REPOSITORY_URI_NGINX:latest $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
 
+
+      - echo build registry
+      - docker build -t 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest ./infrastructure-microservices-module/registry
+      - docker tag 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry
+
   post_build:
     commands:
       - echo Build completed on `date`
@@ -37,6 +42,8 @@ phases:
       - docker push $REPOSITORY_URI_CONFIG:$IMAGE_TAG_CONFIG
       - echo push ngix
       - docker push $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
+      - echo push registry
+      - docker push 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry
 artifacts:
   files:
     - 'Dockerrun.aws.json'

@@ -23,6 +23,13 @@
       "hostname": "config",
       "essential": false,
       "memory": 256
+    },
+    {
+      "name": "registry",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry",
+      "hostname": "config",
+      "essential": false,
+      "memory": 256
     }
   ]
 }
