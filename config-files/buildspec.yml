@@ -16,21 +16,25 @@ phases:
       - echo Building the Docker image...
       - ls
       - docker-compose --file=docker-compose-prod.yml build
+
       - echo build config
-      - docker build -t infrastructure-microservices-module/config:latest .
-      - docker tag $REPOSITORY_URI:latest infrastructure-microservices-module/config:$config
+      - docker build -t $REPOSITORY_URI_CONFIG:latest .
+      - docker tag $REPOSITORY_URI_CONFIG:latest $REPOSITORY_URI_CONFIG:$IMAGE_TAG
+
+
       - echo build registry
-      - docker build -t infrastructure-microservices-module/registry:latest .
-      - docker tag $REPOSITORY_URI:latest infrastructure-microservices-module/registry:registry
+      - docker build -t $REPOSITORY_URI_REGISTRY:latest .
+      - docker tag $REPOSITORY_URI_REGISTRY:latest $REPOSITORY_URI_REGISTRY:$IMAGE_TAG
+
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker-compose --file=docker-compose-prod.yml push
       - echo push config
-      - docker push $REPOSITORY_URI:config
+      - docker push $REPOSITORY_URI_CONFIG:config
       - echo push registry
-      - docker push $REPOSITORY_URI:registry
+      - docker push $REPOSITORY_URI_REGISTRY:registry
 artifacts:
   files:
     - 'Dockerrun.aws.json'

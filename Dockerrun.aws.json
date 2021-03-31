@@ -4,14 +4,14 @@
   "containerDefinitions": [
     {
       "name": "client",
-      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/config",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config",
       "hostname": "config",
       "essential": false,
       "memory": 256
     },
     {
       "name": "registry",
-      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/registry",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry",
       "hostname": "registry",
       "essential": false,
       "memory": 256
