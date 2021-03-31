@@ -4,6 +4,7 @@ import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;
 import by.iba.companies.domain.Company;
+import by.iba.companies.domain.PhoneNumber;
 import by.iba.companies.dto.CompanyDTO;
 import by.iba.companies.dto.mapper.CompanyMapperDTO;
 import by.iba.companies.repository.CompanyRepository;
@@ -11,6 +12,7 @@ import by.iba.companies.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
@@ -32,18 +34,21 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDTO save(final CompanyDTO companyDTO) {
-        log.info("Start saving the company with UNP = {}", companyDTO.getUNP());
+        log.info("Start saving the company with UNP = {}", companyDTO.getUnp());
 
         validateUniqueUnpEmailPhoneNumbersThrowException(companyDTO);
-        companyRepository.save(companyMapper.toEntity(companyDTO));
 
-        log.info("Finish saving the company with UNP = {}", companyDTO.getUNP());
+        final Company company = companyMapper.toEntity(companyDTO);
 
-        return companyDTO;
+        final Company savedCompany = companyRepository.save(company);
+
+        log.info("Finish saving the company with UNP = {}", savedCompany.getUNP());
+
+        return companyMapper.toDto(savedCompany);
     }
 
     private void validateUniqueUnpEmailPhoneNumbersThrowException(final CompanyDTO companyDTO) {
-        if (isUnpExist(companyDTO.getUNP())) {
+        if (isUnpExist(companyDTO.getUnp())) {
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_unp_error");
         }
 
@@ -65,25 +70,22 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     private boolean arePhoneNumbersExist(final List<String> phoneNumbers) {
-        return phoneNumbers.stream().anyMatch(phoneNumberRepository::existsPhoneNumberByValue);
+        return phoneNumbers.stream()
+                .anyMatch(phoneNumberRepository::existsPhoneNumberByValue);
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value = "companies", allEntries = true),
-            @CacheEvict(value = "company-unp", key = "#unp"),
-            @CacheEvict(value = "company-id", key = "#companyDTO.companyId")
+    @Caching(put = {
+            @CachePut(value = "companies"),
+            @CachePut(value = "company-unp", key = "#companyDTO.unp"),
+            @CachePut(value = "company-id", key = "#companyId")
     })
     public CompanyDTO update(final Long companyId, final CompanyDTO companyDTO) {
 
         log.info("Start updating the company by id = {}", companyId);
 
         final Company company = getCompanyById(companyId);
-        company.setEmail(companyDTO.getEmail());
-        company.setSite(companyDTO.getSite());
-        company.setDescription(companyDTO.getDescription());
-        company.setTitle(companyDTO.getTitle());
-        company.setAddress(companyDTO.getAddress());
+        updateCompanyFields(company, companyDTO);
 
         final Company savedCompany = companyRepository.save(company);
         log.info("Company with id = {} has been updated!", savedCompany.getCompanyId());
@@ -92,17 +94,32 @@ public class CompanyServiceImpl implements CompanyService {
 
     }
 
+    private void updateCompanyFields(Company company, CompanyDTO companyDTO) {
+        company.setEmail(companyDTO.getEmail());
+        company.setSite(companyDTO.getSite());
+        company.setDescription(companyDTO.getDescription());
+        company.setTitle(companyDTO.getTitle());
+        company.setAddress(companyDTO.getAddress());
+        companyDTO.getPhoneNumbers()
+                .forEach(phoneNumber -> company.getPhoneNumbers()
+                        .add(new PhoneNumber(phoneNumber))
+                );
+    }
+
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "companies", allEntries = true),
-            @CacheEvict(value = "company-unp", key = "#unp")
+            @CacheEvict(value = "companies"),
+            @CacheEvict(value = "company-unp", key = "#unp"),
     })
-    public void delete(final String unp) {
+    public Long deleteByUnp(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
-        companyRepository.delete(getCompanyByUNP(unp));
+        final Company company = getCompanyByUNP(unp);
+        companyRepository.delete(company);
 
         log.info("Company with unp = {} has been deleted!", unp);
+
+        return company.getCompanyId();
     }
 
     @Override

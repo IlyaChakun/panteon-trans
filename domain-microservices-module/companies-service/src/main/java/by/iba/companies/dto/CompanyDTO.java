@@ -28,7 +28,7 @@ public class CompanyDTO extends AbstractDTO {
 
     @NotBlank(message = "validation.company.unp.not_presented")
     @ValidUNP
-    private String UNP;
+    private String unp;
 
     @NotNull(message = "validation.company.owner_id.not_presented")
     private Long ownerId;

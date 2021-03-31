@@ -27,14 +27,14 @@ public class CompanyControllerImpl implements CompanyController {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);//TODO  это для проверки валидации (успешно не успешно )
 
-        log.info("Received a request to save the company with unp = {}", companyDTO.getUNP());
+        log.info("Received a request to save the company with unp = {}", companyDTO.getUnp());
 
         final CompanyDTO savedCompany = companyService.save(companyDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
                 .path("/companies/{unp}")
-                .buildAndExpand(savedCompany.getUNP())
+                .buildAndExpand(savedCompany.getUnp())
                 .toUri();
 
         return ResponseEntity
@@ -58,7 +58,7 @@ public class CompanyControllerImpl implements CompanyController {
     public ResponseEntity<Void> delete(final String unp) {
         log.info("Received a request to delete the company with unp = {}", unp);
 
-        companyService.delete(unp);
+        companyService.deleteByUnp(unp);
 
         return ResponseEntity.ok().build();
     }
