@@ -39,6 +39,7 @@ public class CompanyServiceImpl implements CompanyService {
         validateUniqueUnpEmailPhoneNumbersThrowException(companyDTO);
 
         final Company company = companyMapper.toEntity(companyDTO);
+        company.setCountryId(companyDTO.getCountry().getId());
 
         final Company savedCompany = companyRepository.save(company);
 
@@ -110,29 +111,36 @@ public class CompanyServiceImpl implements CompanyService {
     @Caching(evict = {
             @CacheEvict(value = "companies"),
             @CacheEvict(value = "company-unp", key = "#unp"),
+            @CacheEvict(value = "company-id", key = "#result")
     })
-    public void deleteByUnp(final String unp) {
+    public Long deleteByUnp(final String unp) {
         log.info("Start deleting the company by UNP = {}", unp);
 
-        final Company company = getCompanyByUNP(unp);
-        companyRepository.delete(company);
+        final Long companyId = companyRepository.findIdByUNP(unp);
+        if (companyId == null) {
+            throw new ResourceNotFoundException("exception.company.not_found_exception");
+        }
+
+        companyRepository.deleteCompanyByUNP(unp);
 
         log.info("Company with unp = {} has been deleted!", unp);
+
+        return companyId;
     }
 
     @Override
     @Cacheable(value = "company-unp")
-    public CompanyDTO findByUNP(final String unp) {
+    public CompanyDTO findByUnp(final String unp) {
         log.info("Start finding the company by UNP = {}", unp);
 
-        final Company company = getCompanyByUNP(unp);
+        final Company company = getCompanyByUnp(unp);
 
         log.info("Company with unp = {} has been found!", unp);
 
         return companyMapper.toDto(company);
     }
 
-    private Company getCompanyByUNP(final String unp) {
+    private Company getCompanyByUnp(final String unp) {
         return companyRepository.findByUNP(unp)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.company.not_found_exception"));
     }
