@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "nginx",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/nginx:nginx",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/nginx:latest",
       "hostname": "nginx",
       "essential": true,
       "portMappings": [
@@ -20,7 +20,7 @@
     },
     {
       "name": "config",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:config",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:latest",
       "hostname": "config",
       "essential": false,
       "memory": 256,
@@ -33,7 +33,7 @@
     },
     {
       "name": "registry",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest",
       "hostname": "registry",
       "essential": false,
       "environment": [

@@ -21,17 +21,17 @@ phases:
 
       - echo build config
       - docker build -t $REPOSITORY_URI_CONFIG:latest ./infrastructure-microservices-module/config
-      - docker tag $REPOSITORY_URI_CONFIG:latest $REPOSITORY_URI_CONFIG:$IMAGE_TAG_CONFIG
+      - docker tag $REPOSITORY_URI_CONFIG:latest $REPOSITORY_URI_CONFIG:latest
 
 
       - echo build ngix
       - docker build -t $REPOSITORY_URI_NGINX:latest ./infrastructure-microservices-module/nginx
-      - docker tag $REPOSITORY_URI_NGINX:latest $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
+      - docker tag $REPOSITORY_URI_NGINX:latest $REPOSITORY_URI_NGINX:latest
 
 
       - echo build registry
       - docker build -t 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest ./infrastructure-microservices-module/registry
-      - docker tag 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry
+      - docker tag 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest
 
   post_build:
     commands:
@@ -39,11 +39,11 @@ phases:
       - echo Pushing the Docker image...
       - docker-compose --file=docker-compose-prod.yml push
       - echo push config
-      - docker push $REPOSITORY_URI_CONFIG:$IMAGE_TAG_CONFIG
+      - docker push $REPOSITORY_URI_CONFIG:latest
       - echo push ngix
-      - docker push $REPOSITORY_URI_NGINX:$IMAGE_TAG_NGINX
+      - docker push $REPOSITORY_URI_NGINX:latest
       - echo push registry
-      - docker push 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:registry
+      - docker push 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest
 artifacts:
   files:
     - 'Dockerrun.aws.json'

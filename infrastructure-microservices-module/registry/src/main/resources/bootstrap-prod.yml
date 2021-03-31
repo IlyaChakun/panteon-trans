@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      uri: http://config
+      uri: http://transportexchangedev-env.eba-cws2tmfu.us-east-2.elasticbeanstalk.com/config
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
