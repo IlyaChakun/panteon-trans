@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 
         log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
         log.info("new account has been created: email={} ", savedUser.getEmail());
-        log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUNP());
+        log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
 
         Account account = new Account();
         account.setUserId(savedUser.getUserId());
@@ -53,7 +53,12 @@ public class AccountServiceImpl implements AccountService {
 
         log.info("account with id={} has been found!", accountId);
 
-        return accountMapper.toDto(account);
+        final AccountDTO accountDTO = accountMapper.toDto(account);
+
+        final CompanyDTO companyDTO = findCompanyById(account.getCompanyId());
+        accountDTO.setCompany(companyDTO);
+
+        return accountDTO;
     }
 
     private UserDTO saveUser(AccountDTO accountDTO) {
@@ -62,6 +67,10 @@ public class AccountServiceImpl implements AccountService {
 
     private CompanyDTO saveCompany(AccountDTO accountDTO) {
         return companiesClient.save(accountDTO.getCompany()).getBody();
+    }
+
+    private CompanyDTO findCompanyById(final Long companyId) {
+        return companiesClient.findById(companyId).getBody();
     }
 
 

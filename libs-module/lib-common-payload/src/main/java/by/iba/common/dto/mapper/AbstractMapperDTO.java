@@ -20,7 +20,7 @@ public abstract class AbstractMapperDTO<E extends BaseEntity, D extends BaseDTO>
     private final Class<D> dtoClass;
 
     @Autowired
-    private ModelMapper mapper;
+    protected ModelMapper mapper;
 
     @Override
     public E toEntity(final D dto) {
@@ -44,7 +44,7 @@ public abstract class AbstractMapperDTO<E extends BaseEntity, D extends BaseDTO>
                         .collect(Collectors.toList());
     }
 
-    Converter<E, D> toDtoConverter() {
+    protected Converter<E, D> toDtoConverter() {
         return context -> {
             E source = context.getSource();
             D destination = context.getDestination();
@@ -53,7 +53,7 @@ public abstract class AbstractMapperDTO<E extends BaseEntity, D extends BaseDTO>
         };
     }
 
-    Converter<D, E> toEntityConverter() {
+    protected Converter<D, E> toEntityConverter() {
         return context -> {
             D source = context.getSource();
             E destination = context.getDestination();
@@ -62,9 +62,9 @@ public abstract class AbstractMapperDTO<E extends BaseEntity, D extends BaseDTO>
         };
     }
 
-    void mapSpecificFields(final E source, final D destination) {
+    protected void mapSpecificFields(final E source, final D destination) {
     }
 
-    void mapSpecificFields(final D source, final E destination) {
+    protected void mapSpecificFields(final D source, final E destination) {
     }
 }
