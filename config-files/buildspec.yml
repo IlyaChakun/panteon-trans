@@ -1,28 +1,24 @@
 version: 0.2
-
 phases:
+  install:
+    runtime-versions:
+      docker: 18
   pre_build:
     commands:
-      - echo Pre build
       - echo Logging in to Amazon ECR...
-      - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=$REPOSITORY_URI
-      - mvn clean install
+      - echo def region $AWS_DEFAULT_REGION
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo Build $SERVICE_PATH service
-      - echo Build started on `date`
-      - echo Building the Docker image...
+      - ls
       - docker-compose --file=docker-compose-prod.yml build
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker-compose --file=docker-compose-prod.yml push
-
 artifacts:
   files:
     - 'Dockerrun.aws.json'
