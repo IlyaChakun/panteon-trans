@@ -1,0 +1,43 @@
+version: '2.1'
+
+services:
+
+  config:
+    environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build: infrastructure-microservices-module/config
+    restart: always
+    env_file: config-files/.env
+    ports:
+      - 8888:8888
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - backend
+
+
+  registry:
+    environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build: infrastructure-microservices-module/registry
+    restart: always
+    env_file: config-files/.env
+    depends_on:
+      config:
+        condition: service_healthy
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    networks:
+      - backend
+
+
+networks:
+  backend:

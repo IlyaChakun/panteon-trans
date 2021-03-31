@@ -1,0 +1,20 @@
+
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-config",
+      "hostname": "config",
+      "essential": false,
+      "memory": 256
+    },
+    {
+      "name": "registry",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APPLICATION_NAME}-registry",
+      "hostname": "registry",
+      "essential": false,
+      "memory": 256
+    }
+  ]
+}
