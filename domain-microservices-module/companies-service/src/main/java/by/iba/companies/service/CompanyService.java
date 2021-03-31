@@ -9,7 +9,7 @@ public interface CompanyService {
 
     CompanyDTO update(final Long companyId, final CompanyDTO companyDTO);
 
-    Long deleteByUnp(final String unp);
+    void deleteByUnp(final String unp);
 
     CompanyDTO findByUNP(final String unp);
 
