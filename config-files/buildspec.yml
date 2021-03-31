@@ -20,12 +20,12 @@ phases:
       - docker-compose --file=docker-compose-prod.yml build
 
       - echo build config
-      - docker build -t $REPOSITORY_URI_CONFIG:latest .
+      - docker build -t $REPOSITORY_URI_CONFIG:latest ./infrastructure-microservices-module/config
       - docker tag $REPOSITORY_URI_CONFIG:latest $REPOSITORY_URI_CONFIG:$IMAGE_TAG_CONFIG
 
 
       - echo build registry
-      - docker build -t $REPOSITORY_URI_REGISTRY:latest .
+      - docker build -t $REPOSITORY_URI_REGISTRY:latest ./infrastructure-microservices-module/registry
       - docker tag $REPOSITORY_URI_REGISTRY:latest $REPOSITORY_URI_REGISTRY:$IMAGE_TAG_REGISTRY
 
   post_build:
