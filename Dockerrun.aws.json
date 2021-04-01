@@ -45,7 +45,7 @@
       "environment": [
         {
           "name": "SPRING_PROFILES_ACTIVE",
-          "value": "prod"
+          "value": "dev"
         },
         {
           "name": "CONFIG_SERVICE_PASSWORD",
@@ -53,7 +53,8 @@
         }
       ],
       "links": [
-        "config"
+        "config",
+        "nginx"
       ],
       "memory": 300,
       "portMappings": [

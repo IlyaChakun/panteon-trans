@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://nginx:80/config
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
