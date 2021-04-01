@@ -23,11 +23,17 @@
       "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:latest",
       "hostname": "config",
       "essential": false,
-      "memory": 256,
+      "memory": 300,
       "environment": [
         {
           "name": "CONFIG_SERVICE_PASSWORD",
           "value": "password"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8888,
+          "hostPort": 8888
         }
       ]
     },
@@ -49,7 +55,13 @@
       "links": [
         "config"
       ],
-      "memory": 256
+      "memory": 300,
+      "portMappings": [
+        {
+          "containerPort": 8761,
+          "hostPort": 8761
+        }
+      ]
     }
   ]
 }

@@ -16,8 +16,6 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    networks:
-      - backend
 
 
   registry:
@@ -37,9 +35,5 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    networks:
-      - backend
 
 
-networks:
-  backend:
