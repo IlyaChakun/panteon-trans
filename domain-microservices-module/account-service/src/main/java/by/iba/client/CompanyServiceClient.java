@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "companies-service")
+@FeignClient(name = "company-service")
 public interface CompanyServiceClient {
 
     @PostMapping("/companies")

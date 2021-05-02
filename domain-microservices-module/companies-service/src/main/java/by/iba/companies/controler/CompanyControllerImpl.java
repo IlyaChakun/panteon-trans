@@ -67,7 +67,7 @@ public class CompanyControllerImpl implements CompanyController {
     public ResponseEntity<CompanyDTO> findByUNP(final String unp) {
         log.info("Received a request to find the company with unp = {}", unp);
 
-        final CompanyDTO companyDTO = companyService.findByUNP(unp);
+        final CompanyDTO companyDTO = companyService.findByUnp(unp);
 
         return ResponseEntity
                 .ok()
