@@ -1,5 +1,6 @@
 package by.iba.blacklist.domain;
 
+import by.iba.common.domain.AbstractEntity;
 import by.iba.companies.domain.CompanyId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "companies_black_list")
+@Table(name = "companies_black_list_histories")
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyBlackListHistory {
+public class CompanyBlackListHistory extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -24,6 +25,6 @@ public class CompanyBlackListHistory {
     private Long companyId;
 
     @OneToMany
-    private List<CompanyBlackListAccident> companyBlackListHistory = new ArrayList<>();
+    private List<CompanyBlackListAccident> companyBlackListAccidents = new ArrayList<>();
 
 }

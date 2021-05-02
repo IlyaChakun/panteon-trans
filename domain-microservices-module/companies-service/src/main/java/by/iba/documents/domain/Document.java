@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@IdClass(CompanyId.class)
 @Table(name = "companies_documents")
 @Getter
 @Setter

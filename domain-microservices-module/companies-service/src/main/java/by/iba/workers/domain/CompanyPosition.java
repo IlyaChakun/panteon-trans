@@ -11,7 +11,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(CompanyId.class)
 @Table(name = "company_positions")
 @Getter
 @Setter

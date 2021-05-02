@@ -1,7 +1,6 @@
 package by.iba.blacklist.domain;
 
 import by.iba.common.domain.AbstractEntity;
-import by.iba.companies.domain.CompanyId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
