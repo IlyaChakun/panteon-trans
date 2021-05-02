@@ -1,4 +1,4 @@
-package by.iba.documents.domain;
+package by.iba.rating.domain;
 
 import by.iba.common.domain.AbstractEntity;
 import by.iba.companies.domain.CompanyId;
@@ -9,20 +9,25 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@IdClass(CompanyId.class)
-@Table(name = "companies_documents")
+@Table(name = "companies_reviews")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
-
+public class CompanyReview extends AbstractEntity {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Long id;
+    
+    private Long reviewerId;//userId
 
     private Long companyId;
 
-    private Byte[] file;
+    private String comment;
+
+    private Integer rating;
+
+    private ReviewType reviewType;
 
 }

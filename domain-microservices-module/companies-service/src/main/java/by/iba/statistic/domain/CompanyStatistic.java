@@ -1,7 +1,6 @@
-package by.iba.documents.domain;
+package by.iba.statistic.domain;
 
 import by.iba.common.domain.AbstractEntity;
-import by.iba.companies.domain.CompanyId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,20 +8,23 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@IdClass(CompanyId.class)
-@Table(name = "companies_documents")
+@Table(name = "companies_statistic")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
+public class CompanyStatistic extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Long id;
 
+
     private Long companyId;
 
-    private Byte[] file;
+    private Long workersCount;
+
+    private Long offersCount;
+
 
 }

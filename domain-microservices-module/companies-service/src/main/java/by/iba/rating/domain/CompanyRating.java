@@ -1,4 +1,4 @@
-package by.iba.documents.domain;
+package by.iba.rating.domain;
 
 import by.iba.common.domain.AbstractEntity;
 import by.iba.companies.domain.CompanyId;
@@ -7,14 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@IdClass(CompanyId.class)
-@Table(name = "companies_documents")
+@Table(name = "companies_rating")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
+public class CompanyRating extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -23,6 +24,10 @@ public class Document extends AbstractEntity {
 
     private Long companyId;
 
-    private Byte[] file;
+    private Integer currentRating;
+
+    @OneToMany
+    private List<CompanyReview> companyReviews = new ArrayList<>();
+
 
 }

@@ -1,4 +1,4 @@
-package by.iba.documents.domain;
+package by.iba.blacklist.domain;
 
 import by.iba.common.domain.AbstractEntity;
 import by.iba.companies.domain.CompanyId;
@@ -9,12 +9,11 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@IdClass(CompanyId.class)
-@Table(name = "companies_documents")
+@Table(name = "companies_black_list_accidents")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
+public class CompanyBlackListAccident extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -23,6 +22,10 @@ public class Document extends AbstractEntity {
 
     private Long companyId;
 
-    private Byte[] file;
+    private String description;
+
+    private String reason;
+
+    private Boolean isActive;
 
 }

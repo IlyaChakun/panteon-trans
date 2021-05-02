@@ -2,46 +2,46 @@
 server:
   port: 8888
 
-spring:
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/shared
-  profiles:
-    active: native
-  security:
-    user:
-      password: ${CONFIG_SERVICE_PASSWORD}
-
-
-##---
 #spring:
-#
 #  cloud:
 #    config:
 #      server:
 #        native:
 #          search-locations: classpath:/shared
-#
-#  security:
-#    user:
-#      password: ${CONFIG_SERVICE_PASSWORD}
-##
-#---
-#spring:
 #  profiles:
-#    active: prod
-#  cloud:
-#    config:
-#      server:
-#        git:
-#          uri: https://github.com/IlyaChakun/panteon-trans/
-#          search-paths:
-#            - "services-config-files/{profile}"
-#          username: IlyaChakun
-#          password: d129ee899613dee601e94138cb66446aa29cb67f
-#      label: master
+#    active: native
 #  security:
 #    user:
 #      password: ${CONFIG_SERVICE_PASSWORD}
+
+
+#---
+spring:
+
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared
+
+  security:
+    user:
+      password: ${CONFIG_SERVICE_PASSWORD}
+#
+---
+spring:
+  profiles:
+    active: prod
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/IlyaChakun/panteon-trans/
+          search-paths:
+            - "services-config-files/{profile}"
+          username: IlyaChakun
+          password: d129ee899613dee601e94138cb66446aa29cb67f
+      label: master
+  security:
+    user:
+      password: ${CONFIG_SERVICE_PASSWORD}

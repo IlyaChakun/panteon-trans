@@ -1,20 +1,20 @@
-package by.iba.documents.domain;
+package by.iba.blacklist.domain;
 
-import by.iba.common.domain.AbstractEntity;
 import by.iba.companies.domain.CompanyId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@IdClass(CompanyId.class)
-@Table(name = "companies_documents")
+@Table(name = "companies_black_list")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
+public class CompanyBlackListHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -23,6 +23,7 @@ public class Document extends AbstractEntity {
 
     private Long companyId;
 
-    private Byte[] file;
+    @OneToMany
+    private List<CompanyBlackListAccident> companyBlackListHistory = new ArrayList<>();
 
 }
