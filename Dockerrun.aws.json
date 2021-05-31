@@ -1,0 +1,67 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/nginx:latest",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "config",
+        "registry"
+      ],
+      "memory": 100
+    },
+    {
+      "name": "config",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/config:latest",
+      "hostname": "config",
+      "essential": false,
+      "memory": 300,
+      "environment": [
+        {
+          "name": "CONFIG_SERVICE_PASSWORD",
+          "value": "password"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8888,
+          "hostPort": 8888
+        }
+      ]
+    },
+    {
+      "name": "registry",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest",
+      "hostname": "registry",
+      "essential": false,
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "prod"
+        },
+        {
+          "name": "CONFIG_SERVICE_PASSWORD",
+          "value": "password"
+        }
+      ],
+      "links": [
+        "config"
+      ],
+      "memory": 300,
+      "portMappings": [
+        {
+          "containerPort": 8761,
+          "hostPort": 8761
+        }
+      ]
+    }
+  ]
+}

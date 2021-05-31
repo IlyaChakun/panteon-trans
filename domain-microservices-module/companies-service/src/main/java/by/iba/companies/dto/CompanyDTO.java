@@ -46,7 +46,7 @@ public class CompanyDTO extends AbstractDTO {
     private String description;
 
     @NotNull(message = "validation.company.company.not_presented")
-    private CountryDTO country;
+    private Long countryId;
 
     @NotBlank(message = "validation.company.address.not_presented")
     private String address;

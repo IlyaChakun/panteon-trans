@@ -1,35 +1,49 @@
 version: 0.2
-
 phases:
+  install:
+    runtime-versions:
+      docker: 18
   pre_build:
     commands:
-      - echo Pre build
       - echo Logging in to Amazon ECR...
-      - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=$REPOSITORY_URI
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=$SERVICE_NAME
+      - echo def region $AWS_DEFAULT_REGION
+      - echo ${APPLICATION_NAME}
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - mvn clean install
+      - IMAGE_TAG_CONFIG=config
+      - IMAGE_TAG_NGINX=nginx
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - echo Build $SERVICE_PATH service
       - ls
-      - cd $SERVICE_PATH
-      - ls
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker-compose --file=docker-compose-prod.yml build
+
+      - echo build config
+      - docker build -t $REPOSITORY_URI_CONFIG:latest ./infrastructure-microservices-module/config
+      - docker tag $REPOSITORY_URI_CONFIG:latest $REPOSITORY_URI_CONFIG:latest
+
+
+      - echo build ngix
+      - docker build -t $REPOSITORY_URI_NGINX:latest ./infrastructure-microservices-module/nginx
+      - docker tag $REPOSITORY_URI_NGINX:latest $REPOSITORY_URI_NGINX:latest
+
+
+      - echo build registry
+      - docker build -t 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest ./infrastructure-microservices-module/registry
+      - docker tag 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest
+
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Writing image definitions file...
-      - printf '[{"name":$SERVICE_NAME,"imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
-      - cat imagedefinitions.json
+      - echo Pushing the Docker image...
+      - docker-compose --file=docker-compose-prod.yml push
+      - echo push config
+      - docker push $REPOSITORY_URI_CONFIG:latest
+      - echo push ngix
+      - docker push $REPOSITORY_URI_NGINX:latest
+      - echo push registry
+      - docker push 908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest
 artifacts:
   files:
-    - ./imagedefinitions.json
-    - target/$SERVICE_NAME.jar
+    - 'Dockerrun.aws.json'

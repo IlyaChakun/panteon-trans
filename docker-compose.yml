@@ -3,144 +3,143 @@ version: '2.1'
 services:
 
 
-  config:
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/config
-    restart: always
+#  config:
+#    environment:
+#      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_NATIVE
+#      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+#    build: infrastructure-microservices-module/config
+#    restart: always
+#    ports:
+#      - 8888:8888
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    networks:
+#      - backend
+#
+#
+#  registry:
+#    environment:
+#      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+#      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+#    build: infrastructure-microservices-module/registry
+#    restart: always
+#    depends_on:
+#      config:
+#        condition: service_healthy
+#    ports:
+#      - 8761:8761
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    networks:
+#      - backend
+#
+#  #
+#  #  api-gateway-service:
+#  #    environment:
+#  #      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+#  #      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+#  #    build: infrastructure-microservices-module/api-gateway-service
+#  #    restart: always
+#  #    depends_on:
+#  #      config:
+#  #        condition: service_healthy
+#  #    ports:
+#  #      - 8080:8080
+#  #    logging:
+#  #      options:
+#  #        max-size: "10m"
+#  #        max-file: "10"
+#  #    networks:
+#  #      - backend
+#
+#
+#  auth-service:
+#    build: domain-microservices-module/auth-service
+#    restart: always
+#    ports:
+#      - 5000:5000
+#    depends_on:
+#      config:
+#        condition: service_healthy
+#      db_panteon:
+#        condition: service_started
+#    environment:
+#      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+#      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+#      #      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: $DB_DRIVER
+#    #      SPRING_DATASOURCE_USERNAME: $AUTH_DB_USER
+#    #      SPRING_DATASOURCE_PASSWORD: $AUTH_DB_PASSWORD
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    networks:
+#      - backend
+
+
+  #  account-service:
+  #    build: domain-microservices-module/account-service
+  #    restart: always
+  #    ports:
+  #      - 6000:6000
+  #    depends_on:
+  #      config:
+  #        condition: service_healthy
+  #      db_panteon:
+  #        condition: service_started
+  #    environment:
+  #      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+  #      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+  #      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
+  #      SPRING_DATASOURCE_URL: $ACCOUNT_SPRING_DATASOURCE_URL
+  #      SPRING_DATASOURCE_USERNAME: $ACCOUNT_DB_USER
+  #      SPRING_DATASOURCE_PASSWORD: $ACCOUNT_DB_PASSWORD
+  #    logging:
+  #      options:
+  #        max-size: "10m"
+  #        max-file: "10"
+  #    networks:
+  #      - backend
+
+  #  #  companies-service:
+  #  #    build: domain-microservices-module/companies-service
+  #  #    restart: always
+  #  #    ports:
+  #  #      - 8081:8081
+  #  #    depends_on:
+  #  #      config:
+  #  #        condition: service_healthy
+  #  #      db_mysql:
+  #  #        condition: service_started
+  #  #    environment:
+  #  #      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+  #  #      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+  #  #      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
+  #  #      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
+  #  #      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
+  #  #    logging:
+  #  #      options:
+  #  #        max-size: "10m"
+  #  #        max-file: "10"
+  #  #    networks:
+  #  #      - backend
+  #
+  db_panteon:
+    image: postgres:13
     ports:
-      - 8888:8888
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-
-  registry:
+      - "5432:5432"
+    command: postgres -c 'max_connections=500'
     environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/registry
-    restart: always
-    depends_on:
-      config:
-        condition: service_healthy
-    ports:
-      - 8761:8761
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-
-  api-gateway-service:
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/api-gateway-service
-    restart: always
-    depends_on:
-      config:
-        condition: service_healthy
-    ports:
-      - 8080:8080
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-
-  auth-service:
-    build: domain-microservices-module/auth-service
-    restart: always
-    ports:
-      - 5000:5000
-    depends_on:
-      config:
-        condition: service_healthy
-      db_mysql:
-        condition: service_started
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
-      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
-      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-
-  account-service:
-    build: domain-microservices-module/account-service
-    restart: always
-    ports:
-      - 6000:6000
-    depends_on:
-      config:
-        condition: service_healthy
-      db_mysql:
-        condition: service_started
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
-      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
-      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
-      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-  companies-service:
-    build: domain-microservices-module/companies-service
-    restart: always
-    ports:
-      - 8081:8081
-    depends_on:
-      config:
-        condition: service_healthy
-      db_mysql:
-        condition: service_started
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-      SPRING_DATASOURCE_URL: $MYSQL_SPRING_DATASOURCE_URL
-      SPRING_DATASOURCE_USERNAME: $MYSQL_SPRING_DATASOURCE_USERNAME
-      SPRING_DATASOURCE_PASSWORD: $MYSQL_SPRING_DATASOURCE_PASSWORD
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-    networks:
-      - backend
-
-  db_mysql:
-    image: mysql:5.7
-    ports:
-      - 3306:3306
-    restart: always
-    environment:
-      MYSQL_DATABASE: panteon_trans
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_ROOT_HOST: '%'
-
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
     networks:
       - backend
 
@@ -148,3 +147,6 @@ services:
 
 networks:
   backend:
+
+volumes:
+  postgres:

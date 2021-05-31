@@ -18,6 +18,7 @@
         <module>companies-service</module>
         <module>transport-exchange</module>
         <module>common-data-service</module>
+        <module>information-assistance-service</module>
     </modules>
 
 </project>
