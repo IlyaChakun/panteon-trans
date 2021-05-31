@@ -24,6 +24,10 @@ Use dev profile with all services except config service.
 
 а далее запускаем сервисы локально как указано выше
 
+! для конфиг сервиса указать profile native
+
+! для остальных dev
+
 
 
 
