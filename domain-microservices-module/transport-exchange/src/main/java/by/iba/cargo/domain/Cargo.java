@@ -25,7 +25,7 @@ public class Cargo extends CommonAttributes {
 
     private CargoDimensions cargoDimensions;
 
-    private CargoPayment cargoPayment;
+    //private CargoPayment cargoPayment;
 
     @ManyToMany
     @JoinTable(name = "cargo_truck_body_types",
@@ -37,6 +37,5 @@ public class Cargo extends CommonAttributes {
             inverseJoinColumns = {@JoinColumn(name = "truck_body_type_id",
                     referencedColumnName = "id")})
     private Set<TruckBodyType> truckBodyTypes= new HashSet<>(); //типы кузова
-
 
 }

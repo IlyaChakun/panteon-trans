@@ -17,14 +17,14 @@ spring:
 
   ##################### DATA SOURCE #################################
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
     ##################### MY SQL DATABASE #################################
-    url: jdbc:mysql://localhost:3306/panteon_trans?serverTimezone=Europe/Moscow
-    password: 1111
-    username: root
+    url: jdbc:postgresql://localhost:5432/auth
+    username: auth_app
+    password: auth_pw
   ##################### JPA USED SPRING DATA #################################
   jpa:
     hibernate:
@@ -32,7 +32,7 @@ spring:
     properties:
       format-sql: true
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         event:
           merge:
             entity_copy_observer: allow

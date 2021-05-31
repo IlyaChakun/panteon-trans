@@ -43,7 +43,7 @@ public class Company extends AbstractEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country_id", nullable = false)
     private Long countryId;
 
     @Column(name = "address", nullable = false)

@@ -5,22 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.MappedSuperclass;
+import java.util.HashSet;
+import java.util.Set;
 
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class CommonAttributesDTO extends AbstractDTO {
+public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add validation
 
 
     private Long id;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private LoadingLocation loadingLocation;
-//
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private UnloadingLocation unloadingLocation;
+    private LoadingLocationDTO loadingLocation;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    private Set<CargoStowageMethod> cargoStowageMethods= new HashSet<>(); // способ загрузки
+    private UnloadingLocationDTO unloadingLocation;
+
+    private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
 }

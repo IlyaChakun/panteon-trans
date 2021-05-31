@@ -29,11 +29,11 @@ public class AccountServiceImpl implements AccountService {
         log.info("in AccountServiceImpl method create");
 
         UserDTO savedUser = saveUser(accountDTO);
-        CompanyDTO savedCompany = saveCompany(accountDTO);
+        //CompanyDTO savedCompany = saveCompany(accountDTO);
 
         log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
         log.info("new account has been created: email={} ", savedUser.getEmail());
-        log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
+      //  log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
 
         Account account = new Account();
         account.setUserId(savedUser.getUserId());

@@ -32,7 +32,7 @@ spring:
 
   ##################### DATA SOURCE ############################################
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
@@ -43,7 +43,7 @@ spring:
     properties:
       format-sql: true
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         event:
           merge:
             entity_copy_observer: allow
