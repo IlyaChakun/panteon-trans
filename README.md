@@ -19,4 +19,11 @@ Use dev profile with all services except config service.
 
 
 
+# Временно
+для запуска локаольно сначала запускаем базу а докере (docker-compose up)
+
+а далее запускаем сервисы локально как указано выше
+
+
+
 
