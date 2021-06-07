@@ -24,4 +24,6 @@ public interface CompanyRepository extends JpaRepository<Company, CompanyId> {
     @Query("SELECT c.companyId FROM Company c WHERE c.UNP = ?1")
     Long findIdByUNP(final String unp);
 
+    boolean existsCompanyByPhoneNumbersContains(final String phoneNumber);
+
 }

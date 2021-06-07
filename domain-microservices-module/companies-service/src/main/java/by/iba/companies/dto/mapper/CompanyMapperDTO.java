@@ -2,14 +2,13 @@ package by.iba.companies.dto.mapper;
 
 import by.iba.common.dto.mapper.AbstractMapperDTO;
 import by.iba.companies.domain.Company;
-import by.iba.companies.domain.PhoneNumber;
 import by.iba.companies.dto.CompanyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class CompanyMapperDTO extends AbstractMapperDTO<Company, CompanyDTO> {
@@ -32,16 +31,14 @@ public class CompanyMapperDTO extends AbstractMapperDTO<Company, CompanyDTO> {
     protected void mapSpecificFields(final CompanyDTO source, final Company destination) {
         source.getPhoneNumbers()
                 .forEach(phoneNumber -> {
-                    destination.getPhoneNumbers().add(new PhoneNumber(phoneNumber));
+                    destination.getPhoneNumbers().add(phoneNumber);
                 });
     }
 
     @Override
     protected void mapSpecificFields(final Company source, final CompanyDTO destination) {
         destination.setPhoneNumbers(Objects.isNull(source) || Objects.isNull(source.getCompanyId())
-                ? null : source.getPhoneNumbers().stream()
-                .map(PhoneNumber::getValue)
-                .collect(Collectors.toList()));
+                ? null : new ArrayList<>(source.getPhoneNumbers()));
     }
 
 
