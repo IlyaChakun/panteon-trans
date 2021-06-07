@@ -17,7 +17,11 @@ Use dev profile with all services except config service.
 2. Run registry service
 3. Run other services
 
+# Create brach
 
+You need to take ticket number and ticket title.
+Example: Ticket №12 Create blackList feature
+Branch:  tic_12_create_blacklist
 
 # Временно
 для запуска локаольно сначала запускаем базу а докере (docker-compose up)
