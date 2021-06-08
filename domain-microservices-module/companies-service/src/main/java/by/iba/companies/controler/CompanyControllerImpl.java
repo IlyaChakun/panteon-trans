@@ -20,7 +20,6 @@ import java.net.URI;
 @Slf4j
 public class CompanyControllerImpl implements CompanyController {
 
-    @Autowired
     private final CompanyService companyService;
 
     @Override
