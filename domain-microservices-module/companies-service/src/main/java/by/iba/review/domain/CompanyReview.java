@@ -23,7 +23,6 @@ import java.time.LocalDate;
 @Table(name = "company_review")
 @IdClass(CompanyId.class)
 @SQLDelete(sql = "UPDATE company_review SET date = GETDATE() WHERE id=?")
-//@Where(clause = "date=null")
 @FilterDef(name = "deletedReviewFilter", parameters = @ParamDef(name = "date", type = "LocalDate"))
 @Filter(name = "deletedReviewFilter", condition = "date is null")
 public class CompanyReview extends BaseEntity {
@@ -49,6 +48,7 @@ public class CompanyReview extends BaseEntity {
 
     @Column(name = "date")
     private LocalDate date = null;
+
 }
 
 
