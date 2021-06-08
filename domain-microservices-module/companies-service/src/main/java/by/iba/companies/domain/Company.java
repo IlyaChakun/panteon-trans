@@ -1,11 +1,13 @@
 package by.iba.companies.domain;
 
 import by.iba.common.domain.AbstractEntity;
+import by.iba.common.validation.annotation.ValidPhones;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +51,11 @@ public class Company extends AbstractEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
+    @NotEmpty(message = "validation.company.phone_numbers_not_present")
+    @ValidPhones
+    @ElementCollection
+    @Column(name = "phone_numbers")
+    private List<String> phoneNumbers = new ArrayList<>();
 
     @Column(name = "foundation_date", nullable = false)
     private LocalDate foundationDate;
