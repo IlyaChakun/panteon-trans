@@ -5,6 +5,7 @@ import by.iba.review.domain.CompanyReview;
 import by.iba.review.dto.CompanyReviewDTO;
 import by.iba.review.dto.mapper.CompanyReviewMapper;
 import by.iba.review.repository.CompanyReviewRepository;
+import by.iba.review.specifications.CompanyReviewSpecifications;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -28,9 +30,6 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
     private final CompanyReviewRepository companyReviewRepository;
     private final CompanyReviewMapper companyReviewMapper;
-
-    @Autowired
-    private final EntityManager entityManager;
 
     @Override
     @Caching(put = {
@@ -107,9 +106,8 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
     @Override
     public List<CompanyReviewDTO> findAll(LocalDate date) {
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deletedReviewFilter");
-        filter.setParameter("date", date);
+
+        companyReviewRepository.findAll(Specification.where(CompanyReviewSpecifications.reviewNotDeleted()));
 
         List<CompanyReview> companyReviews =
                 companyReviewRepository.findAll();
@@ -117,7 +115,6 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         List<CompanyReviewDTO> companyReviewDTOS = new ArrayList<>();
         companyReviews.forEach(companyReview -> companyReviewDTOS.add(companyReviewMapper.toDto(companyReview)));
 
-        session.disableFilter("deletedProductFilter");
         return companyReviewDTOS;
     }
 
