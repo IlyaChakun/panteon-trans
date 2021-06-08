@@ -1,6 +1,7 @@
 package by.iba.review.dto;
 
 import by.iba.common.dto.BaseDTO;
+import by.iba.review.domain.Rating;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +21,8 @@ public class CompanyReviewDTO extends BaseDTO {
     @NotBlank(message = "validation.company_rating.review_message.not_presented")
     private String reviewMessage;
 
-    @Min(1)
-    @Max(5)
+    @Min(Rating.MIN_RATING)
+    @Max(Rating.MAX_RATING)
     private int rating;
 
 }
