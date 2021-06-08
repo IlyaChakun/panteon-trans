@@ -10,9 +10,6 @@ import java.util.List;
 @Repository
 public interface CompanyReviewRepository extends JpaRepository<CompanyReview, Long> {
 
-
-    @Query("SELECT distinct c from CompanyReview c where c.companyId = ?1")
-    List<CompanyReview> findReviewsByCompanyId(Long id);
-
+    List<CompanyReview> findDistinctByCompanyId(Long id);
 
 }

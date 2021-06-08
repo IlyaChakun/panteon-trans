@@ -83,7 +83,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         log.info("Finding reviews by company id = {}", id);
 
         List<CompanyReview> companyReviews =
-                companyReviewRepository.findReviewsByCompanyId(id);
+                companyReviewRepository.findDistinctByCompanyId(id);
         if (companyReviews.isEmpty())
             throw new ResourceNotFoundException("exception.reviews.not_found_exception");
 
