@@ -3,12 +3,9 @@ package by.iba.companies.service;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;
-import by.iba.companies.domain.Company;
-import by.iba.companies.domain.PhoneNumber;
-import by.iba.companies.dto.CompanyDTO;
+import by.iba.companies.domain.Company;import by.iba.companies.dto.CompanyDTO;
 import by.iba.companies.dto.mapper.CompanyMapperDTO;
 import by.iba.companies.repository.CompanyRepository;
-import by.iba.companies.repository.PhoneNumberRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -28,8 +25,8 @@ import java.util.List;
 @Slf4j
 public class CompanyServiceImpl implements CompanyService {
 
+
     private final CompanyRepository companyRepository;
-    private final PhoneNumberRepository phoneNumberRepository;
     private final CompanyMapperDTO companyMapper;
 
     @Override
@@ -39,7 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
         validateUniqueUnpEmailPhoneNumbersThrowException(companyDTO);
 
         final Company company = companyMapper.toEntity(companyDTO);
-        company.setCountryId(companyDTO.getCountry().getId());
+        company.setCountryId(companyDTO.getCountryId());
 
         final Company savedCompany = companyRepository.save(company);
 
@@ -72,7 +69,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private boolean arePhoneNumbersExist(final List<String> phoneNumbers) {
         return phoneNumbers.stream()
-                .anyMatch(phoneNumberRepository::existsPhoneNumberByValue);
+                .anyMatch(companyRepository::existsCompanyByPhoneNumbersContains);
     }
 
     @Override
@@ -82,7 +79,6 @@ public class CompanyServiceImpl implements CompanyService {
             @CachePut(value = "company-id", key = "#companyId")
     })
     public CompanyDTO update(final Long companyId, final CompanyDTO companyDTO) {
-
         log.info("Start updating the company by id = {}", companyId);
 
         final Company company = getCompanyById(companyId);
@@ -103,7 +99,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setAddress(companyDTO.getAddress());
         companyDTO.getPhoneNumbers()
                 .forEach(phoneNumber -> company.getPhoneNumbers()
-                        .add(new PhoneNumber(phoneNumber))
+                        .add(phoneNumber)
                 );
     }
 

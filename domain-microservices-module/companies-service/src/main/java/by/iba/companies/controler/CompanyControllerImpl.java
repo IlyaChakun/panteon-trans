@@ -6,6 +6,7 @@ import by.iba.companies.dto.CompanyDTO;
 import by.iba.companies.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.net.URI;
 @Slf4j
 public class CompanyControllerImpl implements CompanyController {
 
+    @Autowired
     private final CompanyService companyService;
 
     @Override
