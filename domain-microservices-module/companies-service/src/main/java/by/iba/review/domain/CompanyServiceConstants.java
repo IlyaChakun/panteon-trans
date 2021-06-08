@@ -1,8 +1,8 @@
 package by.iba.review.domain;
 
-public final class Rating {
+public final class CompanyServiceConstants {
 
-    private Rating() {
+    private CompanyServiceConstants() {
     }
 
     public static final int MIN_RATING = 1;

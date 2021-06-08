@@ -8,19 +8,13 @@ import by.iba.review.repository.CompanyReviewRepository;
 import by.iba.review.specifications.CompanyReviewSpecifications;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.hibernate.Filter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,7 +32,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
     })
     @Transactional
-    public CompanyReviewDTO saveReview(CompanyReviewDTO companyReviewDTO) {
+    public CompanyReviewDTO save(CompanyReviewDTO companyReviewDTO) {
         log.info("Start saving the company review with id = {}",
                 companyReviewMapper
                         .toEntity(companyReviewDTO)
@@ -61,61 +55,58 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
             @CacheEvict(value = "review_id", key = "#id")
 
     })
-    public Long deleteReviewById(Long id) {
+    public Long deleteById(Long id) {
 
         log.info("Start deleting the company review with id = {} ", id);
-        final Long companyId = companyReviewRepository.findById(id).get().getCompanyId();
 
-        if (companyId == null)
-            throw new ResourceNotFoundException("exception.review.not_found_exception");
+        CompanyReview review = companyReviewRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
-        companyReviewRepository.deleteById(id);
+        companyReviewRepository.delete(review);
 
         log.info("Review with id = {} has been deleted ", id);
 
-        return companyId;
+        return id;
     }
 
     @Override
-    public List<CompanyReviewDTO> findReviewsByCompanyId(Long id) {
+    public List<CompanyReviewDTO> findByCompanyId(Long id) {
 
         log.info("Finding reviews by company id = {}", id);
 
         List<CompanyReview> companyReviews =
                 companyReviewRepository.findDistinctByCompanyId(id);
-        if (companyReviews.isEmpty())
-            throw new ResourceNotFoundException("exception.reviews.not_found_exception");
 
-        List<CompanyReviewDTO> companyReviewDTOS = new ArrayList<>();
-        companyReviews.forEach(companyReview -> companyReviewDTOS.add(companyReviewMapper.toDto(companyReview)));
-
-        return companyReviewDTOS;
+        return companyReviewMapper
+                .toDtoList(companyReviews);
     }
 
     @Override
-    public CompanyReviewDTO findReviewById(Long id) {
+    public CompanyReviewDTO findById(Long id) {
         log.info("Finding review by id = {}", id);
 
-        CompanyReviewDTO foundReview = companyReviewMapper.toDto(companyReviewRepository.findById(id).get());
-        if (foundReview == null)
-            throw new ResourceNotFoundException("exception.review.not_found_exception");
+        CompanyReview companyReview = companyReviewRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
-
-        return foundReview;
+        return companyReviewMapper
+                .toDto(companyReview);
     }
 
     @Override
-    public List<CompanyReviewDTO> findAll(LocalDate date) {
+    public List<CompanyReviewDTO> findAll() {
 
-        companyReviewRepository.findAll(Specification.where(CompanyReviewSpecifications.reviewNotDeleted()));
+        Specification<CompanyReview> specification = Specification
+                .where(CompanyReviewSpecifications
+                        .reviewNotDeleted());
+        companyReviewRepository.findAll(specification);
 
         List<CompanyReview> companyReviews =
                 companyReviewRepository.findAll();
 
-        List<CompanyReviewDTO> companyReviewDTOS = new ArrayList<>();
-        companyReviews.forEach(companyReview -> companyReviewDTOS.add(companyReviewMapper.toDto(companyReview)));
-
-        return companyReviewDTOS;
+        return companyReviewMapper
+                .toDtoList(companyReviews);
     }
 
 }

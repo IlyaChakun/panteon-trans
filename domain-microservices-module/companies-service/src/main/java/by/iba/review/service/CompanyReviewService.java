@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface CompanyReviewService {
 
-    CompanyReviewDTO saveReview(CompanyReviewDTO companyReviewDTO);
+    CompanyReviewDTO save(CompanyReviewDTO companyReviewDTO);
 
-    Long deleteReviewById(Long id);
+    Long deleteById(Long id);
 
-    List<CompanyReviewDTO> findReviewsByCompanyId(Long id);
+    List<CompanyReviewDTO> findByCompanyId(Long id);
 
-    CompanyReviewDTO findReviewById(Long id);
+    CompanyReviewDTO findById(Long id);
 
 
-    List<CompanyReviewDTO>findAll(LocalDate date);
+    List<CompanyReviewDTO>findAll();
 
 }

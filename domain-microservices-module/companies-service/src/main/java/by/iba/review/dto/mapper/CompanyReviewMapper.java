@@ -15,5 +15,4 @@ public class CompanyReviewMapper extends AbstractMapperDTO<CompanyReview, Compan
         super(CompanyReview.class, CompanyReviewDTO.class);
     }
 
-
 }
