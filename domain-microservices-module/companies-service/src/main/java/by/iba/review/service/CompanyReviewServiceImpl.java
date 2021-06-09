@@ -1,5 +1,6 @@
 package by.iba.review.service;
 
+import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.review.domain.CompanyReview;
 import by.iba.review.dto.CompanyReviewDTO;
@@ -11,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -71,18 +75,6 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     }
 
     @Override
-    public List<CompanyReviewDTO> findByCompanyId(Long id) {
-
-        log.info("Finding reviews by company id = {}", id);
-
-        List<CompanyReview> companyReviews =
-                companyReviewRepository.findDistinctByCompanyId(id);
-
-        return companyReviewMapper
-                .toDtoList(companyReviews);
-    }
-
-    @Override
     public CompanyReviewDTO findById(Long id) {
         log.info("Finding review by id = {}", id);
 
@@ -95,18 +87,24 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     }
 
     @Override
-    public List<CompanyReviewDTO> findAll() {
+    public PageWrapper<CompanyReviewDTO> findAll(Long companyId, final Integer page, final Integer size) {
 
         Specification<CompanyReview> specification = Specification
                 .where(CompanyReviewSpecifications
-                        .reviewNotDeleted());
-        companyReviewRepository.findAll(specification);
+                        .reviewNotDeleted())
+                .and(CompanyReviewSpecifications
+                        .hasCompanyId(companyId));
 
-        List<CompanyReview> companyReviews =
-                companyReviewRepository.findAll();
+        final Pageable pageable =
+                PageRequest.of(page, size);
 
-        return companyReviewMapper
-                .toDtoList(companyReviews);
+        final Page<CompanyReview> companyReviews =
+                companyReviewRepository.findAll(specification, pageable);
+
+        return new PageWrapper<>(companyReviewMapper
+                .toDtoList(companyReviews.toList()),
+                companyReviews.getTotalPages(),
+                companyReviews.getTotalElements());
     }
 
 }

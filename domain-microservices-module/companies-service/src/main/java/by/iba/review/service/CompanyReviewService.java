@@ -1,5 +1,6 @@
 package by.iba.review.service;
 
+import by.iba.common.dto.PageWrapper;
 import by.iba.review.dto.CompanyReviewDTO;
 
 import java.time.LocalDate;
@@ -11,11 +12,8 @@ public interface CompanyReviewService {
 
     Long deleteById(Long id);
 
-    List<CompanyReviewDTO> findByCompanyId(Long id);
-
     CompanyReviewDTO findById(Long id);
 
-
-    List<CompanyReviewDTO>findAll();
+    PageWrapper<CompanyReviewDTO> findAll(Long companyId, final Integer page, final Integer size);
 
 }

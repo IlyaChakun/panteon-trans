@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface CompanyReviewRepository extends JpaRepository<CompanyReview, Long>, JpaSpecificationExecutor<CompanyReview> {
 
-    List<CompanyReview> findDistinctByCompanyId(Long id);
-
 }

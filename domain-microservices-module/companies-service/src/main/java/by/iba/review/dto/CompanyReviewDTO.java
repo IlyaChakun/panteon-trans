@@ -1,5 +1,6 @@
 package by.iba.review.dto;
 
+import by.iba.common.dto.BaseAbstractDTO;
 import by.iba.common.dto.BaseDTO;
 import by.iba.review.domain.CompanyServiceConstants;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyReviewDTO extends BaseDTO {
+public class CompanyReviewDTO extends BaseAbstractDTO {
     @NotNull
     private Long userId;
 
