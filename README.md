@@ -28,7 +28,7 @@ Use dev profile with all services except config service.
 
 ! для остальных dev
 
-#How to work with docker on Windows
+# How to work with docker on Windows
 
 1. скачиваем и устанавливаем https://www.docker.com/products/docker-desktop
 2. заходим в терминал и выполняем docker-compose up  
