@@ -55,7 +55,7 @@ Use dev profile with all services except config service.
     3.3 заходим в connection и ставим hostname (на данный момент localhost, о когда перейдем на aws, тут будет ip из aws)
     ![host](images/img_6.png)
    </div>
-    3.4 вводим имя пользователя и пароль как в [docker-compose](docker-compose.yml) 
+    3.4 вводим имя пользователя и пароль как в docker-compose.yml 
     <div style="width:300px">
 
     ![pass](images/img_7.png)
