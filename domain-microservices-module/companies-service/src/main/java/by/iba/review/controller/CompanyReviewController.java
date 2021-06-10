@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/companies/{companyId}/reviews")
+@CrossOrigin(origins = "*")
 public interface CompanyReviewController {
 
     @GetMapping("/{id}")
@@ -24,5 +25,5 @@ public interface CompanyReviewController {
                                           @PathVariable("companyId") final Long companyId);
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable("id") final Long id);
+    ResponseEntity<Void> delete(@PathVariable("id") final Long id,@PathVariable("companyId") final Long companyId);
 }

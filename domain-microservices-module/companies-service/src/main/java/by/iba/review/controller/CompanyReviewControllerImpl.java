@@ -7,6 +7,7 @@ import by.iba.review.service.CompanyReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -64,13 +65,13 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(Long id,  Long companyId) {
         log.info("Received a request to delete review with id = {}", id);
 
         companyReviewService.deleteById(id);
 
         return ResponseEntity
-                .ok()
+                .noContent()
                 .build();
     }
 

@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.time.LocalDate;
 
 @Service
 @AllArgsConstructor
@@ -31,8 +31,8 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
     @Override
     @Caching(put = {
-            @CachePut(value = "company_id", key = "#companyReviewMapper.toEntity(companyReviewDTO).getCompanyId()"),
-            @CachePut(value = "review_id", key = "#companyReviewMapper.toEntity(companyReviewDTO).getCompanyId()")
+            @CachePut(value = "company_id", key = "#companyReviewDTO.getCompanyId()"),
+            @CachePut(value = "review_id", key = "#companyReviewDTO.getCompanyId()")
 
     })
     @Transactional
@@ -64,10 +64,11 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         log.info("Start deleting the company review with id = {} ", id);
 
         CompanyReview review = companyReviewRepository
-                .findById(id)
+                .findCompanyReviewById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
-        companyReviewRepository.delete(review);
+        review.setDate(LocalDate.now());
+        companyReviewRepository.save(review);
 
         log.info("Review with id = {} has been deleted ", id);
 
@@ -79,7 +80,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         log.info("Finding review by id = {}", id);
 
         CompanyReview companyReview = companyReviewRepository
-                .findById(id)
+                .findCompanyReviewById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
         return companyReviewMapper
@@ -101,10 +102,11 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         final Page<CompanyReview> companyReviews =
                 companyReviewRepository.findAll(specification, pageable);
 
-        return new PageWrapper<>(companyReviewMapper
-                .toDtoList(companyReviews.toList()),
-                companyReviews.getTotalPages(),
-                companyReviews.getTotalElements());
+        return
+                new PageWrapper<>(companyReviewMapper
+                        .toDtoList(companyReviews.toList()),
+                        companyReviews.getTotalPages(),
+                        companyReviews.getTotalElements());
     }
 
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +23,15 @@ public class CompanyReviewDTO extends BaseAbstractDTO {
 
     @NotBlank(message = "validation.company_rating.review_message.not_presented")
     private String reviewMessage;
+
+    @NotNull
+    private Long companyId;
+
+    @NotNull
+    private String UNP;
+
+    @NotNull
+    private Long ownerId;
 
     @Min(CompanyServiceConstants.MIN_RATING)
     @Max(CompanyServiceConstants.MAX_RATING)
