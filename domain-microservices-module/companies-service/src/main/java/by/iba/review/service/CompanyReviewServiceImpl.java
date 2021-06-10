@@ -59,12 +59,12 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
             @CacheEvict(value = "review_id", key = "#id")
 
     })
-    public Long deleteById(Long id) {
+    public Long deleteById(Long id, Long companyId) {
 
-        log.info("Start deleting the company review with id = {} ", id);
+        log.info("Start deleting review with id = {} from company with id = {} ", id, companyId);
 
         CompanyReview review = companyReviewRepository
-                .findById(id)
+                .findByIdAndCompanyId(id, companyId)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
         review.setDate(LocalDate.now());
@@ -72,7 +72,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
         log.info("Review with id = {} has been deleted ", id);
 
-        return id;
+        return companyId;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         log.info("Finding review by id = {} for company with id = {}", id, companyId);
 
         CompanyReview companyReview = companyReviewRepository
-                .findById(id)
+                .findByIdAndCompanyId(id, companyId)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
         return companyReviewMapper

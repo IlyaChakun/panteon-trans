@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CompanyReviewRepository extends JpaRepository<CompanyReview, Long>, JpaSpecificationExecutor<CompanyReview> {
 
+    Optional<CompanyReview> findByIdAndCompanyId(Long id, Long companyId);
+
 }

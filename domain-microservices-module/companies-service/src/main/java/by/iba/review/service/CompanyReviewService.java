@@ -10,9 +10,9 @@ public interface CompanyReviewService {
 
     CompanyReviewDTO save(CompanyReviewDTO companyReviewDTO);
 
-    Long deleteById(Long id);
+    Long deleteById(Long id, Long companyId);
 
-    CompanyReviewDTO findById(Long companyId,Long id);
+    CompanyReviewDTO findById(Long companyId, Long id);
 
     PageWrapper<CompanyReviewDTO> findAll(Long companyId, final Integer page, final Integer size);
 
