@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <!-- versions -->
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <model-mapper-version>2.3.8</model-mapper-version>
@@ -58,6 +58,10 @@
                 <version>${model-mapper-version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+            </dependency>
 
             <!-- local dependencies -->
             <dependency>
@@ -86,16 +90,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
-<!--    <distributionManagement>-->
-<!--        <repository>-->
-<!--            <id>transport-exchange&#45;&#45;transport-exchange</id>-->
-<!--            <name>transport-exchange&#45;&#45;transport-exchange</name>-->
-<!--            <url>-->
-<!--                https://transport-exchange-908085288135.d.codeartifact.us-east-2.amazonaws.com/maven/transport-exchange/-->
-<!--            </url>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
-
 
 </project>

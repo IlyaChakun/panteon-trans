@@ -14,8 +14,6 @@
 
 	<name>registry</name>
 
-
-
 	<dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
