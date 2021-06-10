@@ -27,12 +27,6 @@ public class CompanyReviewDTO extends BaseAbstractDTO {
     @NotNull
     private Long companyId;
 
-    @NotNull
-    private String UNP;
-
-    @NotNull
-    private Long ownerId;
-
     @Min(CompanyServiceConstants.MIN_RATING)
     @Max(CompanyServiceConstants.MAX_RATING)
     private int rating;

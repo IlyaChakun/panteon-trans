@@ -12,7 +12,7 @@ public interface CompanyReviewService {
 
     Long deleteById(Long id);
 
-    CompanyReviewDTO findById(Long id);
+    CompanyReviewDTO findById(Long companyId,Long id);
 
     PageWrapper<CompanyReviewDTO> findAll(Long companyId, final Integer page, final Integer size);
 

@@ -36,12 +36,6 @@ public class CompanyReview extends BaseEntity {
     @Column(name = "company_id")
     private Long companyId;
 
-    @Column(name = "company_unp")
-    private String UNP;
-
-    @Column(name = "owner_id")
-    private Long ownerId;
-
     @Column(name = "review_message")
     private String reviewMessage;
 

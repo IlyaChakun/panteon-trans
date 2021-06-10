@@ -22,10 +22,10 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     private final CompanyReviewService companyReviewService;
 
     @Override
-    public ResponseEntity<CompanyReviewDTO> findById(Long companyId, Long id) {//TODO: companyId??
-        log.info("Received a request to find review by id = {}", id);
+    public ResponseEntity<CompanyReviewDTO> findById(Long companyId, Long id) {
+        log.info("Received a request to find review by id = {} and company id ={}", id, companyId);
 
-        CompanyReviewDTO companyReviewDTO = companyReviewService.findById(id);
+        CompanyReviewDTO companyReviewDTO = companyReviewService.findById(companyId,id);
 
         return ResponseEntity
                 .ok()
@@ -65,7 +65,7 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id,  Long companyId) {
+    public ResponseEntity<Void> delete(Long id, Long companyId) {
         log.info("Received a request to delete review with id = {}", id);
 
         companyReviewService.deleteById(id);

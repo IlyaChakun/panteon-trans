@@ -64,7 +64,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         log.info("Start deleting the company review with id = {} ", id);
 
         CompanyReview review = companyReviewRepository
-                .findCompanyReviewById(id)
+                .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
         review.setDate(LocalDate.now());
@@ -76,11 +76,11 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     }
 
     @Override
-    public CompanyReviewDTO findById(Long id) {
-        log.info("Finding review by id = {}", id);
+    public CompanyReviewDTO findById(Long companyId, Long id) {
+        log.info("Finding review by id = {} for company with id = {}", id, companyId);
 
         CompanyReview companyReview = companyReviewRepository
-                .findCompanyReviewById(id)
+                .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("review with id = " + id + " not found "));
 
         return companyReviewMapper

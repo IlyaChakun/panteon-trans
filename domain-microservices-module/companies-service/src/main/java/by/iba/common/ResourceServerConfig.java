@@ -32,7 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/companies/{id}/review").hasAnyRole()
+                .antMatchers("/companies/*").hasAnyRole()
                 .anyRequest()
                 .authenticated();
     }
