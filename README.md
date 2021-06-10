@@ -36,13 +36,13 @@ Use dev profile with all services except config service.
 
     ![compose](images/img.png)
     2.1 если не запустилось и мы получили ошибку: ![error](images/img_10.png)
-    пробуем выполнить docker volume ls и найти лишний процесс 
+    пробуем выполнить docker volume ls и посмореть есть ли предыдущие volumes 
     ![wrong](images/img_1.png)
-    2.2 удаляем его выполнив docker volume rm имя_процесса 
+    2.2 удаляем его(их) docker volume rm volume_name 
     ![forDelete](images/img_2.png)
      
     2.3 повторяем docker-compose up
-3. заходим в PgAdmin (если нету, устаавливаем postgresql https://www.postgresql.org/download/windows/)
+3. заходим в PgAdmin (если нет, устаавливаем postgresql https://www.postgresql.org/download/windows/)
     <div style="width:300px">
 
     ![pgAdmin](images/img_3.png)
@@ -66,7 +66,7 @@ Use dev profile with all services except config service.
 
     ![baza](images/img_9.png)
    </div>
-4. так же можем зайти в dashboard  (правой кнопкой по знакчку докера)
+4. так же можем зайти в dashboard  (правой кнопкой по значку докера)
    <div style="width:200px">
 
     ![dash](images/img_11.png) 
