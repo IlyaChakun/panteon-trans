@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "loading_locations")
+@Table(name = "unloading_locations")
 @Getter
 @Setter
 @NoArgsConstructor
