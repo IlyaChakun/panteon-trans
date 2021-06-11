@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public interface BlacklistController {
 
     @GetMapping("/{id}")
-    ResponseEntity<BlacklistDTO> findById(@PathVariable("id") final Long id);
+    ResponseEntity<BlacklistDTO> findByCompanyId(@PathVariable("id") final Long id);
 
     @GetMapping()
     ResponseEntity<PageWrapper<BlacklistDTO>> findAll(@RequestParam(defaultValue = "0", required = false) final Integer page,
@@ -19,5 +19,5 @@ public interface BlacklistController {
     ResponseEntity<BlacklistDTO> addCompanyToBlacklist(BlacklistDTO blacklistDTO, @PathVariable("companyId") final Long id);
 
     @DeleteMapping("{id}")
-    ResponseEntity<Void> delete(@PathVariable("id") final Long id);
+    ResponseEntity<Void> deleteByCompanyId(@PathVariable("id") final Long id);
 }

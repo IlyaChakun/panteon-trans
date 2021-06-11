@@ -7,7 +7,6 @@ public class BlacklistSpecifications {
 
     public static Specification<Blacklist> notDeleted() {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder
-                .equal(root.get("dateOfLastUpdate"),
-                        root.get("dateOfCreation"));
+                .isNull(root.get("deletionDate"));
     }
 }

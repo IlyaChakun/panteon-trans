@@ -45,4 +45,7 @@ public class Blacklist extends AbstractEntity {
     @Column(name = "reason")
     private String reason;
 
+    @Column(name = "deletion_date")
+    private LocalDateTime deletionDate;
+
 }

@@ -7,6 +7,7 @@ import by.iba.blacklist.repository.BlacklistRepository;
 import by.iba.blacklist.scpecifications.BlacklistSpecifications;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
+import by.iba.common.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,6 +47,12 @@ public class BlacklistServiceImpl implements BlacklistService {
     public BlacklistDTO save(BlacklistDTO blacklistDTO) {
 
         log.info("Adding to blacklist company with id = {} ", blacklistDTO.getCompanyId());
+
+        if (blacklistRepository
+                .findBlacklistByCompanyId(
+                        blacklistDTO.getCompanyId())
+                .isPresent())
+            throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_company_in_blacklist");
 
         Blacklist blacklist = blacklistMapperDTO
                 .toEntity(blacklistDTO);
@@ -79,8 +87,8 @@ public class BlacklistServiceImpl implements BlacklistService {
 
 
     @Override
-    public BlacklistDTO findById(Long id) {
-        log.info("Finding company in blacklist by id = {} ", id);
+    public BlacklistDTO findByCompanyId(Long id) {
+        log.info("Finding company in blacklist by company id = {} ", id);
 
         Blacklist blacklist = blacklistRepository
                 .findBlacklistByCompanyId(id)
@@ -96,14 +104,14 @@ public class BlacklistServiceImpl implements BlacklistService {
             @CacheEvict(value = "id", key = "#result")
 
     })
-    public Long deleteById(Long id) {
+    public Long deleteByCompanyId(Long id) {
         log.info("Received request to delete company from blacklist with id = {}", id);
 
         Blacklist blacklist = blacklistRepository
                 .findBlacklistByCompanyId(id)
                 .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
 
-        blacklist.setDateOfLastUpdate(LocalDateTime.now());
+        blacklist.setDeletionDate(LocalDateTime.now());
         blacklistRepository.save(blacklist);
 
         return blacklist

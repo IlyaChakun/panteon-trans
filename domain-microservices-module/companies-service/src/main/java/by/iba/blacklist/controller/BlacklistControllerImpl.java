@@ -5,13 +5,11 @@ import by.iba.blacklist.service.BlacklistService;
 import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -21,10 +19,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     private final BlacklistService blacklistService;
 
     @Override
-    public ResponseEntity<BlacklistDTO> findById(Long id) {
+    public ResponseEntity<BlacklistDTO> findByCompanyId(Long id) {
         log.info("Finding company in blacklist by id = {}", id);
 
-        BlacklistDTO blacklistDTO = blacklistService.findById(id);
+        BlacklistDTO blacklistDTO = blacklistService.findByCompanyId(id);
 
         return ResponseEntity
                 .ok()
@@ -62,10 +60,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     }
 
     @Override
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> deleteByCompanyId(Long id) {
         log.info("Received a request to delete blacklist info with id = {}", id);
 
-        blacklistService.deleteById(id);
+        blacklistService.deleteByCompanyId(id);
 
         return ResponseEntity
                 .noContent()
