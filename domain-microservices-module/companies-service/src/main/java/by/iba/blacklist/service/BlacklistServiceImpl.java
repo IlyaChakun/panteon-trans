@@ -20,6 +20,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +37,8 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     @Caching(put = {
-            @CachePut(value = "company_id", key = "#blacklistMapperDTO.toEntity(blacklistDTO).getCompanyId()"),
-            @CachePut(value = "id", key = "#blacklistMapperDTO.toEntity(blacklistDTO).getCompanyId()")
+            @CachePut(value = "company_id", key = "#blacklistDTO.getCompanyId()"),
+            @CachePut(value = "id", key = "#blacklistDTO.getId()")
 
     })
     @Transactional
@@ -81,7 +83,7 @@ public class BlacklistServiceImpl implements BlacklistService {
         log.info("Finding company in blacklist by id = {} ", id);
 
         Blacklist blacklist = blacklistRepository
-                .findById(id)
+                .findBlacklistByCompanyId(id)
                 .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
 
         return blacklistMapperDTO
@@ -90,20 +92,21 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "company_id", key = "#result"),
-            @CacheEvict(value = "id", key = "#id")
+            @CacheEvict(value = "company_id", key = "#id"),
+            @CacheEvict(value = "id", key = "#result")
 
     })
     public Long deleteById(Long id) {
         log.info("Received request to delete company from blacklist with id = {}", id);
 
         Blacklist blacklist = blacklistRepository
-                .findById(id)
+                .findBlacklistByCompanyId(id)
                 .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
 
-        blacklistRepository.delete(blacklist);
+        blacklist.setDateOfLastUpdate(LocalDateTime.now());
+        blacklistRepository.save(blacklist);
 
         return blacklist
-                .getCompanyId();
+                .getId();
     }
 }

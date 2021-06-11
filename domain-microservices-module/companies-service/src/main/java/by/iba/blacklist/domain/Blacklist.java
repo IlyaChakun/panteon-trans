@@ -11,6 +11,10 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -19,13 +23,20 @@ import java.time.LocalDate;
 @Entity
 @IdClass(CompanyId.class)
 @Table(name = "blacklist")
-@SQLDelete(sql = "UPDATE blacklist SET date_of_last_update = GETDATE() WHERE id=?")
 public class Blacklist extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private Long id;
+
+    @Id
+    @Column(name = "company_unp")
+    private String UNP;
+
+    @Id
+    @Column(name = "owner_id")
+    private Long ownerId;
 
     @Id
     @Column(name = "company_id")

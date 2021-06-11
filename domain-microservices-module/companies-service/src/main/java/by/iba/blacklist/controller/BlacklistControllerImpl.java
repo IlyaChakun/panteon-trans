@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 public class BlacklistControllerImpl implements BlacklistController {
 
-    @Autowired
     private final BlacklistService blacklistService;
 
     @Override
@@ -53,7 +52,7 @@ public class BlacklistControllerImpl implements BlacklistController {
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .path("/companies/{companyId}/rating/{id}")
+                .path("/companies/blacklist/{id}")
                 .buildAndExpand(id, savedInfo.getId())
                 .toUri();
 
@@ -69,7 +68,7 @@ public class BlacklistControllerImpl implements BlacklistController {
         blacklistService.deleteById(id);
 
         return ResponseEntity
-                .ok()
+                .noContent()
                 .build();
     }
 
