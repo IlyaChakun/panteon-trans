@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -21,8 +23,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "company_review")
-@IdClass(CompanyId.class)
-@SQLDelete(sql = "UPDATE company_review SET date = GETDATE() WHERE id=?")
 public class CompanyReview extends BaseEntity {
 
     @Id
@@ -30,11 +30,9 @@ public class CompanyReview extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Id
     @Column(name = "user_id")
     private Long userId;
 
-    @Id
     @Column(name = "company_id")
     private Long companyId;
 
@@ -48,6 +46,5 @@ public class CompanyReview extends BaseEntity {
     private LocalDate date = null;
 
 }
-
 
 

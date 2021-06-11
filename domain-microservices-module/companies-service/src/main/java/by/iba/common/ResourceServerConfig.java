@@ -30,6 +30,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/companies/**")
                 .permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/companies/*").hasAnyRole()
                 .anyRequest()
                 .authenticated();
     }
