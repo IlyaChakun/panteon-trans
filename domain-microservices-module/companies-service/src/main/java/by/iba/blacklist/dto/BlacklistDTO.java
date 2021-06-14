@@ -18,16 +18,13 @@ public class BlacklistDTO  extends AbstractDTO {
     @NotBlank(message = "validation.blacklist.company_id.not_presented")
     private Long companyId;
 
-    @ValidUNP
-    private String UNP;
-
-    @NotBlank
-    private Long ownerId;
-
     private Long id;
 
     @NotBlank
     private String reason;
+
+    @NotBlank
+    private String deletionReason;
 
     private LocalDateTime deletionDate;
 

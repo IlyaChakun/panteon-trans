@@ -19,10 +19,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     private final BlacklistService blacklistService;
 
     @Override
-    public ResponseEntity<BlacklistDTO> findByCompanyId(Long id) {
+    public ResponseEntity<BlacklistDTO> findById(Long id) {
         log.info("Finding company in blacklist by id = {}", id);
 
-        BlacklistDTO blacklistDTO = blacklistService.findByCompanyId(id);
+        BlacklistDTO blacklistDTO = blacklistService.findById(id);
 
         return ResponseEntity
                 .ok()
@@ -59,15 +59,27 @@ public class BlacklistControllerImpl implements BlacklistController {
                 .body(savedInfo);
     }
 
-    @Override
-    public ResponseEntity<Void> deleteByCompanyId(Long id) {
-        log.info("Received a request to delete blacklist info with id = {}", id);
+    public ResponseEntity<Void> delete(BlacklistDTO blacklistDTO) {
+        log.info("Received a request to delete blacklist info with id = {}", blacklistDTO.getId());
 
-        blacklistService.deleteByCompanyId(id);
+        blacklistService.delete(blacklistDTO);
 
         return ResponseEntity
                 .noContent()
                 .build();
+    }
+
+    @Override
+    public ResponseEntity<PageWrapper<BlacklistDTO>> findAllByCompanyId(Integer page, Integer size, Long companyId) {
+
+        log.info("Finding all inf about company in blacklist");
+
+        PageWrapper<BlacklistDTO> blacklistDTOS = blacklistService
+                .findAllByCompanyId(page, size, companyId);
+
+        return ResponseEntity
+                .ok()
+                .body(blacklistDTOS);
     }
 
 }

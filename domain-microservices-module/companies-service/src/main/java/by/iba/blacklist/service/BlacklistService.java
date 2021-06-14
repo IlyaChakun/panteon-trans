@@ -12,8 +12,10 @@ public interface BlacklistService {
 
     PageWrapper<BlacklistDTO> findAll(final Integer page, final Integer size);
 
-    BlacklistDTO findByCompanyId(Long id);
+    BlacklistDTO findById(Long id);
 
-    Long deleteByCompanyId(Long id);
+    Long delete(BlacklistDTO blacklistDTO);
+
+    PageWrapper<BlacklistDTO> findAllByCompanyId(final Integer page, final Integer size, final Long companyId);
 
 }

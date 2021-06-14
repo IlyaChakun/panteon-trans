@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -48,10 +49,13 @@ public class BlacklistServiceImpl implements BlacklistService {
 
         log.info("Adding to blacklist company with id = {} ", blacklistDTO.getCompanyId());
 
-        if (blacklistRepository
-                .findBlacklistByCompanyId(
-                        blacklistDTO.getCompanyId())
-                .isPresent())
+        Optional<Blacklist> duplicate =
+                blacklistRepository
+                        .findBlacklistByCompanyId(
+                                blacklistDTO.getCompanyId());
+
+        if (duplicate.isPresent() &&
+                Objects.isNull(duplicate.get().getDeletionDate()))
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_company_in_blacklist");
 
         Blacklist blacklist = blacklistMapperDTO
@@ -87,11 +91,11 @@ public class BlacklistServiceImpl implements BlacklistService {
 
 
     @Override
-    public BlacklistDTO findByCompanyId(Long id) {
-        log.info("Finding company in blacklist by company id = {} ", id);
+    public BlacklistDTO findById(Long id) {
+        log.info("Finding blacklist information with id = {} ", id);
 
         Blacklist blacklist = blacklistRepository
-                .findBlacklistByCompanyId(id)
+                .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
 
         return blacklistMapperDTO
@@ -100,21 +104,39 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "company_id", key = "#id"),
+            @CacheEvict(value = "company_id", key = "#blacklistDTO.getCompanyId()"),
             @CacheEvict(value = "id", key = "#result")
 
     })
-    public Long deleteByCompanyId(Long id) {
-        log.info("Received request to delete company from blacklist with id = {}", id);
+    public Long delete(BlacklistDTO blacklistDTO) {
+        log.info("Received request to delete company from blacklist with id = {}", blacklistDTO.getId());
 
-        Blacklist blacklist = blacklistRepository
-                .findBlacklistByCompanyId(id)
-                .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
+        Blacklist blacklist = blacklistMapperDTO.toEntity(blacklistDTO);
+
+        blacklistRepository
+                .findById(blacklist.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + blacklist.getId() + " not found "));
 
         blacklist.setDeletionDate(LocalDateTime.now());
         blacklistRepository.save(blacklist);
 
-        return blacklist
-                .getId();
+        return blacklist.getId();
+    }
+
+    @Override
+    public PageWrapper<BlacklistDTO> findAllByCompanyId(Integer page, Integer size, Long companyId) {
+        log.info("Received a request to find all information about company with id ={} in black list", companyId);
+
+        Pageable pageable =
+                PageRequest.of(page, size);
+
+        Page<Blacklist> blacklistPage =
+                blacklistRepository.findAllByCompanyId(companyId, pageable);
+
+
+        return new PageWrapper<>(blacklistMapperDTO
+                .toDtoList(blacklistPage.toList()),
+                blacklistPage.getTotalPages(),
+                blacklistPage.getTotalElements());
     }
 }

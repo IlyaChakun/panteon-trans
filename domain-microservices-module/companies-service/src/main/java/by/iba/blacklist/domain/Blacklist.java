@@ -21,7 +21,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@IdClass(CompanyId.class)
 @Table(name = "blacklist")
 public class Blacklist extends AbstractEntity {
 
@@ -30,15 +29,6 @@ public class Blacklist extends AbstractEntity {
     @Column(name = "id")
     private Long id;
 
-    @Id
-    @Column(name = "company_unp")
-    private String UNP;
-
-    @Id
-    @Column(name = "owner_id")
-    private Long ownerId;
-
-    @Id
     @Column(name = "company_id")
     private Long companyId;
 
@@ -47,5 +37,8 @@ public class Blacklist extends AbstractEntity {
 
     @Column(name = "deletion_date")
     private LocalDateTime deletionDate;
+
+    @Column(name = "deletion_reason")
+    private String deletionReason;
 
 }
