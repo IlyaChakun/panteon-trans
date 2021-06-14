@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,4 +39,6 @@ public class Cargo extends CommonAttributes {
                     referencedColumnName = "id")})
     private Set<TruckBodyType> truckBodyTypes= new HashSet<>(); //типы кузова
 
+    @Column(name = "deletionDate")
+    private LocalDate deletionDate = null;
 }
