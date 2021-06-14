@@ -1,6 +1,7 @@
 package by.iba.blacklist.service;
 
 import by.iba.blacklist.dto.BlacklistDTO;
+import by.iba.blacklist.dto.BlacklistDeleteDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.companies.domain.Company;
 
@@ -14,7 +15,7 @@ public interface BlacklistService {
 
     BlacklistDTO findById(Long id);
 
-    Long delete(BlacklistDTO blacklistDTO);
+    Long delete(BlacklistDeleteDTO blacklistDeleteDTO, final Long id);
 
     PageWrapper<BlacklistDTO> findAllByCompanyId(final Integer page, final Integer size, final Long companyId);
 

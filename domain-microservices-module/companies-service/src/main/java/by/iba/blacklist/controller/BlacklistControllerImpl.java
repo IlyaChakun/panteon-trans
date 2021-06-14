@@ -1,6 +1,7 @@
 package by.iba.blacklist.controller;
 
 import by.iba.blacklist.dto.BlacklistDTO;
+import by.iba.blacklist.dto.BlacklistDeleteDTO;
 import by.iba.blacklist.service.BlacklistService;
 import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
@@ -42,16 +43,16 @@ public class BlacklistControllerImpl implements BlacklistController {
     }
 
     @Override
-    public ResponseEntity<BlacklistDTO> addCompanyToBlacklist(BlacklistDTO blacklistDTO, Long id) {
-        log.info("Received a request to add to blacklist company with id = {}", id);
+    public ResponseEntity<BlacklistDTO> save(BlacklistDTO blacklistDTO) {
+        log.info("Received a request to add to blacklist company with id = {}", blacklistDTO.getCompanyId());
 
         BlacklistDTO savedInfo = blacklistService.save(blacklistDTO);
 
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
-                .path("/companies/blacklist/{id}")
-                .buildAndExpand(id, savedInfo.getId())
+                .path("/blacklist")
+                .buildAndExpand(blacklistDTO.getCompanyId(), savedInfo.getId())
                 .toUri();
 
         return ResponseEntity
@@ -59,10 +60,10 @@ public class BlacklistControllerImpl implements BlacklistController {
                 .body(savedInfo);
     }
 
-    public ResponseEntity<Void> delete(BlacklistDTO blacklistDTO) {
-        log.info("Received a request to delete blacklist info with id = {}", blacklistDTO.getId());
+    public ResponseEntity<Void> delete(BlacklistDeleteDTO blacklistDeleteDTO, Long id) {
+        log.info("Received a request to delete blacklist info with id = {}", id);
 
-        blacklistService.delete(blacklistDTO);
+        blacklistService.delete(blacklistDeleteDTO, id);
 
         return ResponseEntity
                 .noContent()
@@ -71,8 +72,7 @@ public class BlacklistControllerImpl implements BlacklistController {
 
     @Override
     public ResponseEntity<PageWrapper<BlacklistDTO>> findAllByCompanyId(Integer page, Integer size, Long companyId) {
-
-        log.info("Finding all inf about company in blacklist");
+        log.info("Finding all information about company with id = {} in blacklist", companyId);
 
         PageWrapper<BlacklistDTO> blacklistDTOS = blacklistService
                 .findAllByCompanyId(page, size, companyId);

@@ -2,6 +2,7 @@ package by.iba.blacklist.service;
 
 import by.iba.blacklist.domain.Blacklist;
 import by.iba.blacklist.dto.BlacklistDTO;
+import by.iba.blacklist.dto.BlacklistDeleteDTO;
 import by.iba.blacklist.dto.mapper.BlacklistMapperDTO;
 import by.iba.blacklist.repository.BlacklistRepository;
 import by.iba.blacklist.scpecifications.BlacklistSpecifications;
@@ -10,7 +11,6 @@ import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Caching;
@@ -22,10 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -55,17 +52,14 @@ public class BlacklistServiceImpl implements BlacklistService {
                                 blacklistDTO.getCompanyId());
 
         if (duplicate.isPresent() &&
-                Objects.isNull(duplicate.get().getDeletionDate()))
+                Objects.isNull(duplicate.get().getDeletionDate())) {
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_company_in_blacklist");
+        }
 
-        Blacklist blacklist = blacklistMapperDTO
-                .toEntity(blacklistDTO);
+        Blacklist blacklist = blacklistRepository.save(
+                blacklistMapperDTO.toEntity(blacklistDTO));
 
-        blacklistRepository
-                .save(blacklist);
-
-        return blacklistMapperDTO
-                .toDto(blacklist);
+        return blacklistMapperDTO.toDto(blacklist);
     }
 
     @Override
@@ -104,20 +98,20 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     @Caching(evict = {
-            @CacheEvict(value = "company_id", key = "#blacklistDTO.getCompanyId()"),
-            @CacheEvict(value = "id", key = "#result")
-
+            @CacheEvict(value = "company_id", key = "#result"),
+            @CacheEvict(value = "id", key = "#id")
     })
-    public Long delete(BlacklistDTO blacklistDTO) {
-        log.info("Received request to delete company from blacklist with id = {}", blacklistDTO.getId());
+    @Transactional
+    public Long delete(BlacklistDeleteDTO blacklistDeleteDTO, Long id) {
+        log.info("Received request to delete company from blacklist with id = {}", id);
 
-        Blacklist blacklist = blacklistMapperDTO.toEntity(blacklistDTO);
-
-        blacklistRepository
-                .findById(blacklist.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + blacklist.getId() + " not found "));
+        Blacklist blacklist = blacklistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
 
         blacklist.setDeletionDate(LocalDateTime.now());
+
+        blacklist.setDeletionReason(blacklistDeleteDTO.getDeletionReason());
+
         blacklistRepository.save(blacklist);
 
         return blacklist.getId();

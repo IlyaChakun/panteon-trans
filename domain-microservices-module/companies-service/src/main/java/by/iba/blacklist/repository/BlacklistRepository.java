@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface BlacklistRepository extends JpaRepository<Blacklist, Long>, JpaSpecificationExecutor<Blacklist> {
 
-    Optional<Blacklist> findBlacklistByCompanyId(Long aLong);
+    Optional<Blacklist> findBlacklistByCompanyId(Long companyId);
 
     Page<Blacklist> findAllByCompanyId(Long companyId, Pageable var1);
 

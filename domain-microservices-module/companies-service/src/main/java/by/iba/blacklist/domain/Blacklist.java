@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode()
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,6 +27,7 @@ public class Blacklist extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "company_id")

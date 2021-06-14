@@ -1,11 +1,12 @@
 package by.iba.blacklist.controller;
 
 import by.iba.blacklist.dto.BlacklistDTO;
+import by.iba.blacklist.dto.BlacklistDeleteDTO;
 import by.iba.common.dto.PageWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/companies/blackList")
+@RequestMapping("/blacklist")
 public interface BlacklistController {
 
     @GetMapping("/{id}")
@@ -15,14 +16,15 @@ public interface BlacklistController {
     ResponseEntity<PageWrapper<BlacklistDTO>> findAll(@RequestParam(defaultValue = "0", required = false) final Integer page,
                                                       @RequestParam(defaultValue = "10", required = false) final Integer size);
 
-    @PostMapping("{companyId}")
-    ResponseEntity<BlacklistDTO> addCompanyToBlacklist(BlacklistDTO blacklistDTO, @PathVariable("companyId") final Long id);
+    @PostMapping()
+    ResponseEntity<BlacklistDTO> save(BlacklistDTO blacklistDTO);
 
-    @DeleteMapping()
-    ResponseEntity<Void> delete(BlacklistDTO blacklistDTO);
+    @DeleteMapping("{id}")
+    ResponseEntity<Void> delete(BlacklistDeleteDTO blacklistDeleteDTO, @PathVariable("id") final Long id);
 
-    @GetMapping("/history/{companyId}")
+    @GetMapping("/companies/{companyId}/history")
     ResponseEntity<PageWrapper<BlacklistDTO>> findAllByCompanyId(@RequestParam(defaultValue = "0", required = false) final Integer page,
                                                                  @RequestParam(defaultValue = "10", required = false) final Integer size,
                                                                  @PathVariable("companyId") final Long companyId);
+
 }
