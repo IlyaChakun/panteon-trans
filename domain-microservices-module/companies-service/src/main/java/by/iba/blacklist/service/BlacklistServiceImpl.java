@@ -77,7 +77,8 @@ public class BlacklistServiceImpl implements BlacklistService {
                 blacklistRepository.findAll(specification, pageable);
 
 
-        return new PageWrapper<>(blacklistMapperDTO
+        return
+                new PageWrapper<>(blacklistMapperDTO
                 .toDtoList(blacklistPage.toList()),
                 blacklistPage.getTotalPages(),
                 blacklistPage.getTotalElements());
@@ -128,7 +129,8 @@ public class BlacklistServiceImpl implements BlacklistService {
                 blacklistRepository.findAllByCompanyId(companyId, pageable);
 
 
-        return new PageWrapper<>(blacklistMapperDTO
+        return
+                new PageWrapper<>(blacklistMapperDTO
                 .toDtoList(blacklistPage.toList()),
                 blacklistPage.getTotalPages(),
                 blacklistPage.getTotalElements());
