@@ -1,13 +1,18 @@
 package by.iba.cargo.service;
 
 import by.iba.cargo.domain.Cargo;
+import by.iba.cargo.domain.CargoDimensions;
 import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.dto.mapper.CargoMapperDTO;
 import by.iba.cargo.repository.CargoRepository;
 import by.iba.cargo.repository.CargoTypeRepository;
+import by.iba.cargo.specifications.CargoSpecifications;
 import by.iba.common.domain.CargoStowageMethod;
+import by.iba.common.domain.LoadingLocation;
 import by.iba.common.domain.TruckBodyType;
+import by.iba.common.domain.UnloadingLocation;
+import by.iba.common.dto.DimensionsDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
@@ -16,7 +21,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Caching;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +42,7 @@ public class CargoServiceImpl implements CargoService {
     private final CargoTypeRepository cargoTypeRepository;
 
     @Transactional
-    @CachePut(value = "cargo_id", key = "#cargoDTO.getCargoTypeId()")
+    @CachePut(value = "id", key = "#cargoDTO.getId()")
     @Override
     public CargoDTO save(CargoDTO cargoDTO) {
 
@@ -72,11 +80,38 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public CargoDTO update(Long cargoId, CargoDTO cargoDTO) {
-        return null;
+        log.info("Start update cargo with id = {} ", cargoId);
+
+        Cargo cargo = cargoRepository
+                .findById(cargoId)
+                .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found "));
+
+        CargoType cargoType = cargoTypeRepository.findById(cargoDTO.getCargoTypeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cargo type now found"));
+        cargo.setCargoType(cargoType);
+
+        for (Long id : cargoDTO.getTruckBodyTypeIds()) {
+            TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("body type now found"));
+            cargo.getTruckBodyTypes().add(truckBodyType);
+        }
+
+        for (Long id : cargoDTO.getCargoStowageMethodIds()) {
+            CargoStowageMethod cargoStowageMethod = cargoStowageMethodRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Stowage method now found"));
+            cargo.getCargoStowageMethods().add(cargoStowageMethod);
+        }
+        cargoRepository.save(cargo);
+
+        log.info("Finish update cargo with id = {}", cargoMapperDTO
+                .toEntity(cargoDTO)
+                .getId());
+
+        return cargoMapperDTO.toDto(cargo);
     }
 
     @Transactional
-    @CacheEvict(value = "cargo_id", key = "#id")
+    @CacheEvict(value = "id", key = "#cargoId")
     @Override
     public void delete(Long cargoId) {
         log.info("Start deleting cargo with id = {} ", cargoId);
@@ -106,8 +141,23 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public PageWrapper<CargoDTO> findAll(Integer page, Integer size) {
-        return null;
+
+        log.info("There was a request to findAll cargo");
+
+        Specification<Cargo> specification =
+                Specification.where(CargoSpecifications
+                        .notDeleted());
+
+        Pageable pageable =
+                PageRequest.of(page, size);
+
+        Page<Cargo> cargoPage =
+                cargoRepository.findAll(specification, pageable);
+
+        return
+                new PageWrapper<>(cargoMapperDTO
+                        .toDtoList(cargoPage.toList()),
+                        cargoPage.getTotalPages(),
+                        cargoPage.getTotalElements());
     }
-
-
 }

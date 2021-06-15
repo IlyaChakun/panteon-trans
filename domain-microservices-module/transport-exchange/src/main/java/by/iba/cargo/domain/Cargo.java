@@ -39,6 +39,6 @@ public class Cargo extends CommonAttributes {
                     referencedColumnName = "id")})
     private Set<TruckBodyType> truckBodyTypes= new HashSet<>(); //типы кузова
 
-    @Column(name = "deletionDate")
+    @Column(name = "deletion_date")
     private LocalDate deletionDate = null;
 }
