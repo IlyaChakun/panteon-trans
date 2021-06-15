@@ -31,5 +31,4 @@ public interface CargoController {
     @GetMapping
     ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
                                                   @RequestParam(defaultValue = "10", required = false) final Integer size);
-
 }
