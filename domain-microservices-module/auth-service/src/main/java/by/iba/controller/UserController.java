@@ -1,5 +1,6 @@
 package by.iba.controller;
 
+import by.iba.dto.ApiResponse;
 import by.iba.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,5 +20,8 @@ public interface UserController {
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping()
     ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO user);
+
+    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    ResponseEntity<ApiResponse> confirmUserAccount(@RequestParam("token") String confirmationToken);
 
 }

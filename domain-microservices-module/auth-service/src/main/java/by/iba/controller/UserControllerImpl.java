@@ -1,11 +1,14 @@
 package by.iba.controller;
 
 
+import by.iba.dto.ApiResponse;
 import by.iba.dto.UserDTO;
+import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,6 +22,7 @@ import java.security.Principal;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
+    private final UserSecurityMailServiceImpl userSecurityMailService;
 
     @Override
     public Principal getUser(Principal principal) {
@@ -41,5 +45,16 @@ public class UserControllerImpl implements UserController {
                 .created(location)
                 .body(savedUser);
     }
+
+    @Override
+    public ResponseEntity<ApiResponse> confirmUserAccount(String confirmationToken) {
+
+        userService.confirmUserAccount(confirmationToken);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Account confirmed successfully")
+        );
+    }
+
 
 }
