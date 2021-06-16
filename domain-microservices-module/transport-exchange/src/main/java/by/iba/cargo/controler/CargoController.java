@@ -28,7 +28,8 @@ public interface CargoController {
     @GetMapping("/{id}")
     ResponseEntity<CargoDTO> findById(@PathVariable("id") @PositiveLong String cargoId);
 
-    @GetMapping
-    ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
-                                                  @RequestParam(defaultValue = "10", required = false) final Integer size);
+    @GetMapping("/country/{id}")
+    ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                  @RequestParam(defaultValue = "10", required = false) Integer size,
+                                                  @PathVariable("id") Long countryId);
 }

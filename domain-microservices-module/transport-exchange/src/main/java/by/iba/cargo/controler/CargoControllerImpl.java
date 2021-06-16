@@ -3,9 +3,11 @@ package by.iba.cargo.controler;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
+import by.iba.common.domain.LoadingLocation;
 import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +17,15 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@AllArgsConstructor
 @Slf4j
 public class CargoControllerImpl implements CargoController {
 
     private final CargoService cargoService;
+
+    @Autowired
+    public CargoControllerImpl(CargoService cargoService) {
+        this.cargoService = cargoService;
+    }
 
     @Override
     public ResponseEntity<CargoDTO> save(@Valid final CargoDTO cargoDTO,
@@ -53,7 +59,6 @@ public class CargoControllerImpl implements CargoController {
                 .body(updatedCargo);
     }
 
-
     @Override
     public ResponseEntity<Void> delete(final String cargoId) {
         log.info("Received a request to delete the cargo with id = {}", cargoId);
@@ -75,10 +80,10 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size) {
+    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, Long countryId) {
         log.info("Received a request to find all cargo");
 
-        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size);
+        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, countryId);
 
         return ResponseEntity
                 .ok()

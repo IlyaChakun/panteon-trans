@@ -1,7 +1,6 @@
 package by.iba.cargo.service;
 
 import by.iba.cargo.domain.Cargo;
-import by.iba.cargo.domain.CargoDimensions;
 import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.dto.mapper.CargoMapperDTO;
@@ -9,10 +8,7 @@ import by.iba.cargo.repository.CargoRepository;
 import by.iba.cargo.repository.CargoTypeRepository;
 import by.iba.cargo.specifications.CargoSpecifications;
 import by.iba.common.domain.CargoStowageMethod;
-import by.iba.common.domain.LoadingLocation;
 import by.iba.common.domain.TruckBodyType;
-import by.iba.common.domain.UnloadingLocation;
-import by.iba.common.dto.DimensionsDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
@@ -55,18 +51,18 @@ public class CargoServiceImpl implements CargoService {
 
         for (Long id : cargoDTO.getCargoStowageMethodIds()) {
             CargoStowageMethod cargoStowageMethod = cargoStowageMethodRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Stowage method now found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("CargoStowageMethod with id = " + id + " not found"));
             cargo.getCargoStowageMethods().add(cargoStowageMethod);
         }
 
         for (Long id : cargoDTO.getTruckBodyTypeIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("body type now found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + id + " not found"));
             cargo.getTruckBodyTypes().add(truckBodyType);
         }
 
         CargoType cargoType = cargoTypeRepository.findById(cargoDTO.getCargoTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cargo type now found"));
+                .orElseThrow(() -> new ResourceNotFoundException("CargoType with id =" + cargoDTO.getCargoTypeId() + " not found"));
         cargo.setCargoType(cargoType);
 
         cargoRepository.save(cargo);
@@ -78,36 +74,36 @@ public class CargoServiceImpl implements CargoService {
         return cargoMapperDTO.toDto(cargo);
     }
 
+    @Transactional
+    @CachePut(value = "id", key = "#cargoDTO.getId()")
     @Override
     public CargoDTO update(Long cargoId, CargoDTO cargoDTO) {
         log.info("Start update cargo with id = {} ", cargoId);
 
         Cargo cargo = cargoRepository
                 .findById(cargoId)
-                .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found "));
+                .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found"));
 
         CargoType cargoType = cargoTypeRepository.findById(cargoDTO.getCargoTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cargo type now found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Cargo Type with id =" + cargoDTO.getCargoTypeId() + " not found"));
         cargo.setCargoType(cargoType);
 
         for (Long id : cargoDTO.getTruckBodyTypeIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("body type now found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + id + " not found"));
             cargo.getTruckBodyTypes().add(truckBodyType);
         }
 
         for (Long id : cargoDTO.getCargoStowageMethodIds()) {
             CargoStowageMethod cargoStowageMethod = cargoStowageMethodRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Stowage method now found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("CargoStowageMethod with id =" + id + " not found"));
             cargo.getCargoStowageMethods().add(cargoStowageMethod);
         }
-        cargoRepository.save(cargo);
+        Cargo saveCargo = cargoRepository.save(cargo);
 
-        log.info("Finish update cargo with id = {}", cargoMapperDTO
-                .toEntity(cargoDTO)
-                .getId());
+        log.info("Finish update cargo with id = {}", saveCargo);
 
-        return cargoMapperDTO.toDto(cargo);
+        return cargoMapperDTO.toDto(saveCargo);
     }
 
     @Transactional
@@ -139,20 +135,24 @@ public class CargoServiceImpl implements CargoService {
         return cargoMapperDTO.toDto(cargo);
     }
 
+    @Transactional
     @Override
-    public PageWrapper<CargoDTO> findAll(Integer page, Integer size) {
+    public PageWrapper<CargoDTO> findAll(Integer page, Integer size, Long countryId) {
 
-        log.info("There was a request to findAll cargo");
+        log.info("There was a request to findAll cargo with page " + page + "and size" + size + "and countryId" + countryId);
 
         Specification<Cargo> specification =
                 Specification.where(CargoSpecifications
-                        .notDeleted());
+                        .notDeleted())
+                        .and(CargoSpecifications.getAllCargoByCountryId(countryId));
 
         Pageable pageable =
                 PageRequest.of(page, size);
 
         Page<Cargo> cargoPage =
                 cargoRepository.findAll(specification, pageable);
+
+        log.info("Method response posted to findAll cargo with page " + page + "and size " + size + "and countryId " + countryId);
 
         return
                 new PageWrapper<>(cargoMapperDTO

@@ -13,5 +13,5 @@ public interface CargoService {
 
     CargoDTO findById(Long cargoId);
 
-    PageWrapper<CargoDTO> findAll(final Integer page, final Integer size);
+    PageWrapper<CargoDTO> findAll(final Integer page, final Integer size, Long countryId);
 }
