@@ -1,6 +1,7 @@
 package by.iba.cargo.service;
 
 import by.iba.cargo.domain.Cargo;
+import by.iba.cargo.domain.CargoDimensions;
 import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
@@ -39,7 +40,7 @@ public class CargoServiceImpl implements CargoService {
     private final CargoTypeRepository cargoTypeRepository;
 
     @Transactional
-    @CachePut(value = "id", key = "#cargoDTO.getId()")
+    @CachePut(value = "id", key = "#p0")
     @Override
     public CargoDTO save(CargoDTO cargoDTO) {
 
@@ -76,20 +77,17 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Transactional
-    @CachePut(value = "id", key = "#cargoDTO.getId()")
+    @CachePut(value = "id", key = "#p0")
     @Override
     public CargoDTO update(Long cargoId, CargoDTO cargoDTO) {
         log.info("Start update cargo with id = {} ", cargoId);
 
+        Cargo cargoFromDTO = cargoMapperDTO.toEntity(cargoDTO);
         Cargo cargo = cargoRepository
                 .findById(cargoId)
                 .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found"));
 
-        CargoType cargoType = cargoTypeRepository.findById(cargoDTO.getCargoTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cargo Type with id =" + cargoDTO.getCargoTypeId() + " not found"));
-        cargo.setCargoType(cargoType);
-
-        for (Long id : cargoDTO.getTruckBodyTypeIds()) {
+        for (Long id : cargoDTO.getCargoStowageMethodIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + id + " not found"));
             cargo.getTruckBodyTypes().add(truckBodyType);
@@ -100,6 +98,18 @@ public class CargoServiceImpl implements CargoService {
                     .orElseThrow(() -> new ResourceNotFoundException("CargoStowageMethod with id =" + id + " not found"));
             cargo.getCargoStowageMethods().add(cargoStowageMethod);
         }
+
+        CargoType cargoType = cargoTypeRepository.findById(cargoDTO.getCargoTypeId())
+                .orElseThrow(() -> new ResourceNotFoundException("CargoType with id =" + cargoDTO.getCargoTypeId() + " not found"));
+        cargo.setCargoType(cargoType);
+
+        cargo.setCargoStowageMethods(cargoFromDTO.getCargoStowageMethods());
+        cargo.setTruckBodyTypes(cargoFromDTO.getTruckBodyTypes());
+        cargo.setCargoType(cargoFromDTO.getCargoType());
+        cargo.setCargoDimensions(cargoFromDTO.getCargoDimensions());
+        cargo.setDescription(cargoFromDTO.getDescription());
+        cargo.setLoadingLocation(cargoFromDTO.getLoadingLocation());
+        cargo.setUnloadingLocation(cargoFromDTO.getUnloadingLocation());
         Cargo saveCargo = cargoRepository.save(cargo);
 
         log.info("Finish update cargo with id = {}", saveCargo);
