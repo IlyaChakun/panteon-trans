@@ -1,6 +1,7 @@
 package by.iba.cargo.controler;
 
 import by.iba.cargo.dto.CargoDTO;
+import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public interface CargoController {
     @GetMapping("/{id}")
     ResponseEntity<CargoDTO> findById(@PathVariable("id") @PositiveLong String cargoId);
 
-    @GetMapping("/country/{id}")
+    @GetMapping()
     ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
                                                   @RequestParam(defaultValue = "10", required = false) Integer size,
-                                                  @PathVariable("id") Long countryId);
+                                                  @Valid @RequestBody CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
 }

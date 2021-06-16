@@ -1,6 +1,7 @@
 package by.iba.cargo.controler;
 
 import by.iba.cargo.dto.CargoDTO;
+import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.domain.LoadingLocation;
@@ -8,6 +9,8 @@ import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,13 +83,14 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, Long countryId) {
+    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
         log.info("Received a request to find all cargo");
 
-        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, countryId);
+        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);
 
         return ResponseEntity
                 .ok()
                 .body(cargo);
     }
 }
+

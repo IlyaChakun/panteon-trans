@@ -3,6 +3,7 @@ package by.iba.cargo.service;
 import by.iba.cargo.domain.Cargo;
 import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
+import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.dto.mapper.CargoMapperDTO;
 import by.iba.cargo.repository.CargoRepository;
 import by.iba.cargo.repository.CargoTypeRepository;
@@ -137,14 +138,14 @@ public class CargoServiceImpl implements CargoService {
 
     @Transactional
     @Override
-    public PageWrapper<CargoDTO> findAll(Integer page, Integer size, Long countryId) {
+    public PageWrapper<CargoDTO> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
 
-        log.info("There was a request to findAll cargo with page " + page + "and size" + size + "and countryId" + countryId);
+        log.info("There was a request to findAll cargo with page " + page + "and size" + size);
 
         Specification<Cargo> specification =
                 Specification.where(CargoSpecifications
                         .notDeleted())
-                        .and(CargoSpecifications.getAllCargoByCountryId(countryId));
+                        .and(CargoSpecifications.getAllCargoByCountryId(cargoSearchCriteriaDTO.getCountryId()));
 
         Pageable pageable =
                 PageRequest.of(page, size);
@@ -152,7 +153,7 @@ public class CargoServiceImpl implements CargoService {
         Page<Cargo> cargoPage =
                 cargoRepository.findAll(specification, pageable);
 
-        log.info("Method response posted to findAll cargo with page " + page + "and size " + size + "and countryId " + countryId);
+        log.info("Method response posted to findAll cargo with page " + page + "and size " + size);
 
         return
                 new PageWrapper<>(cargoMapperDTO
