@@ -15,6 +15,7 @@
     <modules>
         <module>lib-internationalization</module>
         <module>lib-common-payload</module>
+        <module>lib-email</module>
     </modules>
 
 </project>
