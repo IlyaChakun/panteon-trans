@@ -13,12 +13,4 @@ public class CargoSearchCriteriaDTO {
 
     private Long cityId;
 
-    private CargoSearchCriteriaDTO getSearchCriteria(Long countryId, Long regionId, Long cityId) {
-        CargoSearchCriteriaDTO cargoSearchCriteriaDTO = new CargoSearchCriteriaDTO();
-        cargoSearchCriteriaDTO.setCityId(cityId);
-        cargoSearchCriteriaDTO.setCountryId(countryId);
-        cargoSearchCriteriaDTO.setRegionId(regionId);
-        return cargoSearchCriteriaDTO;
-    }
-
 }
