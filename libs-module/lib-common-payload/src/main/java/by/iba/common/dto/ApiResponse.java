@@ -1,4 +1,4 @@
-package by.iba.dto;
+package by.iba.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
