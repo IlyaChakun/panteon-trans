@@ -1,5 +1,6 @@
 package by.iba.cargo.domain;
 
+import by.iba.common.domain.BaseEntity;
 import by.iba.common.domain.Dimensions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import javax.persistence.Embeddable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CargoDimensions {
+public class CargoDimensions extends BaseEntity {
 
     @Column(name = "weight")
     private Double weight;
