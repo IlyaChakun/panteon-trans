@@ -1,14 +1,13 @@
 package by.iba.controller;
 
 
-import by.iba.dto.ApiResponse;
+import by.iba.common.dto.ApiResponse;
 import by.iba.dto.UserDTO;
 import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,9 +47,9 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<ApiResponse> confirmUserAccount(String confirmationToken) {
-
+        log.info("Confirmation with token = {} started",confirmationToken);
         userService.confirmUserAccount(confirmationToken);
-
+        log.info("Confirmed");
         return ResponseEntity.ok(
                 new ApiResponse(true, "Account confirmed successfully")
         );

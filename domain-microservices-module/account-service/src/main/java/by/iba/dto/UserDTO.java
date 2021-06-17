@@ -27,7 +27,7 @@ public class UserDTO extends AbstractDTO {
     private String password;
 
     @NotBlank(message = "First name required and cannot be spaces")
-    private String fistName;
+    private String firstName;
 
     @NotBlank(message = "Last name required and cannot be spaces")
     private String lastName;

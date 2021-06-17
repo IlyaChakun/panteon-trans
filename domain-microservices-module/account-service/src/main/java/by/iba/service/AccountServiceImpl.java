@@ -29,16 +29,16 @@ public class AccountServiceImpl implements AccountService {
         log.info("in AccountServiceImpl method create");
 
         UserDTO savedUser = saveUser(accountDTO);
+
         //CompanyDTO savedCompany = saveCompany(accountDTO);
 
         log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
         log.info("new account has been created: email={} ", savedUser.getEmail());
-      //  log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
+        //  log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
 
         Account account = new Account();
-        account.setUserId(savedUser.getUserId());
-        account.setCompanyId(savedCompany.getCompanyId());
-
+        account.setUserId(savedUser.getUserId());//account.setCompanyId(savedCompany.getCompanyId());
+        account.setCompanyId(accountDTO.getCompany().getCompanyId());
         Account savedAccount = accountRepository.save(account);
 
         return accountMapper.toDto(savedAccount);
@@ -64,6 +64,10 @@ public class AccountServiceImpl implements AccountService {
 
     private UserDTO saveUser(AccountDTO accountDTO) {
         return authClient.save(accountDTO.getUser()).getBody();
+    }
+
+    public void confirmAccount(String token) {
+        authClient.confirmUserAccount(token);
     }
 
     private CompanyDTO saveCompany(AccountDTO accountDTO) {

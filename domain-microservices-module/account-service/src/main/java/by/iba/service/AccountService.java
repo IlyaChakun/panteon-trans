@@ -8,4 +8,5 @@ public interface AccountService {
 
     AccountDTO findById(Long accountId);
 
+    void confirmAccount(String token);
 }
