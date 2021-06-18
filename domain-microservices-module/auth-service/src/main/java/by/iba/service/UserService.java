@@ -6,4 +6,6 @@ public interface UserService {
 
     UserDTO save(UserDTO userDTO);
 
+    void confirmUserAccount(final String confirmationToken);
+
 }

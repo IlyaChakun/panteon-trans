@@ -21,7 +21,7 @@ public class UserDTO extends AbstractDTO {
 
     private String password;
 
-    private String fistName;
+    private String firstName;
 
     private String lastName;
 

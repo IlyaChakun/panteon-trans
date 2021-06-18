@@ -1,7 +1,9 @@
 package by.iba.controller;
 
 
+import by.iba.common.dto.ApiResponse;
 import by.iba.dto.UserDTO;
+import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import java.security.Principal;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
+    private final UserSecurityMailServiceImpl userSecurityMailService;
 
     @Override
     public Principal getUser(Principal principal) {
@@ -41,5 +44,16 @@ public class UserControllerImpl implements UserController {
                 .created(location)
                 .body(savedUser);
     }
+
+    @Override
+    public ResponseEntity<ApiResponse> confirmUserAccount(String confirmationToken) {
+        log.info("Confirmation with token = {} started",confirmationToken);
+        userService.confirmUserAccount(confirmationToken);
+        log.info("Confirmed");
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Account confirmed successfully")
+        );
+    }
+
 
 }

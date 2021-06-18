@@ -1,5 +1,6 @@
 package by.iba.controller;
 
+import by.iba.common.dto.ApiResponse;
 import by.iba.dto.AccountDTO;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Locale;
 
 
 @RestController
@@ -46,5 +46,13 @@ public class AccountControllerImpl implements AccountController {
         return ResponseEntity
                 .ok()
                 .body(savedAccount);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> confirmAccount(String token) {
+        accountService.confirmAccount(token);
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Account confirmed successfully")
+        );
     }
 }

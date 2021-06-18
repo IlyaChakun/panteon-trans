@@ -1,6 +1,8 @@
 package by.iba.controller;
 
+import by.iba.common.dto.ApiResponse;
 import by.iba.dto.UserDTO;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,5 +21,9 @@ public interface UserController {
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping()
     ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO user);
+
+    @PreAuthorize("#oauth2.hasScope('server')")
+    @PostMapping(value = "/confirm-account/{token}")
+    ResponseEntity<ApiResponse> confirmUserAccount(@PathVariable("token") String confirmationToken);
 
 }

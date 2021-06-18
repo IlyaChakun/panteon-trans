@@ -32,10 +32,13 @@ public class User extends AbstractEntity {
     private String password;
 
     @Column(name = "first_name")
-    private String fistName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "is_email_confirmed")
+    private boolean isEmailConfirmed;
 
     @ManyToMany(
             fetch = FetchType.EAGER,

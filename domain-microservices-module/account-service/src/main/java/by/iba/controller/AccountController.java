@@ -1,5 +1,6 @@
 package by.iba.controller;
 
+import by.iba.common.dto.ApiResponse;
 import by.iba.dto.AccountDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,12 @@ import java.util.Locale;
 public interface AccountController {
 
     @PostMapping
-     ResponseEntity<AccountDTO> save(@Valid @RequestBody AccountDTO accountDTO);
+    ResponseEntity<AccountDTO> save(@Valid @RequestBody AccountDTO accountDTO);
 
     @GetMapping("/{id}")
     ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId);
+
+    @GetMapping("/confirm/{token}")
+    ResponseEntity<ApiResponse> confirmAccount(@PathVariable("token")String token);
 
 }
