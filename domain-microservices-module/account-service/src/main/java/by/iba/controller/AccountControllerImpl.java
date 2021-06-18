@@ -23,7 +23,7 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<AccountDTO> save(@Valid AccountDTO accountDTO) {
-        log.info("in create new acc ");
+        log.info("Received a request to save new account with id = {} ", accountDTO.getAccountId());
         AccountDTO savedAccount = accountService.save(accountDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -39,7 +39,7 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<AccountDTO> findById(String accountId) {
-        log.info("in findById ");
+        log.info("Received a request to find account by id = {} ", accountId);
 
         AccountDTO savedAccount = accountService.findById(Long.valueOf(accountId));
 
@@ -50,6 +50,8 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<ApiResponse> confirmAccount(String token) {
+        log.info("Received a request to confirm account using token: {}", token);
+
         accountService.confirmAccount(token);
         return ResponseEntity.ok(
                 new ApiResponse(true, "Account confirmed successfully")

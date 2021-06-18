@@ -30,7 +30,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<UserDTO> save(@Valid UserDTO user) {
-        log.info("in create user ");
+        log.info("Received a request to save user with id = {}", user.getUserId());
 
         UserDTO savedUser = userService.save(user);
 
@@ -47,9 +47,10 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<ApiResponse> confirmUserAccount(String confirmationToken) {
-        log.info("Confirmation with token = {} started",confirmationToken);
+        log.info("Received a request to confirm user account with token = {}", confirmationToken);
+
         userService.confirmUserAccount(confirmationToken);
-        log.info("Confirmed");
+
         return ResponseEntity.ok(
                 new ApiResponse(true, "Account confirmed successfully")
         );
