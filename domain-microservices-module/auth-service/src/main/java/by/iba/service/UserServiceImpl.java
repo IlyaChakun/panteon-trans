@@ -33,8 +33,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        log.info("in User service create user method");
-        log.info("email={},password={},firstName={},lastName={}", userDTO.getEmail(), userDTO.getPassword(), userDTO.getFirstName(), userDTO.getLastName());
+        log.info("Saving user, email = {} , password = {} , firstName = {} , lastName = {} ",
+                userDTO.getEmail(),
+                userDTO.getPassword(),
+                userDTO.getFirstName(),
+                userDTO.getLastName());
 
         validateEmailAvailabilityOrThrowException(userDTO.getEmail());
 
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
 
-        log.info("new user has been created: {}", user.getEmail());
+        log.info("new user with email = {} has been created", user.getEmail());
 
         createAndSendConfirmationToken(savedUser);
 
@@ -64,6 +67,7 @@ public class UserServiceImpl implements UserService {
         userSecurityMailService.sendConfirmationEmail(user.getEmail(), confirmationToken.getConfirmationToken());
         //
     }
+
     @Override
     @Transactional
     public void confirmUserAccount(String confirmationToken) {
@@ -81,6 +85,7 @@ public class UserServiceImpl implements UserService {
 
     private void validateEmailAvailabilityOrThrowException(final String email) {
         if (userRepository.existsByEmail(email)) {
+            log.error("Duplicate email");
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.user.duplicate_email_error");
         }
     }

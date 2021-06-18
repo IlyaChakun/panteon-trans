@@ -28,7 +28,7 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
 
     @Override
     public void sendConfirmationEmail(String recipient, String confirmationToken) {
-        log.info("Sending message started");
+        log.info("Sending message to {} to confirm email", recipient);
 
         final MimeMessage message = getConfirmAccountMessage(recipient, confirmationToken);
 

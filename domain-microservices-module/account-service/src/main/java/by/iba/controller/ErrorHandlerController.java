@@ -18,11 +18,9 @@ public class ErrorHandlerController {
     @ExceptionHandler({FeignException.class})
     public ResponseEntity<ErrorMessage> handleFeignStatusException(FeignException ex) throws JsonProcessingException {
 
-        log.info("handleFeignStatusException works ");
-
         final ErrorMessage errorMessage = new ObjectMapper().readValue(ex.contentUTF8(), ErrorMessage.class);
 
-        log.info("errorMessage={}", errorMessage.toString());
+        log.error(errorMessage.toString());
 
         return
                 new ResponseEntity<>(

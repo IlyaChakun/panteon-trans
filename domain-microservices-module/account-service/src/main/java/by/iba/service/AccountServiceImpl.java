@@ -26,14 +26,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO save(AccountDTO accountDTO) {
-        log.info("in AccountServiceImpl method create");
+        log.info("Creating account with id = {}", accountDTO.getAccountId());
 
         UserDTO savedUser = saveUser(accountDTO);
 
         //CompanyDTO savedCompany = saveCompany(accountDTO);
 
-        log.info("saved user id={}, email={}", savedUser.getUserId(), savedUser.getEmail());
-        log.info("new account has been created: email={} ", savedUser.getEmail());
+        log.info("Saved user id = {}, email = {}", savedUser.getUserId(), savedUser.getEmail());
+        log.info("New account has been created: email = {} ", savedUser.getEmail());
         //  log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
 
         Account account = new Account();
@@ -46,8 +46,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO findById(Long accountId) {
-        log.info("in AccountServiceImpl method findById");
-        log.info("accountId={}", accountId);
+        log.info("Finding account with id = {}", accountId);
 
         Account account = accountRepository.findByAccountId(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.account.not_found_exception"));
