@@ -1,6 +1,8 @@
 package by.iba.cargo.controler;
 
 import by.iba.cargo.dto.CargoDTO;
+import by.iba.cargo.dto.CargoReqDTO;
+import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
@@ -22,14 +24,14 @@ public class CargoControllerImpl implements CargoController {
     private final CargoService cargoService;
 
     @Override
-    public ResponseEntity<CargoDTO> save(@Valid final CargoDTO cargoDTO,
+    public ResponseEntity<CargoDTO> save(@Valid final CargoReqDTO cargoReqDTO,
                                          final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
 
-        final CargoDTO savedCargo = cargoService.save(cargoDTO);
+        final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -43,10 +45,10 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<CargoDTO> update(String cargoId, @Valid CargoDTO cargoDTO, BindingResult bindingResult) {
+    public ResponseEntity<CargoDTO> update(String cargoId, @Valid CargoReqDTO cargoReqDTO, BindingResult bindingResult) {
         log.info("Received a request to update the cargo with id = {}", cargoId);
 
-        final CargoDTO updatedCargo = cargoService.update(Long.valueOf(cargoId), cargoDTO);
+        final CargoDTO updatedCargo = cargoService.update(Long.valueOf(cargoId), cargoReqDTO);
 
         return ResponseEntity
                 .ok()
@@ -75,10 +77,10 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size) {
+    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO ) {
         log.info("Received a request to find all cargo");
 
-        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size);
+        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);
 
         return ResponseEntity
                 .ok()

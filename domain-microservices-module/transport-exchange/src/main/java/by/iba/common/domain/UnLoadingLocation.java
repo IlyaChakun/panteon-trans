@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnloadingLocation extends BaseAbstractEntity {
+public class UnLoadingLocation extends BaseAbstractEntity {
 
     @Column(name = "country_id")
     private Long countryId;

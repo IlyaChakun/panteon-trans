@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnloadingLocationDTO extends BaseAbstractDTO {
+public class UnLoadingLocationDTO extends BaseAbstractDTO {
 
     private Long countryId;
 

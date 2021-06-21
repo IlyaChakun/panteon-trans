@@ -1,6 +1,8 @@
 package by.iba.cargo.controler;
 
 import by.iba.cargo.dto.CargoDTO;
+import by.iba.cargo.dto.CargoReqDTO;
+import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,12 @@ import javax.validation.Valid;
 public interface CargoController {
 
     @PostMapping
-    ResponseEntity<CargoDTO> save(@Valid @RequestBody CargoDTO cargoDTO,
+    ResponseEntity<CargoDTO> save(@Valid @RequestBody CargoReqDTO cargoReqDTO,
                                   final BindingResult bindingResult);
 
     @PutMapping("/{id}")
     ResponseEntity<CargoDTO> update(@PathVariable("id") @PositiveLong String cargoId,
-                                    @RequestBody @Valid CargoDTO cargoDTO,
+                                    @RequestBody @Valid CargoReqDTO cargoReqDTO,
                                     BindingResult bindingResult);
 
     @DeleteMapping("/{id}")
@@ -28,8 +30,8 @@ public interface CargoController {
     @GetMapping("/{id}")
     ResponseEntity<CargoDTO> findById(@PathVariable("id") @PositiveLong String cargoId);
 
-    @GetMapping
-    ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "1", required = false) final Integer page,
-                                                  @RequestParam(defaultValue = "10", required = false) final Integer size);
-
+    @GetMapping()
+    ResponseEntity<PageWrapper<CargoDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                  @RequestParam(defaultValue = "10", required = false) Integer size,
+                                                  @Valid @RequestBody CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
 }
