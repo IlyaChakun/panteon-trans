@@ -41,4 +41,7 @@ public class Cargo extends CommonAttributes {
 
     @Column(name = "deletion_date")
     private LocalDate deletionDate = null;
+
+
+
 }

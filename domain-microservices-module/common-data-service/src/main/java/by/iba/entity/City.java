@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "cities")
@@ -22,4 +20,6 @@ public class City extends BaseAbstractEntity {
     @Column(name = "city_name", nullable = false, length = 48)
     private String cityName;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CityIndex cityIndex;
 }

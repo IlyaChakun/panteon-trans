@@ -5,6 +5,7 @@ import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.dto.CityDTO;
 import by.iba.dto.mapper.CityMapperDTO;
 import by.iba.entity.City;
+import by.iba.repository.CityIndexRepository;
 import by.iba.repository.CityRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
     private final CityMapperDTO cityMapper;
+    private final CityIndexRepository cityIndexRepository;
 
     @Override
     @Cacheable("cities")

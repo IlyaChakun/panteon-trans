@@ -1,6 +1,5 @@
 package by.iba.entity;
 
-
 import by.iba.common.domain.BaseAbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,13 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "countries")
+@Table(name = "city_index")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country extends BaseAbstractEntity {
+public class CityIndex extends BaseAbstractEntity {
 
-    @Column(name = "country_name", nullable = false, length = 48)
-    private String countryName;
+    @Column(name = "city_index")
+    private String cityIndex;
 }
