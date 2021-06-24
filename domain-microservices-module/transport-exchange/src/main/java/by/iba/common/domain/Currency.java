@@ -1,4 +1,4 @@
-package by.iba.cargo.domain;
+package by.iba.common.domain;
 
 /**
  *  Мб по всему проекту пригодиться TODO

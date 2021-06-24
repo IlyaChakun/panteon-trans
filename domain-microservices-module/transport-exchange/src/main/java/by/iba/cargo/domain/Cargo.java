@@ -26,8 +26,6 @@ public class Cargo extends CommonAttributes {
 
     private CargoDimensions cargoDimensions;
 
-    //private CargoPayment cargoPayment;
-
     @ManyToMany
     @JoinTable(name = "cargo_truck_body_types",
             joinColumns =
@@ -37,11 +35,9 @@ public class Cargo extends CommonAttributes {
                                     referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "truck_body_type_id",
                     referencedColumnName = "id")})
-    private Set<TruckBodyType> truckBodyTypes= new HashSet<>(); //типы кузова
+    private Set<TruckBodyType> truckBodyTypes = new HashSet<>(); //типы кузова
 
     @Column(name = "deletion_date")
     private LocalDate deletionDate = null;
-
-
 
 }

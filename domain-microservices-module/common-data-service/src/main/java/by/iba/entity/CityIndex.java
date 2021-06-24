@@ -1,22 +1,16 @@
 package by.iba.entity;
 
-import by.iba.common.domain.BaseAbstractEntity;
-import lombok.AllArgsConstructor;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-@Entity
-@Table(name = "city_index")
+@Embeddable
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class CityIndex extends BaseAbstractEntity {
+public class CityIndex extends BaseEntity {
 
     @Column(name = "city_index")
     private String cityIndex;

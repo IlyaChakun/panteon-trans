@@ -1,8 +1,7 @@
-package by.iba.cargo.dto.mapper;
+package by.iba.common.dto.mapper;
 
 import by.iba.common.domain.TruckBodyType;
 import by.iba.common.dto.TruckBodyTypeDTO;
-import by.iba.common.dto.mapper.AbstractMapperDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

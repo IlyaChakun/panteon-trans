@@ -5,13 +5,18 @@ import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.dto.CargoReqDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
-import by.iba.cargo.dto.mapper.*;
+import by.iba.cargo.dto.mapper.CargoDimensionsMapperDTO;
+import by.iba.cargo.dto.mapper.CargoMapperDTO;
+import by.iba.cargo.dto.mapper.CargoTypeMapperDTO;
 import by.iba.cargo.repository.CargoRepository;
 import by.iba.cargo.repository.CargoTypeRepository;
 import by.iba.cargo.specifications.CargoSpecifications;
 import by.iba.common.domain.CargoStowageMethod;
 import by.iba.common.domain.TruckBodyType;
 import by.iba.common.dto.PageWrapper;
+import by.iba.common.dto.mapper.LoadingLocationMapperDTO;
+import by.iba.common.dto.mapper.PaymentMapperDTO;
+import by.iba.common.dto.mapper.UnLoadingLocationMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
 import by.iba.common.repository.TruckBodyTypeRepository;
@@ -42,6 +47,7 @@ public class CargoServiceImpl implements CargoService {
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
+    private final PaymentMapperDTO paymentMapperDTO;
 
     @Transactional
     @CachePut(value = "id", key = "#p0")
@@ -133,7 +139,11 @@ public class CargoServiceImpl implements CargoService {
     @Transactional
     public Cargo updateCargo(CargoReqDTO cargoReqDTO, Cargo cargo) {
 
+        cargo.setLoadingDate(cargoReqDTO.getLoadingDate());
+        cargo.setUnloadingDate(cargoReqDTO.getUnloadingDate());
+        cargo.setTemperatureMode(cargoReqDTO.getTemperatureMode());
         cargo.setDescription(cargoReqDTO.getDescription());
+        cargo.setPayment(paymentMapperDTO.toEntity(cargoReqDTO.getPayment()));
         cargo.setCargoDimensions(cargoDimensionsMapperDTO.toEntity(cargoReqDTO.getCargoDimensions()));
         cargo.setLoadingLocation(loadingLocationMapperDTO.toEntity(cargoReqDTO.getLoadingLocation()));
         cargo.setUnloadingLocation(unLoadingLocationMapperDTO.toEntity(cargoReqDTO.getUnloadingLocation()));
