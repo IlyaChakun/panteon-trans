@@ -1,5 +1,6 @@
 package by.iba.security.config;
 
+import by.iba.security.AESEncoder;
 import by.iba.security.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,7 +65,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         oauthServer
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());//TODO
+                .passwordEncoder(AESEncoder.builder().build());//TODO
     }
 
 }
