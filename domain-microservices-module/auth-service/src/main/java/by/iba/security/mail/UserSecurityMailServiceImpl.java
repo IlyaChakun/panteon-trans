@@ -48,10 +48,20 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
     }
 
     @Override
-    public void sendSuccessMessage(String recipient) {
-        log.info("SendingSuccessMessage started");
+    public void sendSuccessPasswordUpdateMessage(String recipient) {
+        log.info("Sending success password update message started");
 
-        final SimpleMailMessage message = getSuccessEmail(recipient);
+        final SimpleMailMessage message = getSuccessEmail(recipient,"Password was successfully updated ");
+
+        sendSimpleMailMessage(message);
+
+    }
+
+    @Override
+    public void sendSuccessRegistrationMessage(String recipient) {
+        log.info("Sending success registration message started");
+
+        final SimpleMailMessage message = getSuccessEmail(recipient,"Registration finished!");
 
         sendSimpleMailMessage(message);
 
@@ -86,7 +96,7 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
                 baseEmailProperties.getEmailSender());
         String html = "\n<a href=http://localhost:6000/accounts/confirm/" + confirmationToken + ">click here</a>";
 
-        return getMimeMessage(recipient, "Finish registration", html);
+        return getMimeMessage(recipient, "Confirm your email and activate Account", html);
     }
 
     private MimeMessage getPasswordRecoveryMessage(final String recipient,
@@ -97,7 +107,7 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
                 confirmationToken,
                 baseEmailProperties.getEmailSender());
 
-        String html = "\n<a href=http://localhost:6000/accounts/password/recover/" + confirmationToken + ">recover password</a>";
+        String html = "\n<a href=http://localhost:6000/accounts/password-recovery/" + confirmationToken + ">recover password</a>";
 
         return getMimeMessage(recipient, "Password recovery", html);
     }
@@ -138,7 +148,7 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
         }
     }
 
-    private SimpleMailMessage getSuccessEmail(final String recipient) {
+    private SimpleMailMessage getSuccessEmail(final String recipient,String text) {
 
         log.info("Sending to: {}", recipient);
 
@@ -149,7 +159,7 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
         message.setSubject(subject);
         message.setTo(recipient);
         message.setFrom(baseEmailProperties.getEmailSender());
-        message.setText("Password was successfully updated ");
+        message.setText(text);
         return message;
     }
 

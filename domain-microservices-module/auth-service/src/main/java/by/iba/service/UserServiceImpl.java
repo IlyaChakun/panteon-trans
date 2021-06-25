@@ -3,10 +3,13 @@ package by.iba.service;
 import by.iba.common.exception.ServiceException;
 import by.iba.domain.ConfirmationToken;
 import by.iba.domain.User;
+import by.iba.dto.PasswordDTO;
 import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.UserMapperDTO;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
+import by.iba.security.PBKDF2HashEncoder;
+import by.iba.security.PasswordHashEncoder;
 import by.iba.security.mail.UserSecurityMailService;
 import by.iba.security.mail.exception.ConfirmationTokenBrokenLinkException;
 import lombok.AllArgsConstructor;
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapperDTO userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final UserSecurityMailService userSecurityMailService;
+    private final PasswordHashEncoder hashEncoder;
 
     @Override
     public UserDTO save(UserDTO userDTO) {
@@ -51,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
         createAndSendConfirmationToken(savedUser);
 
-        log.info("Confirmation token send");
+        doSendSuccessRegistrationMessage(savedUser);
 
         return userMapper.toDto(savedUser);
     }
@@ -60,6 +64,11 @@ public class UserServiceImpl implements UserService {
         ConfirmationToken confirmationToken = new ConfirmationToken(savedUser.getUserId());
         confirmationTokenRepository.save(confirmationToken);
         doSendConfirmationMail(savedUser, confirmationToken);
+    }
+
+    private void doSendSuccessRegistrationMessage(User user) {
+        userSecurityMailService.sendSuccessRegistrationMessage(user.getEmail());
+
     }
 
     private void doSendConfirmationMail(User user, ConfirmationToken confirmationToken) {
@@ -94,4 +103,5 @@ public class UserServiceImpl implements UserService {
         final String hash = encoder.encode(user.getPassword());
         user.setPassword(hash);
     }
+
 }
