@@ -5,6 +5,7 @@ import by.iba.cargo.dto.CargoReqDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public interface CargoController {
 
     @PostMapping
     ResponseEntity<CargoDTO> save(@Valid @RequestBody CargoReqDTO cargoReqDTO,
-                                  final BindingResult bindingResult);
+                                  final BindingResult bindingResult, Authentication authentication);
 
     @PutMapping("/{id}")
     ResponseEntity<CargoDTO> update(@PathVariable("id") @PositiveLong String cargoId,

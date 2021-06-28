@@ -6,9 +6,12 @@ import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
+import by.iba.domain.User;
+import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,22 +19,24 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+
 @RestController
 @AllArgsConstructor
 @Slf4j
 public class CargoControllerImpl implements CargoController {
 
     private final CargoService cargoService;
+    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<CargoDTO> save(@Valid final CargoReqDTO cargoReqDTO,
-                                         final BindingResult bindingResult) {
+                                         final BindingResult bindingResult, Authentication authentication) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
-
-        final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
+        User user = userRepository.findUserByUserName(authentication.getName());
+        final CargoDTO savedCargo = cargoService.save(cargoReqDTO, user);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -77,7 +82,7 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO ) {
+    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
         log.info("Received a request to find all cargo");
 
         final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);
