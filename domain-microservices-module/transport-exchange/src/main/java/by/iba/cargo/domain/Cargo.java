@@ -26,6 +26,9 @@ public class Cargo extends CommonAttributes {
 
     private CargoDimensions cargoDimensions;
 
+    @Column(name = "user_Id")
+    private Long userId;
+
     @ManyToMany
     @JoinTable(name = "cargo_truck_body_types",
             joinColumns =

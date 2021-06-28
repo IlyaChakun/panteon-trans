@@ -6,12 +6,9 @@ import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
-import by.iba.domain.User;
-import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,17 +23,15 @@ import java.net.URI;
 public class CargoControllerImpl implements CargoController {
 
     private final CargoService cargoService;
-    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<CargoDTO> save(@Valid final CargoReqDTO cargoReqDTO,
-                                         final BindingResult bindingResult, Authentication authentication) {
+                                         final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
-        User user = userRepository.findUserByUserName(authentication.getName());
-        final CargoDTO savedCargo = cargoService.save(cargoReqDTO, user);
+         final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -59,7 +54,6 @@ public class CargoControllerImpl implements CargoController {
                 .ok()
                 .body(updatedCargo);
     }
-
 
     @Override
     public ResponseEntity<Void> delete(final String cargoId) {

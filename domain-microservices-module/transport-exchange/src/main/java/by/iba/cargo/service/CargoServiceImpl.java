@@ -20,9 +20,8 @@ import by.iba.common.dto.mapper.UnLoadingLocationMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
 import by.iba.common.repository.TruckBodyTypeRepository;
-import by.iba.domain.ConfirmationToken;
-import by.iba.domain.User;
 import by.iba.repository.ConfirmationTokenRepository;
+import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -51,23 +50,20 @@ public class CargoServiceImpl implements CargoService {
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
     private final PaymentMapperDTO paymentMapperDTO;
-    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final UserRepository userRepository;
 
 
     @Transactional
     @CachePut(value = "id", key = "#p0")
     @Override
-    public CargoDTO save(CargoReqDTO cargoReqDTO, User user) {
+    public CargoDTO save(CargoReqDTO cargoReqDTO) {
 
         log.info("Start saving the cargo");
-
-        String token = String.valueOf(confirmationTokenRepository.findByUserId(user.getUserId()));
-        String email = user.getEmail();
+        String email = userRepository.findByUserId(cargoReqDTO.getId()).getEmail();
         Cargo cargo = new Cargo();
         Cargo savedCargo = cargoRepository.save(updateCargo(cargoReqDTO, cargo));
-        cargoMailService.sendEmailAboutCargoSave(email, token);
+        cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargo.getId());
-
         return cargoMapperDTO.toDto(savedCargo);
     }
 

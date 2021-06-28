@@ -2,6 +2,3 @@
 /.idea/
 *.iml
 *.xml
-*.class
-
-domain-microservices-module/transport-exchange/src/main/resources

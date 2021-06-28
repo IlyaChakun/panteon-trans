@@ -8,7 +8,7 @@ import by.iba.domain.User;
 
 public interface CargoService {
 
-    CargoDTO save(CargoReqDTO cargoReqDTO, User user);
+    CargoDTO save(CargoReqDTO cargoReqDTO);
 
     CargoDTO update(Long cargoId, CargoReqDTO cargoReqDTO);
 

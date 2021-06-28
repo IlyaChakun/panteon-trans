@@ -21,4 +21,6 @@ public class CargoReqDTO extends CommonAttributesDTO {
 
     private Set<Long> truckBodyTypeIds = new HashSet<>(); //типы кузова
 
+    private Long userId;
+
 }

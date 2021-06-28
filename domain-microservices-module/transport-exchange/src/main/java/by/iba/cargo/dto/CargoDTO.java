@@ -25,5 +25,7 @@ public class CargoDTO extends CommonAttributesDTO {
 
     private LocalDate deletionDate = null;
 
+    private Long userId;
+
 }
 
