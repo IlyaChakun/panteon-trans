@@ -2,6 +2,7 @@ package by.iba.controller;
 
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.dto.PasswordDTO;
 import by.iba.dto.UserDTO;
 import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
@@ -14,6 +15,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -56,5 +62,24 @@ public class UserControllerImpl implements UserController {
         );
     }
 
+    @Override
+    public ResponseEntity<ApiResponse> recoverPassword(String userEmail) {
+        userService.sendRecoverMessage(userEmail);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Recover message sent successfully")
+        );
+    }
+
+    @Override
+    public ResponseEntity<PasswordDTO> recoverPasswordConfirmation(String token, PasswordDTO passwordDTO) {
+        log.info("Recovery with token = {} started", token);
+
+        userService.passwordUpdate(token, passwordDTO);
+
+        return ResponseEntity
+                .ok()
+                .body(passwordDTO);
+    }
 
 }

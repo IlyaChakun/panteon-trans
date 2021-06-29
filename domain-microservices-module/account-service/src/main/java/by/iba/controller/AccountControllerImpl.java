@@ -2,6 +2,8 @@ package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
 import by.iba.dto.AccountDTO;
+import by.iba.dto.PasswordReqDTO;
+import by.iba.dto.UserDTO;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,5 +58,35 @@ public class AccountControllerImpl implements AccountController {
         return ResponseEntity.ok(
                 new ApiResponse(true, "Account confirmed successfully")
         );
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> sendRecoverPasswordEmail(String userEmail) {
+        log.info("Received a request to recover password");
+
+        accountService.recoverPassword(userEmail);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "message for recover sent")
+        );
+
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> recoverPasswordConfirmation(String token, PasswordReqDTO passwordReqDTO) {
+
+        accountService.updatePassword(token, passwordReqDTO);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "password updated")
+        );
+    }
+
+    @Override
+    public ResponseEntity<PasswordReqDTO> updatePassword(PasswordReqDTO passwordReqDTO) {
+        log.info("Received a request to update password ");
+
+
+        return null;
     }
 }

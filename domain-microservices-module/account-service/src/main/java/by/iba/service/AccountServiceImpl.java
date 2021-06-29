@@ -6,12 +6,16 @@ import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
 import by.iba.dto.AccountDTO;
 import by.iba.dto.CompanyDTO;
+import by.iba.dto.PasswordReqDTO;
 import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.AccountMapperDTO;
 import by.iba.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -66,7 +70,30 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public void confirmAccount(String token) {
-        authClient.confirmUserAccount(token);
+        log.error("this method is not implemented");
+        throw new NotYetImplementedException("Not implemented");
+        // authClient.confirmUserAccount(token);
+    }
+
+    @Override
+    public void recoverPassword(String userEmail) {
+        log.info("Password recovery started");
+        sendRecoverPasswordMessage(userEmail);
+        //update pass
+        //send message suc.
+        //1. old!=new
+        //2. new==conf
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(String token, PasswordReqDTO passwordReqDTO) {
+        authClient.recoverPasswordConfirmation(token, passwordReqDTO);
+    }
+
+
+    public void sendRecoverPasswordMessage(String userEmail) {
+        authClient.recoverPassword(userEmail);
     }
 
     private CompanyDTO saveCompany(AccountDTO accountDTO) {
