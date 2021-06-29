@@ -14,6 +14,8 @@ public interface AccountService {
 
     void recoverPassword( String userEmail);
 
-    void updatePassword(String token,PasswordReqDTO passwordReqDTO);
+    void updatePasswordFromRecovery(String token, PasswordReqDTO passwordReqDTO);
+
+    void updatePassword(Long userId, PasswordReqDTO passwordReqDTO);
 
 }

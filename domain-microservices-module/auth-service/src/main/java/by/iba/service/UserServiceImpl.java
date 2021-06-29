@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO passwordUpdate(String confirmationToken, PasswordDTO passwordDTO) {
+    public UserDTO recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO) {
 
         Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
                 findByConfirmationToken(confirmationToken);
@@ -121,6 +121,33 @@ public class UserServiceImpl implements UserService {
         createAndSendPasswordRecoveryToken(email);
     }
 
+    @Override
+    @Transactional
+    public UserDTO updatePassword(Long userId, PasswordDTO passwordDTO) {
+
+        User user = userRepository.getUserByUserId(userId);
+
+        if (checkPassword(passwordDTO.getOldPassword(), user)) {
+
+            user.setPassword(passwordDTO.getNewPassword());
+
+            encodeUserPassword(user);
+
+            User savedUser = userRepository.save(user);
+
+            return userMapper.toDto(savedUser);
+
+        } else
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "exception.user.wrong_password");
+
+
+    }
+
+    private boolean checkPassword(String oldPassword, User user) {
+        return hashEncoder.matches(oldPassword, user.getPassword());
+    }
+
+
     private String getHashedPassword(PasswordDTO passwordDTO) {
         return hashEncoder
                 .encode(passwordDTO.getNewPassword());
@@ -134,7 +161,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void encodeUserPassword(final User user) {
-        final String hash = encoder.encode(user.getPassword());
+        final String hash = hashEncoder.encode(user.getPassword());
         user.setPassword(hash);
     }
 

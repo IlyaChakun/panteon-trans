@@ -28,11 +28,16 @@ public interface UserController {
 
     @PreAuthorize("#oauth2.hasScope('server')")
     @GetMapping("/password/recover/{email}")
-    ResponseEntity<ApiResponse> recoverPassword(@PathVariable("email")String userEmail);
+    ResponseEntity<ApiResponse> recoverPassword(@PathVariable("email") String userEmail);
 
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping(value = "/password/recover/{token}")
     ResponseEntity<PasswordDTO> recoverPasswordConfirmation(@PathVariable("token") String token,
                                                             @RequestBody @Valid PasswordDTO passwordDTO);
+
+    @PreAuthorize("#oauth2.hasScope('server')")
+    @PutMapping(value = "/password/update/{userId}")
+    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordDTO passwordDTO,
+                                               @PathVariable Long userId);
 
 }

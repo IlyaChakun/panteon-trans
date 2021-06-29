@@ -29,8 +29,8 @@ public interface AccountController {
     ResponseEntity<ApiResponse> recoverPasswordConfirmation(@PathVariable("token") String token,
                                                             @RequestBody @Valid PasswordReqDTO passwordReqDTO);
 
-    @GetMapping("/password-recover")
-    ResponseEntity<PasswordReqDTO> updatePassword(@RequestBody PasswordReqDTO passwordReqDTO);
-
+    @PutMapping("/password/update/{userId}")
+    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReqDTO passwordReqDTO,
+                                                  @PathVariable Long userId);
 
 }

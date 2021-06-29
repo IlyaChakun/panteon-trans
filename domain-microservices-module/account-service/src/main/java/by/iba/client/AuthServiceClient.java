@@ -24,8 +24,10 @@ public interface AuthServiceClient {
 
     @PostMapping(value = "/users/password/recover/{token}")
     ResponseEntity<PasswordReqDTO> recoverPasswordConfirmation(@PathVariable("token") String token,
-                                                            @RequestBody @Valid PasswordReqDTO passwordReqDTO);
+                                                               @RequestBody @Valid PasswordReqDTO passwordReqDTO);
 
-
+    @PutMapping(value = "/users/password/update/{userId}")
+    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReqDTO passwordReqDTO,
+                                                  @PathVariable Long userId);
 
 }

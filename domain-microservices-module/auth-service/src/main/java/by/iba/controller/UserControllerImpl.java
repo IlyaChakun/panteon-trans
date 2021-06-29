@@ -15,11 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -75,11 +70,22 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<PasswordDTO> recoverPasswordConfirmation(String token, PasswordDTO passwordDTO) {
         log.info("Recovery with token = {} started", token);
 
-        userService.passwordUpdate(token, passwordDTO);
+        userService.recoverPasswordWithToken(token, passwordDTO);
 
         return ResponseEntity
                 .ok()
                 .body(passwordDTO);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> updatePassword(PasswordDTO passwordDTO, Long userId) {
+        log.info("Received a request to update password for user with id = {}", userId);
+
+        userService.updatePassword(userId,passwordDTO);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Recover message updated successfully")
+        );
     }
 
 }

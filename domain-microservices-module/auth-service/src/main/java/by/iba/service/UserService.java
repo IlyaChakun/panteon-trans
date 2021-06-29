@@ -9,7 +9,9 @@ public interface UserService {
 
     void confirmUserAccount(final String confirmationToken);
 
-    UserDTO passwordUpdate(String confirmationToken, PasswordDTO passwordDTO);
+    UserDTO recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO);
 
     void sendRecoverMessage(String email);
+
+    UserDTO updatePassword(Long userId, PasswordDTO passwordDTO);
 }

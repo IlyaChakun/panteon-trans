@@ -87,8 +87,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public void updatePassword(String token, PasswordReqDTO passwordReqDTO) {
+    public void updatePasswordFromRecovery(String token, PasswordReqDTO passwordReqDTO) {
         authClient.recoverPasswordConfirmation(token, passwordReqDTO);
+    }
+
+    @Override
+    public void updatePassword(Long userId, PasswordReqDTO passwordReqDTO) {
+        authClient.updatePassword(passwordReqDTO, userId);
     }
 
 
