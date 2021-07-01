@@ -22,4 +22,5 @@ public class City extends BaseAbstractEntity {
     @Column(name = "city_name", nullable = false, length = 48)
     private String cityName;
 
+    private CityIndex cityIndex;
 }

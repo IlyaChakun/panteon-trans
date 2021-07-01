@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,4 +27,15 @@ public abstract class CommonAttributes extends AbstractEntity {
     @ManyToMany
     private Set<CargoStowageMethod> cargoStowageMethods= new HashSet<>(); // способ загрузки
 
+    @Column(name = "temperature_mode")
+    @Enumerated(value = EnumType.STRING)
+    private TemperatureMode temperatureMode;
+
+    @Column(name = "loading_date")
+    private LocalDate loadingDate;
+
+    @Column(name = "unloading_date")
+    private LocalDate unloadingDate;
+
+    private Payment payment;
 }

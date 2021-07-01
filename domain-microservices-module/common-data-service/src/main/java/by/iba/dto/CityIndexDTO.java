@@ -1,7 +1,7 @@
-package by.iba.cargo.dto;
-
+package by.iba.dto;
 
 import by.iba.common.dto.BaseAbstractDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PaymentTypeDTO extends BaseAbstractDTO {
+@AllArgsConstructor
+public class CityIndexDTO extends BaseAbstractDTO {
 
-    private String typeName;
-
+    private String cityIndex;
 }

@@ -5,16 +5,23 @@ import by.iba.cargo.domain.CargoType;
 import by.iba.cargo.dto.CargoDTO;
 import by.iba.cargo.dto.CargoReqDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
-import by.iba.cargo.dto.mapper.*;
+import by.iba.cargo.dto.mapper.CargoDimensionsMapperDTO;
+import by.iba.cargo.dto.mapper.CargoMapperDTO;
+import by.iba.cargo.mail.CargoMailServiceImpl;
 import by.iba.cargo.repository.CargoRepository;
 import by.iba.cargo.repository.CargoTypeRepository;
 import by.iba.cargo.specifications.CargoSpecifications;
 import by.iba.common.domain.CargoStowageMethod;
 import by.iba.common.domain.TruckBodyType;
 import by.iba.common.dto.PageWrapper;
+import by.iba.common.dto.mapper.LoadingLocationMapperDTO;
+import by.iba.common.dto.mapper.PaymentMapperDTO;
+import by.iba.common.dto.mapper.UnLoadingLocationMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
 import by.iba.common.repository.TruckBodyTypeRepository;
+import by.iba.repository.ConfirmationTokenRepository;
+import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -34,7 +41,7 @@ import java.time.LocalDate;
 public class CargoServiceImpl implements CargoService {
 
     private final CargoDimensionsMapperDTO cargoDimensionsMapperDTO;
-    private final CargoTypeMapperDTO cargoTypeMapperDTO;
+    private final CargoMailServiceImpl cargoMailService;
     private final LoadingLocationMapperDTO loadingLocationMapperDTO;
     private final UnLoadingLocationMapperDTO unLoadingLocationMapperDTO;
     private final CargoRepository cargoRepository;
@@ -42,6 +49,9 @@ public class CargoServiceImpl implements CargoService {
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
+    private final PaymentMapperDTO paymentMapperDTO;
+    private final UserRepository userRepository;
+
 
     @Transactional
     @CachePut(value = "id", key = "#p0")
@@ -49,12 +59,11 @@ public class CargoServiceImpl implements CargoService {
     public CargoDTO save(CargoReqDTO cargoReqDTO) {
 
         log.info("Start saving the cargo");
-
+        String email = userRepository.findByUserId(cargoReqDTO.getId()).getEmail();
         Cargo cargo = new Cargo();
         Cargo savedCargo = cargoRepository.save(updateCargo(cargoReqDTO, cargo));
-
+        cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargo.getId());
-
         return cargoMapperDTO.toDto(savedCargo);
     }
 
@@ -133,7 +142,11 @@ public class CargoServiceImpl implements CargoService {
     @Transactional
     public Cargo updateCargo(CargoReqDTO cargoReqDTO, Cargo cargo) {
 
+        cargo.setLoadingDate(cargoReqDTO.getLoadingDate());
+        cargo.setUnloadingDate(cargoReqDTO.getUnloadingDate());
+        cargo.setTemperatureMode(cargoReqDTO.getTemperatureMode());
         cargo.setDescription(cargoReqDTO.getDescription());
+        cargo.setPayment(paymentMapperDTO.toEntity(cargoReqDTO.getPayment()));
         cargo.setCargoDimensions(cargoDimensionsMapperDTO.toEntity(cargoReqDTO.getCargoDimensions()));
         cargo.setLoadingLocation(loadingLocationMapperDTO.toEntity(cargoReqDTO.getLoadingLocation()));
         cargo.setUnloadingLocation(unLoadingLocationMapperDTO.toEntity(cargoReqDTO.getUnloadingLocation()));

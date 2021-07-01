@@ -21,6 +21,4 @@ public class Country extends BaseAbstractEntity {
 
     @Column(name = "country_name", nullable = false, length = 48)
     private String countryName;
-
-
 }

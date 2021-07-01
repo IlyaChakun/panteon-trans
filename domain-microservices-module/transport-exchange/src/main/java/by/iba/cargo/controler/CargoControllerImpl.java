@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+
 @RestController
 @AllArgsConstructor
 @Slf4j
@@ -30,8 +31,7 @@ public class CargoControllerImpl implements CargoController {
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
-
-        final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
+         final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -55,7 +55,6 @@ public class CargoControllerImpl implements CargoController {
                 .body(updatedCargo);
     }
 
-
     @Override
     public ResponseEntity<Void> delete(final String cargoId) {
         log.info("Received a request to delete the cargo with id = {}", cargoId);
@@ -77,7 +76,7 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO ) {
+    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
         log.info("Received a request to find all cargo");
 
         final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);

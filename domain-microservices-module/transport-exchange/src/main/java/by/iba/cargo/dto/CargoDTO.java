@@ -24,5 +24,8 @@ public class CargoDTO extends CommonAttributesDTO {
     private Set<TruckBodyTypeDTO> truckBodyTypes = new HashSet<>(); //типы кузова
 
     private LocalDate deletionDate = null;
+
+    private Long userId;
+
 }
 
