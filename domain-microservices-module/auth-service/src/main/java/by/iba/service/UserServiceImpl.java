@@ -54,9 +54,7 @@ public class UserServiceImpl implements UserService {
         log.info("new user with email = {} has been created", user.getEmail());
 
         createAndSendConfirmationToken(savedUser);
-
         doSendSuccessRegistrationMessage(savedUser);
-
         return userMapper.toDto(savedUser);
     }
 
@@ -77,6 +75,20 @@ public class UserServiceImpl implements UserService {
         //
     }
 
+    private void doSendPasswordRecoveryoken(String email, ConfirmationToken token) {
+        userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
+    }
+
+    private void createAndSendPasswordRecoveryToken(String email) {
+        ConfirmationToken confirmationToken = new ConfirmationToken(userRepository
+                .findByEmail(email)
+                .get()
+                .getUserId());
+
+        confirmationTokenRepository.save(confirmationToken);
+        doSendPasswordRecoveryoken(email, confirmationToken);
+    }
+
     @Override
     @Transactional
     public void confirmUserAccount(String confirmationToken) {
@@ -92,6 +104,60 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Transactional
+    public UserDTO recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO) {
+
+        Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
+                findByConfirmationToken(confirmationToken);
+
+        User user = userRepository.getUserByUserId(tokenForPassword.get().getUserId());
+
+        user.setPassword(getHashedPassword(passwordDTO));
+
+        User savedUser = userRepository.save(user);
+        log.info("Password was updated for user with id ={}", user.getUserId());
+
+        return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public void sendRecoverMessage(String email) {
+        createAndSendPasswordRecoveryToken(email);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO updatePassword(Long userId, PasswordDTO passwordDTO) {
+
+        User user = userRepository.getUserByUserId(userId);
+
+        if (checkPassword(passwordDTO.getOldPassword(), user)) {
+
+            user.setPassword(passwordDTO.getNewPassword());
+
+            encodeUserPassword(user);
+
+            User savedUser = userRepository.save(user);
+
+            return userMapper.toDto(savedUser);
+
+        } else
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "exception.user.wrong_password");
+
+
+    }
+
+    private boolean checkPassword(String oldPassword, User user) {
+        return hashEncoder.matches(oldPassword, user.getPassword());
+    }
+
+
+    private String getHashedPassword(PasswordDTO passwordDTO) {
+        return hashEncoder
+                .encode(passwordDTO.getNewPassword());
+    }
+
     private void validateEmailAvailabilityOrThrowException(final String email) {
         if (userRepository.existsByEmail(email)) {
             log.error("Duplicate email");
@@ -100,7 +166,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void encodeUserPassword(final User user) {
-        final String hash = encoder.encode(user.getPassword());
+        final String hash = hashEncoder.encode(user.getPassword());
         user.setPassword(hash);
     }
 

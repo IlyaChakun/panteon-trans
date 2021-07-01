@@ -7,12 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DimensionsDTO {
+public class TruckBodyTypeDTO extends BaseAbstractDTO {
 
-    private Double volume;
-
-    private Double length;
-
-    private Double height;
-
+    private String truckTypeName;
 }

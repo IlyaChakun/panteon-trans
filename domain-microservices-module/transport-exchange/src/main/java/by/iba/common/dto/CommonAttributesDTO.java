@@ -13,12 +13,11 @@ import java.util.Set;
 @Setter
 public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add validation
 
-
     private Long id;
 
     private LoadingLocationDTO loadingLocation;
 
-    private UnloadingLocationDTO unloadingLocation;
+    private UnLoadingLocationDTO unloadingLocation;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
