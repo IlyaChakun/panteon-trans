@@ -6,5 +6,7 @@ public interface UserSecurityMailService {
 
     void sendPasswordRecoveryMessage(final String recipient, final String confirmationToken);
 
-    void sendSuccessMessage(final String recipient);
+    void sendSuccessPasswordUpdateMessage(final String recipient);
+
+    void sendSuccessRegistrationMessage(final String recipient);
 }

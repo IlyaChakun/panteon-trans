@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         log.info("new user with email = {} has been created", user.getEmail());
 
         createAndSendConfirmationToken(savedUser);
-
+        doSendSuccessRegistrationMessage(savedUser);
         return userMapper.toDto(savedUser);
     }
 
@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
         ConfirmationToken confirmationToken = new ConfirmationToken(savedUser.getUserId());
         confirmationTokenRepository.save(confirmationToken);
         doSendConfirmationMail(savedUser, confirmationToken);
+    }
+
+    private void doSendSuccessRegistrationMessage(User user) {
+        userSecurityMailService.sendSuccessRegistrationMessage(user.getEmail());
+
     }
 
     private void doSendConfirmationMail(User user, ConfirmationToken confirmationToken) {
