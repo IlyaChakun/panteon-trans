@@ -2,6 +2,7 @@ package by.iba.controller;
 
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.dto.PasswordDTO;
 import by.iba.dto.UserDTO;
 import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
@@ -56,5 +57,35 @@ public class UserControllerImpl implements UserController {
         );
     }
 
+    @Override
+    public ResponseEntity<ApiResponse> recoverPassword(String userEmail) {
+        userService.sendRecoverMessage(userEmail);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Recover message sent successfully")
+        );
+    }
+
+    @Override
+    public ResponseEntity<PasswordDTO> recoverPasswordConfirmation(String token, PasswordDTO passwordDTO) {
+        log.info("Recovery with token = {} started", token);
+
+        userService.recoverPasswordWithToken(token, passwordDTO);
+
+        return ResponseEntity
+                .ok()
+                .body(passwordDTO);
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> updatePassword(PasswordDTO passwordDTO, Long userId) {
+        log.info("Received a request to update password for user with id = {}", userId);
+
+        userService.updatePassword(userId,passwordDTO);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "Recover message updated successfully")
+        );
+    }
 
 }

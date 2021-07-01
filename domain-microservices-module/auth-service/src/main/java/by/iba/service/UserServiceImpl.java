@@ -3,10 +3,13 @@ package by.iba.service;
 import by.iba.common.exception.ServiceException;
 import by.iba.domain.ConfirmationToken;
 import by.iba.domain.User;
+import by.iba.dto.PasswordDTO;
 import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.UserMapperDTO;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
+import by.iba.security.PBKDF2HashEncoder;
+import by.iba.security.PasswordHashEncoder;
 import by.iba.security.mail.UserSecurityMailService;
 import by.iba.security.mail.exception.ConfirmationTokenBrokenLinkException;
 import lombok.AllArgsConstructor;
@@ -30,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapperDTO userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final UserSecurityMailService userSecurityMailService;
+    private final PasswordHashEncoder hashEncoder;
 
     @Override
     public UserDTO save(UserDTO userDTO) {
@@ -51,8 +55,6 @@ public class UserServiceImpl implements UserService {
 
         createAndSendConfirmationToken(savedUser);
 
-        log.info("Confirmation token send");
-
         return userMapper.toDto(savedUser);
     }
 
@@ -66,6 +68,20 @@ public class UserServiceImpl implements UserService {
         //
         userSecurityMailService.sendConfirmationEmail(user.getEmail(), confirmationToken.getConfirmationToken());
         //
+    }
+
+    private void doSendPasswordRecoveryoken(String email, ConfirmationToken token) {
+        userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
+    }
+
+    private void createAndSendPasswordRecoveryToken(String email) {
+        ConfirmationToken confirmationToken = new ConfirmationToken(userRepository
+                .findByEmail(email)
+                .get()
+                .getUserId());
+
+        confirmationTokenRepository.save(confirmationToken);
+        doSendPasswordRecoveryoken(email, confirmationToken);
     }
 
     @Override
@@ -83,6 +99,60 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Transactional
+    public UserDTO recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO) {
+
+        Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
+                findByConfirmationToken(confirmationToken);
+
+        User user = userRepository.getUserByUserId(tokenForPassword.get().getUserId());
+
+        user.setPassword(getHashedPassword(passwordDTO));
+
+        User savedUser = userRepository.save(user);
+        log.info("Password was updated for user with id ={}", user.getUserId());
+
+        return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public void sendRecoverMessage(String email) {
+        createAndSendPasswordRecoveryToken(email);
+    }
+
+    @Override
+    @Transactional
+    public UserDTO updatePassword(Long userId, PasswordDTO passwordDTO) {
+
+        User user = userRepository.getUserByUserId(userId);
+
+        if (checkPassword(passwordDTO.getOldPassword(), user)) {
+
+            user.setPassword(passwordDTO.getNewPassword());
+
+            encodeUserPassword(user);
+
+            User savedUser = userRepository.save(user);
+
+            return userMapper.toDto(savedUser);
+
+        } else
+            throw new ServiceException(HttpStatus.FORBIDDEN.value(), "exception.user.wrong_password");
+
+
+    }
+
+    private boolean checkPassword(String oldPassword, User user) {
+        return hashEncoder.matches(oldPassword, user.getPassword());
+    }
+
+
+    private String getHashedPassword(PasswordDTO passwordDTO) {
+        return hashEncoder
+                .encode(passwordDTO.getNewPassword());
+    }
+
     private void validateEmailAvailabilityOrThrowException(final String email) {
         if (userRepository.existsByEmail(email)) {
             log.error("Duplicate email");
@@ -91,7 +161,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private void encodeUserPassword(final User user) {
-        final String hash = encoder.encode(user.getPassword());
+        final String hash = hashEncoder.encode(user.getPassword());
         user.setPassword(hash);
     }
+
 }
