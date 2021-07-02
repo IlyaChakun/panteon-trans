@@ -1,4 +1,4 @@
-package by.iba.transport.domain;
+package by.iba.truck.domain;
 
 import by.iba.common.domain.Dimensions;
 import lombok.Getter;

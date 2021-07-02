@@ -1,7 +1,6 @@
 package by.iba.rating.domain;
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.companies.domain.CompanyId;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyRating extends AbstractEntity {
+public class CompanyRating extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

@@ -1,6 +1,6 @@
 package by.iba.domain;
 
-import by.iba.common.domain.AbstractEntity;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ConfirmationToken extends AbstractEntity {
+public class ConfirmationToken extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

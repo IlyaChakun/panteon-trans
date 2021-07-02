@@ -1,8 +1,6 @@
 package by.iba.domain;
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.domain.Role;
-import by.iba.domain.UserId;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User extends AbstractEntity {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

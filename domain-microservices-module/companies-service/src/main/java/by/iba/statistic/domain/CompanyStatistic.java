@@ -1,6 +1,6 @@
 package by.iba.statistic.domain;
 
-import by.iba.common.domain.AbstractEntity;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyStatistic extends AbstractEntity {
+public class CompanyStatistic extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

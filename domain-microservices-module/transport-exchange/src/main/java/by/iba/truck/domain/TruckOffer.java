@@ -1,4 +1,4 @@
-package by.iba.transport.domain;
+package by.iba.truck.domain;
 
 import by.iba.common.domain.CommonAttributes;
 import by.iba.common.domain.TruckBodyType;
@@ -12,11 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "trucks")
+@Table(name = "trucks_offres")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Truck extends CommonAttributes {
+public class TruckOffer extends CommonAttributes {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private TruckBodyType truckBodyType;

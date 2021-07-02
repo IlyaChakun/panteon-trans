@@ -1,20 +1,13 @@
 package by.iba.blacklist.domain;
 
-import by.iba.common.domain.AbstractEntity;
 import by.iba.common.domain.BaseEntity;
-import by.iba.companies.domain.CompanyId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @EqualsAndHashCode()
 @Data
@@ -22,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "blacklist")
-public class Blacklist extends AbstractEntity {
+public class Blacklist extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

@@ -1,9 +1,9 @@
 package by.iba.cargo.service;
 
-import by.iba.cargo.domain.Cargo;
+import by.iba.cargo.domain.CargoOffer;
 import by.iba.cargo.domain.CargoType;
-import by.iba.cargo.dto.CargoDTO;
-import by.iba.cargo.dto.CargoReqDTO;
+import by.iba.cargo.dto.CargoOfferDTO;
+import by.iba.cargo.dto.CargoOfferReqDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.dto.mapper.CargoDimensionsMapperDTO;
 import by.iba.cargo.dto.mapper.CargoMapperDTO;
@@ -20,7 +20,6 @@ import by.iba.common.dto.mapper.UnLoadingLocationMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
 import by.iba.common.repository.TruckBodyTypeRepository;
-import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,33 +55,17 @@ public class CargoServiceImpl implements CargoService {
     @Transactional
     @CachePut(value = "id", key = "#p0")
     @Override
-    public CargoDTO save(CargoReqDTO cargoReqDTO) {
+    public CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO) {
 
         log.info("Start saving the cargo");
-        String email = userRepository.findByUserId(cargoReqDTO.getId()).getEmail();
-        Cargo cargo = new Cargo();
-        Cargo savedCargo = cargoRepository.save(updateCargo(cargoReqDTO, cargo));
+        String email = userRepository.findByUserId(cargoOfferReqDTO.getId()).getEmail();
+        CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
+        CargoOffer savedCargoOffer = cargoRepository.save(cargoOffer);
         cargoMailService.sendSaveCargoNotification(email);
-        log.info("Finish saving cargo with id =" + savedCargo.getId());
-        return cargoMapperDTO.toDto(savedCargo);
+        log.info("Finish saving cargo with id =" + savedCargoOffer.getId());
+        return cargoMapperDTO.toDto(savedCargoOffer);
     }
 
-    @Transactional
-    @CachePut(value = "id", key = "#p0")
-    @Override
-    public CargoDTO update(Long cargoId, CargoReqDTO cargoReqDTO) {
-        log.info("Start update cargo with id = {} ", cargoId);
-
-        Cargo cargo = cargoRepository
-                .findById(cargoId)
-                .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found"));
-
-        Cargo savedCargo = cargoRepository.save(updateCargo(cargoReqDTO, cargo));
-
-        log.info("Finish update cargo with id =" + savedCargo.getId());
-
-        return cargoMapperDTO.toDto(savedCargo);
-    }
 
     @Transactional
     @CacheEvict(value = "id", key = "#cargoId")
@@ -90,36 +73,36 @@ public class CargoServiceImpl implements CargoService {
     public void delete(Long cargoId) {
         log.info("Start deleting cargo with id = {} ", cargoId);
 
-        Cargo cargo = cargoRepository
+        CargoOffer cargoOffer = cargoRepository
                 .findById(cargoId)
                 .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found "));
 
-        cargo.setDeletionDate(LocalDate.now());
-        cargoRepository.save(cargo);
+        cargoOffer.setDeletionDate(LocalDate.now());
+        cargoRepository.save(cargoOffer);
 
         log.info("Cargo with id = {} has been deleted ", cargoId);
     }
 
     @Override
-    public CargoDTO findById(Long cargoId) {
+    public CargoOfferDTO findById(Long cargoId) {
 
         log.info("Start findById cargo with id = {} ", cargoId);
 
-        Cargo cargo = cargoRepository.findById(cargoId)
+        CargoOffer cargoOffer = cargoRepository.findById(cargoId)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.cargo.not_found_by_id" + cargoId));
 
         log.info("Cargo with id = {} has been find ", cargoId);
 
-        return cargoMapperDTO.toDto(cargo);
+        return cargoMapperDTO.toDto(cargoOffer);
     }
 
     @Transactional
     @Override
-    public PageWrapper<CargoDTO> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
+    public PageWrapper<CargoOfferDTO> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
 
         log.info("There was a request to findAll cargo with page " + page + "and size" + size);
 
-        Specification<Cargo> specification =
+        Specification<CargoOffer> specification =
                 Specification.where(CargoSpecifications
                         .notDeleted())
                         .and(CargoSpecifications.getAllCargoByCountryId(cargoSearchCriteriaDTO.getCountryId()));
@@ -127,7 +110,7 @@ public class CargoServiceImpl implements CargoService {
         Pageable pageable =
                 PageRequest.of(page, size);
 
-        Page<Cargo> cargoPage =
+        Page<CargoOffer> cargoPage =
                 cargoRepository.findAll(specification, pageable);
 
         log.info("Method response posted to findAll cargo with page " + page + "and size " + size);
@@ -139,34 +122,35 @@ public class CargoServiceImpl implements CargoService {
                         cargoPage.getTotalElements());
     }
 
-    @Transactional
-    public Cargo updateCargo(CargoReqDTO cargoReqDTO, Cargo cargo) {
 
-        cargo.setLoadingDate(cargoReqDTO.getLoadingDate());
-        cargo.setUnloadingDate(cargoReqDTO.getUnloadingDate());
-        cargo.setTemperatureMode(cargoReqDTO.getTemperatureMode());
-        cargo.setDescription(cargoReqDTO.getDescription());
-        cargo.setPayment(paymentMapperDTO.toEntity(cargoReqDTO.getPayment()));
-        cargo.setCargoDimensions(cargoDimensionsMapperDTO.toEntity(cargoReqDTO.getCargoDimensions()));
-        cargo.setLoadingLocation(loadingLocationMapperDTO.toEntity(cargoReqDTO.getLoadingLocation()));
-        cargo.setUnloadingLocation(unLoadingLocationMapperDTO.toEntity(cargoReqDTO.getUnloadingLocation()));
+    private CargoOffer mapToCargo(CargoOfferReqDTO cargoOfferReqDTO) {
+        CargoOffer cargoOffer = new CargoOffer();
 
-        for (Long id : cargoReqDTO.getCargoStowageMethodIds()) {
+        cargoOffer.setLoadingDate(cargoOfferReqDTO.getLoadingDate());
+        cargoOffer.setUnloadingDate(cargoOfferReqDTO.getUnloadingDate());
+        cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
+        cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
+        cargoOffer.setPayment(paymentMapperDTO.toEntity(cargoOfferReqDTO.getPayment()));
+        cargoOffer.setCargoDimensions(cargoDimensionsMapperDTO.toEntity(cargoOfferReqDTO.getCargoDimensions()));
+        cargoOffer.setLoadingLocation(loadingLocationMapperDTO.toEntity(cargoOfferReqDTO.getLoadingLocation()));
+        cargoOffer.setUnloadingLocation(unLoadingLocationMapperDTO.toEntity(cargoOfferReqDTO.getUnloadingLocation()));
+
+        for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + id + " not found"));
-            cargo.getTruckBodyTypes().add(truckBodyType);
+            cargoOffer.getTruckBodyTypes().add(truckBodyType);
         }
 
-        for (Long id : cargoReqDTO.getCargoStowageMethodIds()) {
+        for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
             CargoStowageMethod cargoStowageMethod = cargoStowageMethodRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("CargoStowageMethod with id =" + id + " not found"));
-            cargo.getCargoStowageMethods().add(cargoStowageMethod);
+            cargoOffer.getCargoStowageMethods().add(cargoStowageMethod);
         }
 
-        CargoType cargoType = cargoTypeRepository.findById(cargoReqDTO.getCargoTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("CargoType with id =" + cargoReqDTO.getCargoTypeId() + " not found"));
-        cargo.setCargoType(cargoType);
+        CargoType cargoType = cargoTypeRepository.findById(cargoOfferReqDTO.getCargoTypeId())
+                .orElseThrow(() -> new ResourceNotFoundException("CargoType with id =" + cargoOfferReqDTO.getCargoTypeId() + " not found"));
+        cargoOffer.setCargoType(cargoType);
 
-        return cargo;
+        return cargoOffer;
     }
 }

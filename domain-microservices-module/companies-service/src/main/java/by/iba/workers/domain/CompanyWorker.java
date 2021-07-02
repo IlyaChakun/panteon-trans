@@ -1,7 +1,6 @@
 package by.iba.workers.domain;
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.companies.domain.CompanyId;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyWorker  extends AbstractEntity {
+public class CompanyWorker  extends BaseEntity {
 
     @Id
     @Column(name = "user_id")

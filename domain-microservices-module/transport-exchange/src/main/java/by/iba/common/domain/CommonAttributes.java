@@ -11,12 +11,7 @@ import java.util.Set;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class CommonAttributes extends AbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id", nullable = false, unique = true)
-    private Long id;
+public abstract class CommonAttributes extends BaseAbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private LoadingLocation loadingLocation;
@@ -25,11 +20,7 @@ public abstract class CommonAttributes extends AbstractEntity {
     private UnLoadingLocation unloadingLocation;
 
     @ManyToMany
-    private Set<CargoStowageMethod> cargoStowageMethods= new HashSet<>(); // способ загрузки
-
-    @Column(name = "temperature_mode")
-    @Enumerated(value = EnumType.STRING)
-    private TemperatureMode temperatureMode;
+    private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
 
     @Column(name = "loading_date")
     private LocalDate loadingDate;

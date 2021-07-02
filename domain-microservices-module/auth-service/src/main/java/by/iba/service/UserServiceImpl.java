@@ -8,7 +8,6 @@ import by.iba.dto.UserDTO;
 import by.iba.dto.mapper.UserMapperDTO;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
-import by.iba.security.PBKDF2HashEncoder;
 import by.iba.security.PasswordHashEncoder;
 import by.iba.security.mail.UserSecurityMailService;
 import by.iba.security.mail.exception.ConfirmationTokenBrokenLinkException;

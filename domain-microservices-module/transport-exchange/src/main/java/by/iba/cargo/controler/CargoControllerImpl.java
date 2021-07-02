@@ -1,7 +1,7 @@
 package by.iba.cargo.controler;
 
-import by.iba.cargo.dto.CargoDTO;
-import by.iba.cargo.dto.CargoReqDTO;
+import by.iba.cargo.dto.CargoOfferDTO;
+import by.iba.cargo.dto.CargoOfferReqDTO;
 import by.iba.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.cargo.service.CargoService;
 import by.iba.common.controller.ControllerHelper;
@@ -25,13 +25,13 @@ public class CargoControllerImpl implements CargoController {
     private final CargoService cargoService;
 
     @Override
-    public ResponseEntity<CargoDTO> save(@Valid final CargoReqDTO cargoReqDTO,
-                                         final BindingResult bindingResult) {
+    public ResponseEntity<CargoOfferDTO> save(@Valid final CargoOfferReqDTO cargoOfferReqDTO,
+                                              final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
-         final CargoDTO savedCargo = cargoService.save(cargoReqDTO);
+         final CargoOfferDTO savedCargo = cargoService.save(cargoOfferReqDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -45,17 +45,6 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<CargoDTO> update(String cargoId, @Valid CargoReqDTO cargoReqDTO, BindingResult bindingResult) {
-        log.info("Received a request to update the cargo with id = {}", cargoId);
-
-        final CargoDTO updatedCargo = cargoService.update(Long.valueOf(cargoId), cargoReqDTO);
-
-        return ResponseEntity
-                .ok()
-                .body(updatedCargo);
-    }
-
-    @Override
     public ResponseEntity<Void> delete(final String cargoId) {
         log.info("Received a request to delete the cargo with id = {}", cargoId);
 
@@ -65,21 +54,21 @@ public class CargoControllerImpl implements CargoController {
     }
 
     @Override
-    public ResponseEntity<CargoDTO> findById(String cargoId) {
+    public ResponseEntity<CargoOfferDTO> findById(String cargoId) {
         log.info("Received a request to find the cargo by id = {}", cargoId);
 
-        final CargoDTO cargoDTO = cargoService.findById(Long.valueOf(cargoId));
+        final CargoOfferDTO cargoOfferDTO = cargoService.findById(Long.valueOf(cargoId));
 
         return ResponseEntity
                 .ok()
-                .body(cargoDTO);
+                .body(cargoOfferDTO);
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
+    public ResponseEntity<PageWrapper<CargoOfferDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
         log.info("Received a request to find all cargo");
 
-        final PageWrapper<CargoDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);
+        final PageWrapper<CargoOfferDTO> cargo = cargoService.findAll(page, size, cargoSearchCriteriaDTO);
 
         return ResponseEntity
                 .ok()

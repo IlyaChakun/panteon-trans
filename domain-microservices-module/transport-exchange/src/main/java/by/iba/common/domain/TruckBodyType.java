@@ -18,5 +18,4 @@ public class TruckBodyType extends BaseAbstractEntity {
     @Column(name = "truck_type_name")
     private String truckTypeName;
 
-
 }

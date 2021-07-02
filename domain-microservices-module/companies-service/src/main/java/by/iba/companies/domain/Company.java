@@ -1,6 +1,6 @@
 package by.iba.companies.domain;
 
-import by.iba.common.domain.AbstractEntity;
+import by.iba.common.domain.BaseEntity;
 import by.iba.common.validation.annotation.ValidPhones;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Company extends AbstractEntity {
+public class Company extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

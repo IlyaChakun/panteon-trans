@@ -1,24 +1,41 @@
 package by.iba.common.domain;
 
-import by.iba.common.dto.BaseDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+@MappedSuperclass
+@NoArgsConstructor
+@Getter
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "version")
     private int version;
 
+    @Column(name = "date_of_creation")
+    private LocalDateTime dateOfCreation;
+
+    @Column(name = "date_of_last_update")
+    private LocalDateTime dateOfLastUpdate;
+
     @PrePersist
-    public void setVersion() {
-        version = 1;
+    private void abstractEntityPreInit() {
+        this.dateOfCreation = LocalDateTime.now();
+        this.dateOfLastUpdate = LocalDateTime.now();
+        this.version = 1;
     }
 
     @PreUpdate
-    public void updateVersion() {
-        version++;
+    private void abstractEntityPreUpdate() {
+        this.dateOfLastUpdate = LocalDateTime.now();
+        this.version++;
     }
 }

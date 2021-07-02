@@ -1,7 +1,6 @@
 package by.iba.documents.domain;
 
-import by.iba.common.domain.AbstractEntity;
-import by.iba.companies.domain.CompanyId;
+import by.iba.common.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Document extends AbstractEntity {
+public class Document extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
