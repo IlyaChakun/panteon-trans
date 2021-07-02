@@ -13,4 +13,5 @@ public class TruckOfferDTO extends CommonAttributesDTO {//TODO change all to DTO
 
     private TruckBodyTypeDTO truckBodyType;
 
+    private Long carrierCompanyId;
 }

@@ -24,6 +24,8 @@ public class CargoOfferReqDTO extends CommonAttributesDTO {
 
     private Long userId;
 
+    private Long customerCompanyId;
+
     private TemperatureMode temperatureMode;
 
 }

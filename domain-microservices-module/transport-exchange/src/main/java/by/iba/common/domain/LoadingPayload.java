@@ -7,13 +7,14 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "unloading_locations")
+@Table(name = "loading_locations")
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnLoadingLocation extends BaseAbstractEntity {
+public class LoadingPayload extends BaseAbstractEntity {
 
     @Column(name = "country_id")
     private Long countryId;
@@ -23,5 +24,8 @@ public class UnLoadingLocation extends BaseAbstractEntity {
 
     @Column(name = "city_id")
     private Long cityId;
+
+    @Column(name = "loading_date")
+    private LocalDate loadingDate;
 
 }

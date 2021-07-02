@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,4 +17,5 @@ public class TruckOfferReqDTO extends CommonAttributesDTO {
 
     private TruckDimensions truckDimensions;
 
+    private Long carrierCompanyId;
 }

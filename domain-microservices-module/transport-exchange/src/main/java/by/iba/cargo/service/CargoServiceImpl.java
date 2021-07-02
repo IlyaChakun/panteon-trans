@@ -39,16 +39,16 @@ import java.time.LocalDate;
 @Slf4j
 public class CargoServiceImpl implements CargoService {
 
-    private final CargoDimensionsMapperDTO cargoDimensionsMapperDTO;
+    private final CargoDimensionsMapperDTO cargoDimensionsMapper;
     private final CargoMailServiceImpl cargoMailService;
-    private final LoadingLocationMapperDTO loadingLocationMapperDTO;
-    private final UnLoadingLocationMapperDTO unLoadingLocationMapperDTO;
+    private final LoadingLocationMapperDTO loadingLocationMapper;
+    private final UnLoadingLocationMapperDTO unLoadingLocationMapper;
     private final CargoRepository cargoRepository;
-    private final CargoMapperDTO cargoMapperDTO;
+    private final CargoMapperDTO cargoMapper;
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
-    private final PaymentMapperDTO paymentMapperDTO;
+    private final PaymentMapperDTO paymentMapper;
     private final UserRepository userRepository;
 
 
@@ -56,14 +56,13 @@ public class CargoServiceImpl implements CargoService {
     @CachePut(value = "id", key = "#p0")
     @Override
     public CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO) {
-
         log.info("Start saving the cargo");
-        String email = userRepository.findByUserId(cargoOfferReqDTO.getId()).getEmail();
+        String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
         CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
         CargoOffer savedCargoOffer = cargoRepository.save(cargoOffer);
         cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargoOffer.getId());
-        return cargoMapperDTO.toDto(savedCargoOffer);
+        return cargoMapper.toDto(savedCargoOffer);
     }
 
 
@@ -93,7 +92,7 @@ public class CargoServiceImpl implements CargoService {
 
         log.info("Cargo with id = {} has been find ", cargoId);
 
-        return cargoMapperDTO.toDto(cargoOffer);
+        return cargoMapper.toDto(cargoOffer);
     }
 
     @Transactional
@@ -116,7 +115,7 @@ public class CargoServiceImpl implements CargoService {
         log.info("Method response posted to findAll cargo with page " + page + "and size " + size);
 
         return
-                new PageWrapper<>(cargoMapperDTO
+                new PageWrapper<>(cargoMapper
                         .toDtoList(cargoPage.toList()),
                         cargoPage.getTotalPages(),
                         cargoPage.getTotalElements());
@@ -126,14 +125,15 @@ public class CargoServiceImpl implements CargoService {
     private CargoOffer mapToCargo(CargoOfferReqDTO cargoOfferReqDTO) {
         CargoOffer cargoOffer = new CargoOffer();
 
+        cargoOffer.setCustomerCompanyId(cargoOfferReqDTO.getCustomerCompanyId());
         cargoOffer.setLoadingDate(cargoOfferReqDTO.getLoadingDate());
         cargoOffer.setUnloadingDate(cargoOfferReqDTO.getUnloadingDate());
         cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
         cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
-        cargoOffer.setPayment(paymentMapperDTO.toEntity(cargoOfferReqDTO.getPayment()));
-        cargoOffer.setCargoDimensions(cargoDimensionsMapperDTO.toEntity(cargoOfferReqDTO.getCargoDimensions()));
-        cargoOffer.setLoadingLocation(loadingLocationMapperDTO.toEntity(cargoOfferReqDTO.getLoadingLocation()));
-        cargoOffer.setUnloadingLocation(unLoadingLocationMapperDTO.toEntity(cargoOfferReqDTO.getUnloadingLocation()));
+        cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));
+        cargoOffer.setCargoDimensions(cargoDimensionsMapper.toEntity(cargoOfferReqDTO.getCargoDimensions()));
+        cargoOffer.setLoadingPayload(loadingLocationMapper.toEntity(cargoOfferReqDTO.getLoadingLocation()));
+        cargoOffer.setUnloadingPayload(unLoadingLocationMapper.toEntity(cargoOfferReqDTO.getUnloadingLocation()));
 
         for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)

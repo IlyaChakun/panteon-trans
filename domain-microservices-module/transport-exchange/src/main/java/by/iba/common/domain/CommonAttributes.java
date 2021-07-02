@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,19 +13,13 @@ import java.util.Set;
 public abstract class CommonAttributes extends BaseAbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private LoadingLocation loadingLocation;
+    private LoadingPayload loadingPayload;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private UnLoadingLocation unloadingLocation;
+    private UnLoadingPayload unloadingPayload;
 
     @ManyToMany
     private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
-
-    @Column(name = "loading_date")
-    private LocalDate loadingDate;
-
-    @Column(name = "unloading_date")
-    private LocalDate unloadingDate;
 
     private Payment payment;
 }

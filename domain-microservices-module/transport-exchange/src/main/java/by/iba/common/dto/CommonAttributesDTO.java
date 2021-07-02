@@ -21,10 +21,6 @@ public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add valida
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
-    private LocalDate loadingDate;
-
-    private LocalDate unloadingDate;
-
     private PaymentDTO payment;
 
 }

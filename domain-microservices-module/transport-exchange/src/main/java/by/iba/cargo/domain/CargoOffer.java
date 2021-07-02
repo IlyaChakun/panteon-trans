@@ -27,8 +27,8 @@ public class CargoOffer extends CommonAttributes {
 
     private CargoDimensions cargoDimensions;
 
-    @Column(name = "user_Id")
-    private Long userId;
+    @Column(name = "customer_company_id")
+    private Long customerCompanyId;
 
     @ManyToMany
     @JoinTable(name = "cargo_truck_body_types",

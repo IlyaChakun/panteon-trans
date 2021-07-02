@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "trucks_offres")
@@ -22,5 +19,8 @@ public class TruckOffer extends CommonAttributes {
     private TruckBodyType truckBodyType;
 
     private TruckDimensions truckDimensions;
+
+    @Column(name = "carrier_company_id")
+    private Long carrierCompanyId;
 
 }
