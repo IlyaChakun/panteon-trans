@@ -14,9 +14,9 @@ public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add valida
 
     private Long id;
 
-    private LoadingPayloadDTO loadingLocation;
+    private LoadingPayloadDTO loadingPayload;
 
-    private UnloadingPayloadDTO unloadingLocation;
+    private UnloadingPayloadDTO unloadingPayload;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 

@@ -70,11 +70,11 @@ public class TruckServiceImpl implements TruckService {
         TruckOffer truckOffer = new TruckOffer();
 
         truckOffer.setCarrierCompanyId(truckOfferReqDTO.getCarrierCompanyId());
-        truckOffer.setLoadingPayload(loadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getLoadingLocation()));
-        truckOffer.setUnloadingPayload(unloadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getUnloadingLocation()));
+        truckOffer.setLoadingPayload(loadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getLoadingPayload()));
+        truckOffer.setUnloadingPayload(unloadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getUnloadingPayload()));
         truckOffer.setPayment(paymentMapperDTO.toEntity(truckOfferReqDTO.getPayment()));
-        truckOffer.setLoadingPayload(loadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getLoadingLocation()));
-        truckOffer.setUnloadingPayload(unloadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getUnloadingLocation()));
+        truckOffer.setLoadingPayload(loadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getLoadingPayload()));
+        truckOffer.setUnloadingPayload(unloadingPayloadMapperDTO.toEntity(truckOfferReqDTO.getUnloadingPayload()));
 
         TruckBodyType truckBodyType = truckBodyTypeRepository.findById(truckOfferReqDTO.getTruckBodyTypeId())
                 .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + truckOfferReqDTO.getTruckBodyTypeId() + " not found"));

@@ -126,13 +126,14 @@ public class CargoServiceImpl implements CargoService {
         CargoOffer cargoOffer = new CargoOffer();
 
         cargoOffer.setCustomerCompanyId(cargoOfferReqDTO.getCustomerCompanyId());
-
+        cargoOffer.setLoadingPayload(loadingLocationMapper.toEntity(cargoOfferReqDTO.getLoadingPayload()));
+        cargoOffer.setUnloadingPayload(unLoadingLocationMapper.toEntity(cargoOfferReqDTO.getUnloadingPayload()));
         cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
         cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
         cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));
         cargoOffer.setCargoDimensions(cargoDimensionsMapper.toEntity(cargoOfferReqDTO.getCargoDimensions()));
-        cargoOffer.setLoadingPayload(loadingLocationMapper.toEntity(cargoOfferReqDTO.getLoadingLocation()));
-        cargoOffer.setUnloadingPayload(unLoadingLocationMapper.toEntity(cargoOfferReqDTO.getUnloadingLocation()));
+        cargoOffer.setLoadingPayload(loadingLocationMapper.toEntity(cargoOfferReqDTO.getLoadingPayload()));
+        cargoOffer.setUnloadingPayload(unLoadingLocationMapper.toEntity(cargoOfferReqDTO.getUnloadingPayload()));
 
         for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
             TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
