@@ -14,9 +14,9 @@ import by.iba.cargo.specifications.CargoSpecifications;
 import by.iba.common.domain.CargoStowageMethod;
 import by.iba.common.domain.TruckBodyType;
 import by.iba.common.dto.PageWrapper;
-import by.iba.common.dto.mapper.LoadingLocationMapperDTO;
+import by.iba.common.dto.mapper.LoadingPayloadMapperDTO;
 import by.iba.common.dto.mapper.PaymentMapperDTO;
-import by.iba.common.dto.mapper.UnLoadingLocationMapperDTO;
+import by.iba.common.dto.mapper.UnloadingPayloadMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CargoStowageMethodRepository;
 import by.iba.common.repository.TruckBodyTypeRepository;
@@ -41,8 +41,8 @@ public class CargoServiceImpl implements CargoService {
 
     private final CargoDimensionsMapperDTO cargoDimensionsMapper;
     private final CargoMailServiceImpl cargoMailService;
-    private final LoadingLocationMapperDTO loadingLocationMapper;
-    private final UnLoadingLocationMapperDTO unLoadingLocationMapper;
+    private final LoadingPayloadMapperDTO loadingLocationMapper;
+    private final UnloadingPayloadMapperDTO unLoadingLocationMapper;
     private final CargoRepository cargoRepository;
     private final CargoMapperDTO cargoMapper;
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
@@ -126,8 +126,7 @@ public class CargoServiceImpl implements CargoService {
         CargoOffer cargoOffer = new CargoOffer();
 
         cargoOffer.setCustomerCompanyId(cargoOfferReqDTO.getCustomerCompanyId());
-        cargoOffer.setLoadingDate(cargoOfferReqDTO.getLoadingDate());
-        cargoOffer.setUnloadingDate(cargoOfferReqDTO.getUnloadingDate());
+
         cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
         cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
         cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));

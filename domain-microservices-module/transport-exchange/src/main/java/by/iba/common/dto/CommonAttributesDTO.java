@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +14,9 @@ public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add valida
 
     private Long id;
 
-    private LoadingLocationDTO loadingLocation;
+    private LoadingPayloadDTO loadingLocation;
 
-    private UnLoadingLocationDTO unloadingLocation;
+    private UnloadingPayloadDTO unloadingLocation;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 

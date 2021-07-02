@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnLoadingPayload extends BaseAbstractEntity {
+public class UnloadingPayload extends BaseAbstractEntity {
 
     @Column(name = "country_id")
     private Long countryId;

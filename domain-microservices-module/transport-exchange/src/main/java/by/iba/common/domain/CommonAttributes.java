@@ -16,7 +16,7 @@ public abstract class CommonAttributes extends BaseAbstractEntity {
     private LoadingPayload loadingPayload;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private UnLoadingPayload unloadingPayload;
+    private UnloadingPayload unloadingPayload;
 
     @ManyToMany
     private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
