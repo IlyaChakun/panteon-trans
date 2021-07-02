@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnLoadingLocationDTO extends BaseAbstractDTO {
+public class LoadingPayloadDTO extends BaseAbstractDTO {
 
     private Long countryId;
 
@@ -18,5 +18,5 @@ public class UnLoadingLocationDTO extends BaseAbstractDTO {
 
     private Long cityId;
 
-    private LocalDate unloadingDate;
+    private LocalDate loadingDate;
 }

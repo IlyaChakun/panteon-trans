@@ -10,7 +10,6 @@ import javax.persistence.PreUpdate;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@MappedSuperclass
 @NoArgsConstructor
 @Getter
 public abstract class BaseEntity implements Serializable {
