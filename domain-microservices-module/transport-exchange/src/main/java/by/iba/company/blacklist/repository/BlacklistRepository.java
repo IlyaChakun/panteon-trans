@@ -1,6 +1,6 @@
 package by.iba.company.blacklist.repository;
 
-import by.iba.blacklist.domain.Blacklist;
+import by.iba.company.blacklist.domain.Blacklist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

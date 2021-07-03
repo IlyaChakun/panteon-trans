@@ -1,6 +1,6 @@
 package by.iba.company.blacklist.scpecifications;
 
-import by.iba.blacklist.domain.Blacklist;
+import by.iba.company.blacklist.domain.Blacklist;
 import org.springframework.data.jpa.domain.Specification;
 
 public class BlacklistSpecifications {

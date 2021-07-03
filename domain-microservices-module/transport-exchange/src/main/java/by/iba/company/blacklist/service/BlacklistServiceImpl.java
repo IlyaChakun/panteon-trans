@@ -1,11 +1,11 @@
 package by.iba.company.blacklist.service;
 
-import by.iba.blacklist.domain.Blacklist;
-import by.iba.blacklist.dto.BlacklistDTO;
-import by.iba.blacklist.dto.BlacklistDeleteDTO;
-import by.iba.blacklist.dto.mapper.BlacklistMapperDTO;
-import by.iba.blacklist.repository.BlacklistRepository;
-import by.iba.blacklist.scpecifications.BlacklistSpecifications;
+import by.iba.company.blacklist.domain.Blacklist;
+import by.iba.company.blacklist.dto.BlacklistDTO;
+import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.dto.mapper.BlacklistMapperDTO;
+import by.iba.company.blacklist.repository.BlacklistRepository;
+import by.iba.company.blacklist.scpecifications.BlacklistSpecifications;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;

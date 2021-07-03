@@ -9,10 +9,10 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>registry</artifactId>
+	<artifactId>discovery-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>registry</name>
+	<name>discovery-service</name>
 
 	<dependencies>
         <dependency>

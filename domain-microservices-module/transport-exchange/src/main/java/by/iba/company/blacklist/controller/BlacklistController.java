@@ -1,7 +1,7 @@
 package by.iba.company.blacklist.controller;
 
-import by.iba.blacklist.dto.BlacklistDTO;
-import by.iba.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.dto.BlacklistDTO;
+import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
 import by.iba.common.dto.PageWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

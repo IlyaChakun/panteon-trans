@@ -2,11 +2,11 @@ package by.iba.company.review.service;
 
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
-import by.iba.review.domain.CompanyReview;
-import by.iba.review.dto.CompanyReviewDTO;
-import by.iba.review.dto.mapper.CompanyReviewMapper;
-import by.iba.review.repository.CompanyReviewRepository;
-import by.iba.review.specifications.CompanyReviewSpecifications;
+import by.iba.company.review.domain.CompanyReview;
+import by.iba.company.review.dto.CompanyReviewDTO;
+import by.iba.company.review.dto.mapper.CompanyReviewMapper;
+import by.iba.company.review.repository.CompanyReviewRepository;
+import by.iba.company.review.specifications.CompanyReviewSpecifications;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

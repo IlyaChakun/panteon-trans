@@ -1,8 +1,8 @@
 package by.iba.company.blacklist.controller;
 
-import by.iba.blacklist.dto.BlacklistDTO;
-import by.iba.blacklist.dto.BlacklistDeleteDTO;
-import by.iba.blacklist.service.BlacklistService;
+import by.iba.company.blacklist.dto.BlacklistDTO;
+import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.service.BlacklistService;
 import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

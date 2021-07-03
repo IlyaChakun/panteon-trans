@@ -2,8 +2,8 @@ package by.iba.company.companies.controler;
 
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
-import by.iba.companies.dto.CompanyDTO;
-import by.iba.companies.service.CompanyService;
+import by.iba.company.companies.dto.CompanyDTO;
+import by.iba.company.companies.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

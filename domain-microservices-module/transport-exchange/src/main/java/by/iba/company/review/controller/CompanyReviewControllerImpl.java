@@ -2,8 +2,8 @@ package by.iba.company.review.controller;
 
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.review.dto.CompanyReviewDTO;
-import by.iba.review.service.CompanyReviewService;
+import by.iba.company.review.dto.CompanyReviewDTO;
+import by.iba.company.review.service.CompanyReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

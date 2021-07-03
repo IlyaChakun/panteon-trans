@@ -1,6 +1,6 @@
 package by.iba.company.companies.validation.annotation;
 
-import by.iba.companies.validation.validator.UNPValidator;
+import by.iba.company.companies.validation.validator.UNPValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

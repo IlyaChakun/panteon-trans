@@ -1,7 +1,7 @@
 package by.iba.company.review.dto;
 
 import by.iba.common.dto.BaseAbstractDTO;
-import by.iba.review.domain.CompanyServiceConstants;
+import by.iba.company.review.domain.CompanyServiceConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

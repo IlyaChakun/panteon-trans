@@ -9,10 +9,10 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>config</artifactId>
+    <artifactId>config-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>config</name>
+    <name>config-service</name>
 
     <dependencies>
 

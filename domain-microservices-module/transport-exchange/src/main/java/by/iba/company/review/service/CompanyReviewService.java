@@ -1,7 +1,7 @@
 package by.iba.company.review.service;
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.review.dto.CompanyReviewDTO;
+import by.iba.company.review.dto.CompanyReviewDTO;
 
 public interface CompanyReviewService {
 

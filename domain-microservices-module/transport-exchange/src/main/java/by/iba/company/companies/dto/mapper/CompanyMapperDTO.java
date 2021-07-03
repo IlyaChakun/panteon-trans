@@ -1,8 +1,8 @@
 package by.iba.company.companies.dto.mapper;
 
 import by.iba.common.dto.mapper.AbstractMapperDTO;
-import by.iba.companies.domain.Company;
-import by.iba.companies.dto.CompanyDTO;
+import by.iba.company.companies.domain.Company;
+import by.iba.company.companies.dto.CompanyDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

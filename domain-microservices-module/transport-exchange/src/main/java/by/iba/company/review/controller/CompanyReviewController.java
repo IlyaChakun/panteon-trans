@@ -1,7 +1,7 @@
 package by.iba.company.review.controller;
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.review.dto.CompanyReviewDTO;
+import by.iba.company.review.dto.CompanyReviewDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

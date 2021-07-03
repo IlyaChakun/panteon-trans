@@ -1,8 +1,8 @@
 package by.iba.company.review.dto.mapper;
 
 import by.iba.common.dto.mapper.AbstractMapperDTO;
-import by.iba.review.domain.CompanyReview;
-import by.iba.review.dto.CompanyReviewDTO;
+import by.iba.company.review.domain.CompanyReview;
+import by.iba.company.review.dto.CompanyReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

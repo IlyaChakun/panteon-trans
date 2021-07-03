@@ -1,7 +1,7 @@
 package by.iba.company.companies.service;
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.companies.dto.CompanyDTO;
+import by.iba.company.companies.dto.CompanyDTO;
 
 public interface CompanyService {
 

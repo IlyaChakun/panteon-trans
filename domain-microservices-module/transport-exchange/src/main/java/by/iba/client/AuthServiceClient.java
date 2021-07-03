@@ -1,8 +1,8 @@
 package by.iba.client;
 
+import by.iba.client.dto.PasswordReqDTO;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.exception.ServiceException;
-import by.iba.dto.PasswordReqDTO;
 import by.iba.dto.UserDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

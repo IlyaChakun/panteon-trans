@@ -1,6 +1,6 @@
 package by.iba.company.review.specifications;
 
-import by.iba.review.domain.CompanyReview;
+import by.iba.company.review.domain.CompanyReview;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CompanyReviewSpecifications {

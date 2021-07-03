@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>config</module>
-        <module>registry</module>
+        <module>config-service</module>
+        <module>discovery-service</module>
         <module>api-gateway-service</module>
         <module>turbine-stream-service</module>
         <module>monitoring-service</module>

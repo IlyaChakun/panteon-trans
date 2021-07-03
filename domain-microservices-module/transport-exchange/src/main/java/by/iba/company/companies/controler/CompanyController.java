@@ -2,7 +2,7 @@ package by.iba.company.companies.controler;
 
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
-import by.iba.companies.dto.CompanyDTO;
+import by.iba.company.companies.dto.CompanyDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package by.iba.company.companies.repository;
 
-import by.iba.companies.domain.Company;
-import by.iba.companies.domain.CompanyId;
+import by.iba.company.companies.domain.Company;
+import by.iba.company.companies.domain.CompanyId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

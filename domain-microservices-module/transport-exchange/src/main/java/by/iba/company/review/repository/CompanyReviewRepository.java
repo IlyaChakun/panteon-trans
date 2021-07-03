@@ -1,6 +1,6 @@
 package by.iba.company.review.repository;
 
-import by.iba.review.domain.CompanyReview;
+import by.iba.company.review.domain.CompanyReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
