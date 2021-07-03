@@ -1,6 +1,6 @@
-package by.iba.core;
+package by.iba.notification.email.core;
 
-import by.iba.exception.EmailServiceException;
+import by.iba.notification.email.exception.EmailServiceException;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.mail.internet.MimeMessage;

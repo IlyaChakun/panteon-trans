@@ -1,4 +1,4 @@
-package by.iba.exception;
+package by.iba.notification.email.exception;
 
 public class EmailServiceException extends RuntimeException {
 

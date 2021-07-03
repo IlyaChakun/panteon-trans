@@ -1,22 +1,18 @@
 package by.iba.security.mail;
 
 import by.iba.security.mail.exception.InvalidEmailException;
-import by.iba.configuration.BaseEmailProperties;
-import by.iba.exception.EmailServiceException;
+import by.iba.email.configuration.BaseEmailProperties;
+import by.iba.email.exception.EmailServiceException;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import by.iba.core.EmailSenderService;
+import by.iba.email.core.EmailSenderService;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.*;
-import java.io.NotActiveException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 

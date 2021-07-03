@@ -1,9 +1,9 @@
 package by.iba.exchange.cargo.mail;
 
 import by.iba.exchange.cargo.mail.exception.EmailException;
-import by.iba.configuration.BaseEmailProperties;
-import by.iba.core.EmailSenderService;
-import by.iba.exception.EmailServiceException;
+import by.iba.email.configuration.BaseEmailProperties;
+import by.iba.email.core.EmailSenderService;
+import by.iba.email.exception.EmailServiceException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;

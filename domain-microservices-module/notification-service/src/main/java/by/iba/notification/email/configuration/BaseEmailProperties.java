@@ -1,4 +1,4 @@
-package by.iba.configuration;
+package by.iba.notification.email.configuration;
 
 
 import lombok.Getter;
