@@ -36,7 +36,7 @@ public class User extends BaseEntity {
     private String lastName;
 
     @Column(name = "is_email_confirmed")
-    private boolean isEmailConfirmed;
+    private Boolean isEmailConfirmed;
 
     @ManyToMany(
             fetch = FetchType.EAGER,

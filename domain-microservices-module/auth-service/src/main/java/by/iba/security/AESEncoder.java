@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.core.util.Base64Encoder;
 import lombok.Builder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -22,6 +23,7 @@ import java.util.Objects;
 
 @Slf4j
 @Builder
+@Component
 public class AESEncoder implements PasswordHashEncoder {
 
     private final byte[] inputBuffer = "buffer".getBytes(StandardCharsets.UTF_8);

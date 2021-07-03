@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequestMapping("/accounts")
 @CrossOrigin(origins = "*")
@@ -17,7 +18,7 @@ public interface AccountController {
     ResponseEntity<AccountDTO> save(@Valid @RequestBody AccountDTO accountDTO);
 
     @GetMapping("/{id}")
-    ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId);
+    ResponseEntity<AccountDTO> findById(@PathVariable("id") String accountId, Principal principal);
 
     @GetMapping("/confirm/{token}")
     ResponseEntity<ApiResponse> confirmAccount(@PathVariable("token") String token);
