@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
         if (token.isPresent()) {
             User user = userRepository.findByUserId(token.get().getUserId());
-            user.setEmailConfirmed(true);
+            user.setIsEmailConfirmed(true);
             userRepository.save(user);
         } else {
             log.error("Link with token is broken");

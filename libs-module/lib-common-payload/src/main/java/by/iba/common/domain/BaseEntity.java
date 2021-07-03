@@ -18,7 +18,7 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "version")
-    private int version;
+    private Integer version;
 
     @Column(name = "date_of_creation")
     private LocalDateTime dateOfCreation;

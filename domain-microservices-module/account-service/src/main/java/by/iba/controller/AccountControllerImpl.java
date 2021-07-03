@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 
 
 @RestController
@@ -39,7 +40,10 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<AccountDTO> findById(String accountId) {
+    public ResponseEntity<AccountDTO> findById(String accountId, Principal principal) {
+
+        System.out.println(principal);
+        System.out.println(principal.getName());
         log.info("Received a request to find account by id = {} ", accountId);
 
         AccountDTO savedAccount = accountService.findById(Long.valueOf(accountId));
