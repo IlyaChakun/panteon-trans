@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RequestMapping("/trucks")
 @CrossOrigin(origins = "*")
-public interface TruckController {
+public interface TruckOfferController {
 
     @PostMapping
     ResponseEntity<TruckOfferDTO> save(@Valid @RequestBody TruckOfferReqDTO truckDTO,

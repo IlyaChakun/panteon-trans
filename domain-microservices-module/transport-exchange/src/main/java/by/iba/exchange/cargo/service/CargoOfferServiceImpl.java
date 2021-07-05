@@ -6,11 +6,11 @@ import by.iba.exchange.cargo.dto.CargoOfferDTO;
 import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.exchange.cargo.dto.mapper.CargoDimensionsMapperDTO;
-import by.iba.exchange.cargo.dto.mapper.CargoMapperDTO;
+import by.iba.exchange.cargo.dto.mapper.CargoOfferMapperDTO;
 import by.iba.exchange.cargo.mail.CargoMailServiceImpl;
-import by.iba.exchange.cargo.repository.CargoRepository;
+import by.iba.exchange.cargo.repository.CargoOfferRepository;
 import by.iba.exchange.cargo.repository.CargoTypeRepository;
-import by.iba.exchange.cargo.specifications.CargoSpecifications;
+import by.iba.exchange.cargo.specifications.CargoOfferSpecifications;
 import by.iba.exchange.common.domain.CargoStowageMethod;
 import by.iba.exchange.common.domain.TruckBodyType;
 import by.iba.common.dto.PageWrapper;
@@ -37,14 +37,14 @@ import java.time.LocalDate;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CargoServiceImpl implements CargoService {
+public class CargoOfferServiceImpl implements CargoOfferService {
 
     private final CargoDimensionsMapperDTO cargoDimensionsMapper;
     private final CargoMailServiceImpl cargoMailService;
     private final LoadingPayloadMapperDTO loadingPayloadMapper;
     private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
-    private final CargoRepository cargoRepository;
-    private final CargoMapperDTO cargoMapper;
+    private final CargoOfferRepository cargoOfferRepository;
+    private final CargoOfferMapperDTO cargoMapper;
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
@@ -59,7 +59,7 @@ public class CargoServiceImpl implements CargoService {
         log.info("Start saving the cargo");
       //  String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
         CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
-        CargoOffer savedCargoOffer = cargoRepository.save(cargoOffer);
+        CargoOffer savedCargoOffer = cargoOfferRepository.save(cargoOffer);
        // cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargoOffer.getId());
         return cargoMapper.toDto(savedCargoOffer);
@@ -72,12 +72,12 @@ public class CargoServiceImpl implements CargoService {
     public void delete(Long cargoId) {
         log.info("Start deleting cargo with id = {} ", cargoId);
 
-        CargoOffer cargoOffer = cargoRepository
+        CargoOffer cargoOffer = cargoOfferRepository
                 .findById(cargoId)
                 .orElseThrow(() -> new ResourceNotFoundException("cargo with id = " + cargoId + " not found "));
 
         cargoOffer.setDeletionDate(LocalDate.now());
-        cargoRepository.save(cargoOffer);
+        cargoOfferRepository.save(cargoOffer);
 
         log.info("Cargo with id = {} has been deleted ", cargoId);
     }
@@ -87,7 +87,7 @@ public class CargoServiceImpl implements CargoService {
 
         log.info("Start findById cargo with id = {} ", cargoId);
 
-        CargoOffer cargoOffer = cargoRepository.findById(cargoId)
+        CargoOffer cargoOffer = cargoOfferRepository.findById(cargoId)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.cargo.not_found_by_id" + cargoId));
 
         log.info("Cargo with id = {} has been find ", cargoId);
@@ -102,15 +102,15 @@ public class CargoServiceImpl implements CargoService {
         log.info("There was a request to findAll cargo with page " + page + "and size" + size);
 
         Specification<CargoOffer> specification =
-                Specification.where(CargoSpecifications
+                Specification.where(CargoOfferSpecifications
                         .notDeleted())
-                        .and(CargoSpecifications.getAllCargoByCountryId(cargoSearchCriteriaDTO.getCountryId()));
+                        .and(CargoOfferSpecifications.getAllCargoByCountryId(cargoSearchCriteriaDTO.getCountryId()));
 
         Pageable pageable =
                 PageRequest.of(page, size);
 
         Page<CargoOffer> cargoPage =
-                cargoRepository.findAll(specification, pageable);
+                cargoOfferRepository.findAll(specification, pageable);
 
         log.info("Method response posted to findAll cargo with page " + page + "and size " + size);
 

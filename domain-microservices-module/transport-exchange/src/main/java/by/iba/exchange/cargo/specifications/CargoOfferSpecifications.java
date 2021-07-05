@@ -3,7 +3,7 @@ package by.iba.exchange.cargo.specifications;
 import by.iba.exchange.cargo.domain.CargoOffer;
 import org.springframework.data.jpa.domain.Specification;
 
-public class CargoSpecifications {
+public class CargoOfferSpecifications {
 
     public static Specification<CargoOffer> notDeleted() {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.isNull(root.get("deletionDate"));

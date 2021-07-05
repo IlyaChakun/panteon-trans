@@ -12,8 +12,8 @@ import by.iba.exchange.common.repository.TruckBodyTypeRepository;
 import by.iba.exchange.truck.domain.TruckOffer;
 import by.iba.exchange.truck.dto.TruckOfferDTO;
 import by.iba.exchange.truck.dto.TruckOfferReqDTO;
-import by.iba.exchange.truck.dto.mapper.TruckMapperDTO;
-import by.iba.exchange.truck.repository.TruckRepository;
+import by.iba.exchange.truck.dto.mapper.TruckOfferMapperDTO;
+import by.iba.exchange.truck.repository.TruckOfferRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,27 +26,27 @@ import javax.transaction.Transactional;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class TruckServiceImpl implements TruckService {
+public class TruckOfferServiceImpl implements TruckOfferService {
 
     private final LoadingPayloadMapperDTO loadingPayloadMapper;
     private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final PaymentMapperDTO paymentMapperDTO;
-    private final TruckRepository truckRepository;
-    private final TruckMapperDTO truckMapper;
+    private final TruckOfferRepository truckOfferRepository;
+    private final TruckOfferMapperDTO truckMapper;
 
     @Transactional
     @Override
     public TruckOfferDTO save(TruckOfferReqDTO truckOfferReqDTO) {
         TruckOffer truckOffer = mapToTruck(truckOfferReqDTO);
-        TruckOffer saved = truckRepository.save(truckOffer);
+        TruckOffer saved = truckOfferRepository.save(truckOffer);
         return truckMapper.toDto(saved);
     }
 
     @Override
     public TruckOfferDTO findById(Long id) {
-        TruckOffer truckOffer = truckRepository.findById(id)
+        TruckOffer truckOffer = truckOfferRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("truck not found"));
         return truckMapper.toDto(truckOffer);
     }
@@ -57,7 +57,7 @@ public class TruckServiceImpl implements TruckService {
                 PageRequest.of(page, size);
 
         Page<TruckOffer> truckPage =
-                truckRepository.findAll(pageable);
+                truckOfferRepository.findAll(pageable);
 
         return
                 new PageWrapper<>(truckMapper

@@ -1,6 +1,15 @@
 # panteon-trans
 The project is represented by the transport exchange.
 
+# Functionality
+
+* Cargo offers table
+* Transport offers table
+* Company table
+* Security service for us and for provided service
+* Matching service for matching cargo with transport to build transportation request
+* 
+
 
 #Краткий экскурс
 

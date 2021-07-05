@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CargoMapperDTO extends AbstractMapperDTO<CargoOffer, CargoOfferDTO> {
+public class CargoOfferMapperDTO extends AbstractMapperDTO<CargoOffer, CargoOfferDTO> {
 
     @Autowired
-    public CargoMapperDTO() {
+    public CargoOfferMapperDTO() {
         super(CargoOffer.class, CargoOfferDTO.class);
     }
 }

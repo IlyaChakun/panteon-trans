@@ -4,7 +4,7 @@ import by.iba.common.dto.PageWrapper;
 import by.iba.exchange.truck.dto.TruckOfferDTO;
 import by.iba.exchange.truck.dto.TruckOfferReqDTO;
 
-public interface TruckService {
+public interface TruckOfferService {
 
     TruckOfferDTO save(TruckOfferReqDTO truckOfferReqDTO);
 

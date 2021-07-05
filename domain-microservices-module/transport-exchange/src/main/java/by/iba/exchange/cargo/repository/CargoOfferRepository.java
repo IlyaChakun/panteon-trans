@@ -5,6 +5,6 @@ import by.iba.common.repository.BaseAbstractRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CargoRepository extends BaseAbstractRepository<CargoOffer> {
+public interface CargoOfferRepository extends BaseAbstractRepository<CargoOffer> {
 
 }

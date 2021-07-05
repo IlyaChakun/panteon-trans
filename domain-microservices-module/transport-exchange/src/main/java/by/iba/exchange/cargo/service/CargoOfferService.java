@@ -5,7 +5,7 @@ import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 
-public interface CargoService {
+public interface CargoOfferService {
 
     CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO);
 

@@ -3,7 +3,7 @@ package by.iba.exchange.truck.controler;
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
 import by.iba.exchange.truck.dto.TruckOfferReqDTO;
-import by.iba.exchange.truck.service.TruckService;
+import by.iba.exchange.truck.service.TruckOfferService;
 import by.iba.exchange.truck.dto.TruckOfferDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +19,15 @@ import java.net.URI;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class TruckControllerImpl implements TruckController {
+public class TruckOfferControllerImpl implements TruckOfferController {
 
-    private final TruckService truckService;
+    private final TruckOfferService truckOfferService;
 
     @Override
     public ResponseEntity<TruckOfferDTO> save(TruckOfferReqDTO truckDTO, final BindingResult bindingResult) {
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
-        final TruckOfferDTO saved = truckService.save(truckDTO);
+        final TruckOfferDTO saved = truckOfferService.save(truckDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -43,7 +43,7 @@ public class TruckControllerImpl implements TruckController {
     @Override
     public ResponseEntity<TruckOfferDTO> findById(String truckId) {
 
-        final TruckOfferDTO response = truckService.findById(Long.valueOf(truckId));
+        final TruckOfferDTO response = truckOfferService.findById(Long.valueOf(truckId));
 
         return ResponseEntity
                 .ok()
@@ -54,7 +54,7 @@ public class TruckControllerImpl implements TruckController {
     public ResponseEntity<PageWrapper<TruckOfferDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
                                                               @RequestParam(defaultValue = "10", required = false) Integer size) {
 
-        final PageWrapper<TruckOfferDTO> pageWrapper = truckService.findAll(page, size);
+        final PageWrapper<TruckOfferDTO> pageWrapper = truckOfferService.findAll(page, size);
 
         return ResponseEntity
                 .ok()

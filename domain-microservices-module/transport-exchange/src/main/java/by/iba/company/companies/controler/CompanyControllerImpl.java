@@ -25,7 +25,7 @@ public class CompanyControllerImpl implements CompanyController {
     public ResponseEntity<CompanyDTO> save(@Valid final CompanyDTO companyDTO,
                                            final BindingResult bindingResult) {
 
-        ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);//TODO  это для проверки валидации (успешно не успешно )
+        ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the company with unp = {}", companyDTO.getUnp());
 

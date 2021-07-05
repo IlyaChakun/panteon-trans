@@ -5,5 +5,5 @@ import by.iba.exchange.truck.domain.TruckOffer;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TruckRepository extends BaseAbstractRepository<TruckOffer> {
+public interface TruckOfferRepository extends BaseAbstractRepository<TruckOffer> {
 }
