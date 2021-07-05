@@ -1,6 +1,8 @@
 package by.iba.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.client.dto.BusinessType;
+import by.iba.client.dto.CountryResp;
+import by.iba.common.dto.core.BaseAbstractReq;
 import by.iba.common.validation.annotation.ValidEmail;
 import by.iba.common.validation.annotation.ValidPhones;
 import by.iba.common.validation.annotation.ValidSite;
@@ -20,9 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyResp extends BaseAbstractResp {
-
-    private Long companyId;
+public class CompanyReq extends BaseAbstractReq {
 
     @NotBlank(message = "validation.company.unp.not_presented")
     private String unp;

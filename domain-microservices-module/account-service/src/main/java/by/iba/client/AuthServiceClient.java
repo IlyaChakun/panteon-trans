@@ -1,9 +1,10 @@
 package by.iba.client;
 
+import by.iba.client.dto.UserResp;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.exception.ServiceException;
-import by.iba.dto.PasswordReqDTO;
-import by.iba.dto.UserResp;
+import by.iba.dto.PasswordReq;
+import by.iba.dto.UserReq;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import javax.validation.Valid;
 public interface AuthServiceClient {
 
     @PostMapping("/users")
-    ResponseEntity<UserResp> save(UserResp user) throws ServiceException;
+    ResponseEntity<UserResp> save(UserReq user) throws ServiceException;
 
     @PostMapping(value = "/users/confirm-account/{token}")
     ResponseEntity<ApiResponse> confirmUserAccount(@PathVariable("token") String token);
@@ -23,11 +24,11 @@ public interface AuthServiceClient {
     ResponseEntity<ApiResponse> recoverPassword(@PathVariable("email") String userEmail);
 
     @PostMapping(value = "/users/password/recover/{token}")
-    ResponseEntity<PasswordReqDTO> recoverPasswordConfirmation(@PathVariable("token") String token,
-                                                               @RequestBody @Valid PasswordReqDTO passwordReqDTO);
+    ResponseEntity<PasswordReq> recoverPasswordConfirmation(@PathVariable("token") String token,
+                                                            @RequestBody @Valid PasswordReq passwordReq);
 
     @PutMapping(value = "/users/password/update/{userId}")
-    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReqDTO passwordReqDTO,
-                                                  @PathVariable Long userId);
+    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReq passwordReq,
+                                               @PathVariable Long userId);
 
 }

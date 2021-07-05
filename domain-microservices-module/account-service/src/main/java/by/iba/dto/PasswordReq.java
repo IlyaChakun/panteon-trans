@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualPasswordsValidation(message = "passwords are not equal")
-public class PasswordReqDTO {
+public class PasswordReq {
 
     private String oldPassword;
 

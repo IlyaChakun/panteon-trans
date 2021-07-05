@@ -1,4 +1,4 @@
-package by.iba.dto;
+package by.iba.client.dto;
 
 public enum BusinessType {
     FREIGHT_OWNER,

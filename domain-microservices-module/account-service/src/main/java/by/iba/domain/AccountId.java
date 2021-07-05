@@ -1,15 +1,16 @@
 package by.iba.domain;
 
+import by.iba.common.domain.BaseCompositeKey;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class AccountId implements Serializable {
+@Getter
+@Setter
+public class AccountId extends BaseCompositeKey {
 
     private Long accountId;
 

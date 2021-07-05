@@ -1,8 +1,7 @@
-package by.iba.company.companies.domain;
+package by.iba.domain;
 
 public enum Status {
     VERIFIED,
-    NOT_VERIFIED,
     DENIED,
     PENDING,
 }

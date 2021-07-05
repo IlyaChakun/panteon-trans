@@ -1,7 +1,7 @@
 package by.iba.client;
 
+import by.iba.client.dto.CompanyResp;
 import by.iba.common.exception.ServiceException;
-import by.iba.dto.CompanyResp;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

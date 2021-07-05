@@ -1,12 +1,11 @@
 package by.iba.company.companies.dto;
 
 import by.iba.common.dto.AddressDTO;
-import by.iba.common.dto.core.BaseReq;
+import by.iba.common.dto.core.BaseAbstractReq;
 import by.iba.common.validation.annotation.ValidEmail;
 import by.iba.common.validation.annotation.ValidPhones;
 import by.iba.common.validation.annotation.ValidSite;
 import by.iba.company.companies.domain.BusinessType;
-import by.iba.company.companies.domain.Status;
 import by.iba.company.companies.validation.annotation.ValidUNP;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -24,7 +23,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyReq extends BaseReq {
+public class CompanyReq extends BaseAbstractReq {
 
     @NotBlank(message = "validation.company.unp.not_presented")
     @ValidUNP
@@ -61,9 +60,6 @@ public class CompanyReq extends BaseReq {
 
     @NotNull(message = "Business type must selected")
     private BusinessType businessType;
-
-   // @Null(message = "Will be set automatically")
-    private Status status = Status.PENDING;
 
     private Set<Long> companyFeatureIds = new HashSet<>();
 }

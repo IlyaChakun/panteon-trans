@@ -15,10 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableFeignClients(basePackages = "by.iba.client")
 @EnableCircuitBreaker
-public class AccountApplication {
+public class AccountServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AccountApplication.class, args);
+        SpringApplication.run(AccountServiceApplication.class, args);
     }
 
 }

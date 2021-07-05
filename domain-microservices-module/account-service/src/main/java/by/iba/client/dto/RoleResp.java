@@ -1,6 +1,7 @@
-package by.iba.dto;
+package by.iba.client.dto;
 
 
+import by.iba.common.dto.core.BaseAbstractResp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDTO {
+public class RoleResp extends BaseAbstractResp {
 
     @NotNull(message = "Role name is required!")
     private String roleName;

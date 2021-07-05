@@ -60,10 +60,6 @@ public class Company extends BaseEntity {
     @Enumerated
     private BusinessType businessType;
 
-    @Column(name = "status")
-    @Enumerated
-    private Status status = Status.PENDING;
-
     @ManyToMany
     @JoinTable(name = "company_active_features",
             joinColumns = {

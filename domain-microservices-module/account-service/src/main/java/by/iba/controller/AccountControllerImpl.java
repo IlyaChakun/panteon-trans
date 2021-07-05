@@ -1,8 +1,9 @@
 package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.PasswordReqDTO;
+import by.iba.dto.PasswordReq;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +25,9 @@ public class AccountControllerImpl implements AccountController {
 
 
     @Override
-    public ResponseEntity<AccountResp> save(@Valid AccountResp accountDTO) {
-        log.info("Received a request to save new account with id = {} ", accountDTO.getAccountId());
-        AccountResp savedAccount = accountService.save(accountDTO);
+    public ResponseEntity<AccountResp> save(@Valid AccountReq accountReq) {
+        log.info("Received a request to save new account with id = {} ", accountReq.getAccountId());
+        AccountResp savedAccount = accountService.save(accountReq);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -76,9 +77,9 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<ApiResponse> recoverPasswordConfirmation(String token, PasswordReqDTO passwordReqDTO) {
+    public ResponseEntity<ApiResponse> recoverPasswordConfirmation(String token, PasswordReq passwordReq) {
 
-        accountService.updatePasswordFromRecovery(token, passwordReqDTO);
+        accountService.updatePasswordFromRecovery(token, passwordReq);
 
         return ResponseEntity.ok(
                 new ApiResponse(true, "password recovered")
@@ -86,10 +87,10 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<ApiResponse> updatePassword(PasswordReqDTO passwordReqDTO, Long userId) {
+    public ResponseEntity<ApiResponse> updatePassword(PasswordReq passwordReq, Long userId) {
         log.info("Received a request to update password for user with id = {} ", userId);
 
-        accountService.updatePassword(userId, passwordReqDTO);
+        accountService.updatePassword(userId, passwordReq);
 
 
         return ResponseEntity.ok(

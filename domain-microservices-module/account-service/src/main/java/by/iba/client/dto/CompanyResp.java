@@ -1,8 +1,7 @@
-package by.iba.company.companies.dto;
+package by.iba.client.dto;
 
 import by.iba.common.dto.AddressDTO;
 import by.iba.common.dto.core.BaseResp;
-import by.iba.company.companies.domain.BusinessType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

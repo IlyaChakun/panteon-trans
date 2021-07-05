@@ -1,11 +1,12 @@
 package by.iba.service;
 
+import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.PasswordReqDTO;
+import by.iba.dto.PasswordReq;
 
 public interface AccountService {
 
-    AccountResp save(AccountResp accountDTO);
+    AccountResp save(AccountReq accountReq);
 
     AccountResp findById(Long accountId);
 
@@ -13,8 +14,8 @@ public interface AccountService {
 
     void recoverPassword( String userEmail);
 
-    void updatePasswordFromRecovery(String token, PasswordReqDTO passwordReqDTO);
+    void updatePasswordFromRecovery(String token, PasswordReq passwordReq);
 
-    void updatePassword(Long userId, PasswordReqDTO passwordReqDTO);
+    void updatePassword(Long userId, PasswordReq passwordReq);
 
 }

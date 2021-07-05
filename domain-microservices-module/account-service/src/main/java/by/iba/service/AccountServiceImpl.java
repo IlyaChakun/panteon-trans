@@ -2,12 +2,13 @@ package by.iba.service;
 
 import by.iba.client.AuthServiceClient;
 import by.iba.client.CompanyServiceClient;
+import by.iba.client.dto.CompanyResp;
+import by.iba.client.dto.UserResp;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
+import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.CompanyResp;
-import by.iba.dto.PasswordReqDTO;
-import by.iba.dto.UserResp;
+import by.iba.dto.PasswordReq;
 import by.iba.dto.mapper.AccountMapperDTO;
 import by.iba.repository.AccountRepository;
 import lombok.AllArgsConstructor;
@@ -29,10 +30,11 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapperDTO accountMapper;
 
     @Override
-    public AccountResp save(AccountResp accountDTO) {
-        log.info("Creating account with id = {}", accountDTO.getAccountId());
+    @Transactional
+    public AccountResp save(AccountReq accountReq) {
+        log.info("Creating account with id = {}", accountReq.getAccountId());
 
-        UserResp savedUser = saveUser(accountDTO);
+        UserResp savedUser = saveUser(accountReq);
 
         //CompanyDTO savedCompany = saveCompany(accountDTO);
 
@@ -42,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = new Account();
         account.setUserId(savedUser.getUserId());//account.setCompanyId(savedCompany.getCompanyId());
-        account.setCompanyId(accountDTO.getCompany().getCompanyId());
+        //account.setCompanyId(accountReq.getCompany().getcom());
         Account savedAccount = accountRepository.save(account);
 
         return accountMapper.toDto(savedAccount);
@@ -65,10 +67,12 @@ public class AccountServiceImpl implements AccountService {
         return accountDTO;
     }
 
-    private UserResp saveUser(AccountResp accountDTO) {
-        return authClient.save(accountDTO.getUser()).getBody();
+    private UserResp saveUser(AccountReq accountReq) {
+        return authClient.save(accountReq.getUser()).getBody();
     }
 
+    @Override
+    @Transactional
     public void confirmAccount(String token) {
         log.error("this method is not implemented");
         throw new NotYetImplementedException("Not implemented");
@@ -76,6 +80,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void recoverPassword(String userEmail) {
         log.info("Password recovery started");
         sendRecoverPasswordMessage(userEmail);
@@ -87,17 +92,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public void updatePasswordFromRecovery(String token, PasswordReqDTO passwordReqDTO) {
-        authClient.recoverPasswordConfirmation(token, passwordReqDTO);
+    public void updatePasswordFromRecovery(String token, PasswordReq passwordReq) {
+        authClient.recoverPasswordConfirmation(token, passwordReq);
     }
 
     @Override
-    public void updatePassword(Long userId, PasswordReqDTO passwordReqDTO) {
-        authClient.updatePassword(passwordReqDTO, userId);
+    @Transactional
+    public void updatePassword(Long userId, PasswordReq passwordReq) {
+        authClient.updatePassword(passwordReq, userId);
     }
 
 
-    public void sendRecoverPasswordMessage(String userEmail) {
+    private void sendRecoverPasswordMessage(String userEmail) {
         authClient.recoverPassword(userEmail);
     }
 

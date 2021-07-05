@@ -1,8 +1,9 @@
 package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.PasswordReqDTO;
+import by.iba.dto.PasswordReq;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.security.Principal;
 public interface AccountController {
 
     @PostMapping
-    ResponseEntity<AccountResp> save(@Valid @RequestBody AccountResp accountDTO);
+    ResponseEntity<AccountResp> save(@Valid @RequestBody AccountReq accountReq);
 
     @GetMapping("/{id}")
     ResponseEntity<AccountResp> findById(@PathVariable("id") String accountId, Principal principal);
@@ -27,10 +28,10 @@ public interface AccountController {
 
     @PostMapping(value = "/password/recover/{token}")
     ResponseEntity<ApiResponse> recoverPasswordConfirmation(@PathVariable("token") String token,
-                                                            @RequestBody @Valid PasswordReqDTO passwordReqDTO);
+                                                            @RequestBody @Valid PasswordReq passwordReq);
 
     @PutMapping("/password/update/{userId}")
-    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReqDTO passwordReqDTO,
+    ResponseEntity<ApiResponse> updatePassword(@RequestBody @Valid PasswordReq passwordReq,
                                                   @PathVariable Long userId);
 
 }

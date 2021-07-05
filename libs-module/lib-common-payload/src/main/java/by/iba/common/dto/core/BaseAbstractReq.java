@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseReq extends MappableObjectDTO {
+public abstract class BaseAbstractReq extends MappableObjectDTO {
 }

@@ -2,13 +2,13 @@ package by.iba.common.mapper.core;
 
 
 import by.iba.common.domain.core.BaseEntity;
-import by.iba.common.dto.core.BaseReq;
+import by.iba.common.dto.core.BaseAbstractReq;
 import by.iba.common.dto.core.BaseResp;
 import org.modelmapper.Converter;
 
 import java.util.Objects;
 
-public abstract class FullAbstractMapper<E extends BaseEntity, D extends BaseResp, R extends BaseReq>
+public abstract class FullAbstractMapper<E extends BaseEntity, D extends BaseResp, R extends BaseAbstractReq>
         extends SimpleAbstractMapper<E, D>
         implements FullObjectMapper<E, D, R> {
 

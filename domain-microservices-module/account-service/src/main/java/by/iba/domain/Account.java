@@ -27,4 +27,7 @@ public class Account extends BaseEntity {
     @Column(name = "company_id", nullable = false)
     private Long companyId;
 
+    @Column(name = "status")
+    @Enumerated
+    private Status status = Status.PENDING;
 }
