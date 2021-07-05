@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableDiscoveryClient
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableFeignClients(basePackages = "by.iba.client")
+//@EnableFeignClients(basePackages = "by.iba.client")
 @EnableCircuitBreaker
 @EnableCaching
 public class NotificationApplication {

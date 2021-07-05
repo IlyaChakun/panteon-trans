@@ -1,13 +1,13 @@
 package by.iba.security.mail;
 
 import by.iba.security.mail.exception.InvalidEmailException;
-import by.iba.email.configuration.BaseEmailProperties;
-import by.iba.email.exception.EmailServiceException;
+//import by.iba.email.configuration.BaseEmailProperties;
+//import by.iba.email.exception.EmailServiceException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import by.iba.email.core.EmailSenderService;
+//import by.iba.email.core.EmailSenderService;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,8 +19,8 @@ import java.util.Properties;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class UserSecurityMailServiceImpl implements UserSecurityMailService {
-
+public class UserSecurityMailServiceImpl {//implements UserSecurityMailService {
+/*
     private final EmailSenderService emailSenderService;
     private final BaseEmailProperties baseEmailProperties;
 
@@ -170,5 +170,5 @@ public class UserSecurityMailServiceImpl implements UserSecurityMailService {
         properties.setProperty("mail.smtps.auth", "true");
 
         return properties;
-    }
+    }*/
 }

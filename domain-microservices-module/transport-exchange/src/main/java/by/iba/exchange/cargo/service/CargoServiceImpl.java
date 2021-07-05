@@ -20,7 +20,7 @@ import by.iba.exchange.common.dto.mapper.UnLoadingLocationMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.exchange.common.repository.CargoStowageMethodRepository;
 import by.iba.exchange.common.repository.TruckBodyTypeRepository;
-import by.iba.repository.UserRepository;
+//import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -49,7 +49,7 @@ public class CargoServiceImpl implements CargoService {
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final CargoTypeRepository cargoTypeRepository;
     private final PaymentMapperDTO paymentMapper;
-    private final UserRepository userRepository;
+    //private final UserRepository userRepository;
 
 
     @Transactional
@@ -57,10 +57,10 @@ public class CargoServiceImpl implements CargoService {
     @Override
     public CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO) {
         log.info("Start saving the cargo");
-        String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
+      //  String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
         CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
         CargoOffer savedCargoOffer = cargoRepository.save(cargoOffer);
-        cargoMailService.sendSaveCargoNotification(email);
+       // cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargoOffer.getId());
         return cargoMapper.toDto(savedCargoOffer);
     }
