@@ -1,6 +1,5 @@
 package by.iba.exchange.common.dto;
 
-import by.iba.common.dto.AbstractDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +14,9 @@ public abstract class CommonAttributesDTO extends AbstractDTO {//TODO add valida
 
     private Long id;
 
-    private LoadingLocationDTO loadingLocation;
+    private LoadingPayloadDTO loadingPayload;
 
-    private UnLoadingLocationDTO unloadingLocation;
+    private UnloadingPayloadDTO unloadingPayload;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
