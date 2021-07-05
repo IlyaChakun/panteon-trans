@@ -1,6 +1,5 @@
 package by.iba.exchange.common.domain;
 
-import by.iba.common.domain.BaseAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UnLoadingPayload extends BaseAbstractEntity {
+public class UnloadingPayload extends BaseAbstractEntity {
 
     @Column(name = "country_id")
     private Long countryId;
