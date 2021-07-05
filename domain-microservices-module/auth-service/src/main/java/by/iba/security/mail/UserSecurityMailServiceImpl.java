@@ -9,10 +9,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 //import by.iba.email.core.EmailSenderService;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.*;
+//import javax.mail.Message;
+//import javax.mail.MessagingException;
+//import javax.mail.Session;
+//import javax.mail.internet.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 

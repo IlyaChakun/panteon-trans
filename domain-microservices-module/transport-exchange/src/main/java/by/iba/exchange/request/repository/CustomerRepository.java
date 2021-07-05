@@ -1,6 +1,6 @@
 package by.iba.exchange.request.repository;
 
-import by.iba.exchange.common.repository.BaseAbstractRepository;
+import by.iba.common.repository.BaseAbstractRepository;
 import by.iba.exchange.request.entity.Customer;
 import org.springframework.stereotype.Repository;
 

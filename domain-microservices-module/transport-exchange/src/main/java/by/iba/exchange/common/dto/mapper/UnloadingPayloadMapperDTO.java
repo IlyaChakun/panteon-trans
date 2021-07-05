@@ -1,5 +1,6 @@
 package by.iba.exchange.common.dto.mapper;
 
+import by.iba.common.dto.mapper.AbstractMapperDTO;
 import by.iba.exchange.common.domain.UnloadingPayload;
 import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import org.springframework.beans.factory.annotation.Autowired;

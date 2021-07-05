@@ -1,6 +1,5 @@
 package by.iba.exchange.request.service;
-
-import by.iba.exchange.common.dto.PageWrapper;
+import by.iba.common.dto.PageWrapper;
 import by.iba.exchange.request.dto.TransportationRequestDTO;
 
 public interface TransportationRequestService {

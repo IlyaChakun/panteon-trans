@@ -1,6 +1,6 @@
 package by.iba.exchange.request.dto;
 
-import by.iba.exchange.common.dto.BaseDTO;
+import by.iba.common.dto.BaseDTO;
 import by.iba.exchange.common.dto.LoadingPayloadDTO;
 import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import by.iba.exchange.request.entity.TransportationRequestStatus;

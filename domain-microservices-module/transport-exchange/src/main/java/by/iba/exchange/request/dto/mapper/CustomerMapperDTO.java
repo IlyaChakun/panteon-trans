@@ -1,6 +1,6 @@
 package by.iba.exchange.request.dto.mapper;
 
-import by.iba.exchange.common.dto.mapper.AbstractMapperDTO;
+import by.iba.common.dto.mapper.AbstractMapperDTO;
 import by.iba.exchange.request.dto.CustomerDTO;
 import by.iba.exchange.request.entity.Customer;
 import org.springframework.stereotype.Component;

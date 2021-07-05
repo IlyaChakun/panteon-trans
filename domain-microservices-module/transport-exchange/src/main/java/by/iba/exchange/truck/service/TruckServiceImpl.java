@@ -1,12 +1,12 @@
 package by.iba.exchange.truck.service;
 
+import by.iba.common.dto.PageWrapper;
+import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.exchange.common.domain.CargoStowageMethod;
 import by.iba.exchange.common.domain.TruckBodyType;
-import by.iba.common.dto.PageWrapper;
-import by.iba.exchange.common.dto.mapper.LoadingLocationMapperDTO;
+import by.iba.exchange.common.dto.mapper.LoadingPayloadMapperDTO;
 import by.iba.exchange.common.dto.mapper.PaymentMapperDTO;
-import by.iba.exchange.common.dto.mapper.UnLoadingLocationMapperDTO;
-import by.iba.common.exception.ResourceNotFoundException;
+import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapperDTO;
 import by.iba.exchange.common.repository.CargoStowageMethodRepository;
 import by.iba.exchange.common.repository.TruckBodyTypeRepository;
 import by.iba.exchange.truck.domain.TruckOffer;
@@ -28,8 +28,8 @@ import javax.transaction.Transactional;
 @Slf4j
 public class TruckServiceImpl implements TruckService {
 
-    private final LoadingLocationMapperDTO loadingLocationMapperDTO;
-    private final UnLoadingLocationMapperDTO unLoadingLocationMapperDTO;
+    private final LoadingPayloadMapperDTO loadingPayloadMapper;
+    private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
     private final PaymentMapperDTO paymentMapperDTO;
@@ -73,8 +73,8 @@ public class TruckServiceImpl implements TruckService {
 //        truckOffer.setLoadingDate(truckOfferReqDTO.getLoadingDate());
 //        truckOffer.setUnloadingDate(truckOfferReqDTO.getUnloadingDate());
         truckOffer.setPayment(paymentMapperDTO.toEntity(truckOfferReqDTO.getPayment()));
-        truckOffer.setLoadingPayload(loadingLocationMapperDTO.toEntity(truckOfferReqDTO.getLoadingLocation()));
-        truckOffer.setUnloadingPayload(unLoadingLocationMapperDTO.toEntity(truckOfferReqDTO.getUnloadingLocation()));
+        truckOffer.setLoadingPayload(loadingPayloadMapper.toEntity(truckOfferReqDTO.getLoadingPayload()));
+        truckOffer.setUnloadingPayload(unloadingPayloadMapper.toEntity(truckOfferReqDTO.getUnloadingPayload()));
 
         TruckBodyType truckBodyType = truckBodyTypeRepository.findById(truckOfferReqDTO.getTruckBodyTypeId())
                 .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + truckOfferReqDTO.getTruckBodyTypeId() + " not found"));

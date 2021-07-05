@@ -1,6 +1,6 @@
 package by.iba.exchange.request.controller;
 
-import by.iba.exchange.common.dto.PageWrapper;
+import by.iba.common.dto.PageWrapper;
 import by.iba.exchange.request.dto.TransportationRequestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

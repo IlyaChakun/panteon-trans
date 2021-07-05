@@ -1,7 +1,7 @@
 package by.iba.exchange.request.controller;
 
-import by.iba.exchange.common.controller.ControllerHelper;
-import by.iba.exchange.common.dto.PageWrapper;
+import by.iba.common.controller.ControllerHelper;
+import by.iba.common.dto.PageWrapper;
 import by.iba.exchange.request.dto.TransportationRequestDTO;
 import by.iba.exchange.request.service.TransportationRequestService;
 import lombok.AllArgsConstructor;

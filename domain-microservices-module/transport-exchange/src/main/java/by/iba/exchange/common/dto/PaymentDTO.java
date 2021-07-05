@@ -1,5 +1,6 @@
 package by.iba.exchange.common.dto;
 
+import by.iba.common.dto.BaseDTO;
 import by.iba.exchange.common.domain.Currency;
 import by.iba.exchange.common.domain.PaymentType;
 import lombok.Getter;
