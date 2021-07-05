@@ -2,9 +2,9 @@ package by.iba.exchange.truck.controler;
 
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
-import by.iba.exchange.truck.dto.TruckOfferReqDTO;
+import by.iba.exchange.truck.dto.TruckOfferReqResp;
 import by.iba.exchange.truck.service.TruckOfferService;
-import by.iba.exchange.truck.dto.TruckOfferDTO;
+import by.iba.exchange.truck.dto.TruckOfferResp;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +24,10 @@ public class TruckOfferControllerImpl implements TruckOfferController {
     private final TruckOfferService truckOfferService;
 
     @Override
-    public ResponseEntity<TruckOfferDTO> save(TruckOfferReqDTO truckDTO, final BindingResult bindingResult) {
+    public ResponseEntity<TruckOfferResp> save(TruckOfferReqResp truckDTO, final BindingResult bindingResult) {
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
-        final TruckOfferDTO saved = truckOfferService.save(truckDTO);
+        final TruckOfferResp saved = truckOfferService.save(truckDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -41,9 +41,9 @@ public class TruckOfferControllerImpl implements TruckOfferController {
     }
 
     @Override
-    public ResponseEntity<TruckOfferDTO> findById(String truckId) {
+    public ResponseEntity<TruckOfferResp> findById(String truckId) {
 
-        final TruckOfferDTO response = truckOfferService.findById(Long.valueOf(truckId));
+        final TruckOfferResp response = truckOfferService.findById(Long.valueOf(truckId));
 
         return ResponseEntity
                 .ok()
@@ -51,10 +51,10 @@ public class TruckOfferControllerImpl implements TruckOfferController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<TruckOfferDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                              @RequestParam(defaultValue = "10", required = false) Integer size) {
+    public ResponseEntity<PageWrapper<TruckOfferResp>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                               @RequestParam(defaultValue = "10", required = false) Integer size) {
 
-        final PageWrapper<TruckOfferDTO> pageWrapper = truckOfferService.findAll(page, size);
+        final PageWrapper<TruckOfferResp> pageWrapper = truckOfferService.findAll(page, size);
 
         return ResponseEntity
                 .ok()

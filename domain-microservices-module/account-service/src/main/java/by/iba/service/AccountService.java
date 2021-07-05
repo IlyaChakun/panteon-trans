@@ -1,14 +1,13 @@
 package by.iba.service;
 
-import by.iba.dto.AccountDTO;
+import by.iba.dto.AccountResp;
 import by.iba.dto.PasswordReqDTO;
-import by.iba.dto.UserDTO;
 
 public interface AccountService {
 
-    AccountDTO save(AccountDTO accountDTO);
+    AccountResp save(AccountResp accountDTO);
 
-    AccountDTO findById(Long accountId);
+    AccountResp findById(Long accountId);
 
     void confirmAccount(String token);
 

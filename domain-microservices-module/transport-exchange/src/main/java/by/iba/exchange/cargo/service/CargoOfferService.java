@@ -1,17 +1,17 @@
 package by.iba.exchange.cargo.service;
 
-import by.iba.exchange.cargo.dto.CargoOfferDTO;
-import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
+import by.iba.exchange.cargo.dto.CargoOfferResp;
+import by.iba.exchange.cargo.dto.CargoOfferReqResp;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 
 public interface CargoOfferService {
 
-    CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO);
+    CargoOfferResp save(CargoOfferReqResp cargoOfferReqDTO);
 
     void delete(Long cargoId);
 
-    CargoOfferDTO findById(Long cargoId);
+    CargoOfferResp findById(Long cargoId);
 
-    PageWrapper<CargoOfferDTO> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
+    PageWrapper<CargoOfferResp> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
 }

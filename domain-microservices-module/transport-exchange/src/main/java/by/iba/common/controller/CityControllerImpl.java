@@ -1,6 +1,6 @@
 package by.iba.common.controller;
 
-import by.iba.common.dto.CityDTO;
+import by.iba.common.dto.CityResp;
 import by.iba.common.service.CityService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +17,15 @@ public class CityControllerImpl implements CityController {
     private final CityService cityService;
 
     @Override
-    public ResponseEntity<CityDTO> findById(String id) {
-        CityDTO cityDTO = cityService.getOne(Long.valueOf(id));
+    public ResponseEntity<CityResp> findById(String id) {
+        CityResp cityDTO = cityService.getOne(Long.valueOf(id));
 
         return ResponseEntity.ok(cityDTO);
     }
 
     @Override
-    public ResponseEntity<List<CityDTO>> findAll() {
-        List<CityDTO> cities = cityService.findAll();
+    public ResponseEntity<List<CityResp>> findAll() {
+        List<CityResp> cities = cityService.findAll();
 
         return ResponseEntity.ok(cities);
     }

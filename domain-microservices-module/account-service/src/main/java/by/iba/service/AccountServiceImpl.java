@@ -4,10 +4,10 @@ import by.iba.client.AuthServiceClient;
 import by.iba.client.CompanyServiceClient;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.domain.Account;
-import by.iba.dto.AccountDTO;
-import by.iba.dto.CompanyDTO;
+import by.iba.dto.AccountResp;
+import by.iba.dto.CompanyResp;
 import by.iba.dto.PasswordReqDTO;
-import by.iba.dto.UserDTO;
+import by.iba.dto.UserResp;
 import by.iba.dto.mapper.AccountMapperDTO;
 import by.iba.repository.AccountRepository;
 import lombok.AllArgsConstructor;
@@ -29,10 +29,10 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapperDTO accountMapper;
 
     @Override
-    public AccountDTO save(AccountDTO accountDTO) {
+    public AccountResp save(AccountResp accountDTO) {
         log.info("Creating account with id = {}", accountDTO.getAccountId());
 
-        UserDTO savedUser = saveUser(accountDTO);
+        UserResp savedUser = saveUser(accountDTO);
 
         //CompanyDTO savedCompany = saveCompany(accountDTO);
 
@@ -49,7 +49,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO findById(Long accountId) {
+    public AccountResp findById(Long accountId) {
         log.info("Finding account with id = {}", accountId);
 
         Account account = accountRepository.findByAccountId(accountId)
@@ -57,15 +57,15 @@ public class AccountServiceImpl implements AccountService {
 
         log.info("account with id={} has been found!", accountId);
 
-        final AccountDTO accountDTO = accountMapper.toDto(account);
+        final AccountResp accountDTO = accountMapper.toDto(account);
 
-        final CompanyDTO companyDTO = findCompanyById(account.getCompanyId());
+        final CompanyResp companyDTO = findCompanyById(account.getCompanyId());
         accountDTO.setCompany(companyDTO);
 
         return accountDTO;
     }
 
-    private UserDTO saveUser(AccountDTO accountDTO) {
+    private UserResp saveUser(AccountResp accountDTO) {
         return authClient.save(accountDTO.getUser()).getBody();
     }
 
@@ -101,11 +101,11 @@ public class AccountServiceImpl implements AccountService {
         authClient.recoverPassword(userEmail);
     }
 
-    private CompanyDTO saveCompany(AccountDTO accountDTO) {
+    private CompanyResp saveCompany(AccountResp accountDTO) {
         return companiesClient.save(accountDTO.getCompany()).getBody();
     }
 
-    private CompanyDTO findCompanyById(final Long companyId) {
+    private CompanyResp findCompanyById(final Long companyId) {
         return companiesClient.findById(companyId).getBody();
     }
 

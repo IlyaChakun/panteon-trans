@@ -1,6 +1,6 @@
 package by.iba.exchange.common.domain;
 
-import by.iba.common.domain.BaseAbstractEntity;
+import by.iba.common.domain.core.BaseAbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +22,4 @@ public abstract class CommonAttributes extends BaseAbstractEntity {
     @ManyToMany
     private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
 
-    private Payment payment;
 }

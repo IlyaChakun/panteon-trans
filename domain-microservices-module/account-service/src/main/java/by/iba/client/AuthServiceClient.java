@@ -3,7 +3,7 @@ package by.iba.client;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.exception.ServiceException;
 import by.iba.dto.PasswordReqDTO;
-import by.iba.dto.UserDTO;
+import by.iba.dto.UserResp;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import javax.validation.Valid;
 public interface AuthServiceClient {
 
     @PostMapping("/users")
-    ResponseEntity<UserDTO> save(UserDTO user) throws ServiceException;
+    ResponseEntity<UserResp> save(UserResp user) throws ServiceException;
 
     @PostMapping(value = "/users/confirm-account/{token}")
     ResponseEntity<ApiResponse> confirmUserAccount(@PathVariable("token") String token);

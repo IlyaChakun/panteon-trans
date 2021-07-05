@@ -1,6 +1,7 @@
 package by.iba.company.companies.domain;
 
-import by.iba.common.domain.BaseEntity;
+import by.iba.common.domain.Address;
+import by.iba.common.domain.core.BaseEntity;
 import by.iba.common.validation.annotation.ValidPhones;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +11,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@IdClass(CompanyId.class)
 @Table(name = "companies")
 @Getter
 @Setter
@@ -25,12 +27,10 @@ public class Company extends BaseEntity {
     @Column(name = "company_id")
     private Long companyId;
 
-    @Id
     @Column(name = "unp", nullable = false, unique = true)
     private String UNP;
 
-    @Id
-    @Column(name = "owner_id", nullable = false)
+    @Column(name = "owner_id", nullable = false, unique = true)
     private Long ownerId;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -45,11 +45,7 @@ public class Company extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "country_id", nullable = false)
-    private Long countryId;
-
-    @Column(name = "address", nullable = false)
-    private String address;
+    private Address address;
 
     @NotEmpty(message = "validation.company.phone_numbers_not_present")
     @ValidPhones
@@ -63,5 +59,22 @@ public class Company extends BaseEntity {
     @Column(name = "business_type")
     @Enumerated
     private BusinessType businessType;
+
+    @Column(name = "status")
+    @Enumerated
+    private Status status = Status.PENDING;
+
+    @ManyToMany
+    @JoinTable(name = "company_active_features",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "feature_company_id",
+                            referencedColumnName = "company_id"),
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "feature_id",
+                            referencedColumnName = "id")
+            })
+    private Set<CompanyFeature> companyFeatures = new HashSet<>();
 
 }

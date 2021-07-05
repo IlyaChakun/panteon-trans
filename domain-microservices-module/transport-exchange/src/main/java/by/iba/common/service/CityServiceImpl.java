@@ -1,8 +1,8 @@
 package by.iba.common.service;
 
 
-import by.iba.common.dto.CityDTO;
-import by.iba.common.dto.mapper.CityMapperDTO;
+import by.iba.common.dto.CityResp;
+import by.iba.common.dto.mapper.CityMapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CityRepository;
 import by.iba.common.entity.City;
@@ -19,11 +19,11 @@ import java.util.List;
 public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
-    private final CityMapperDTO cityMapper;
+    private final CityMapper cityMapper;
 
     @Override
     @Cacheable("cities")
-    public List<CityDTO> findAll() {
+    public List<CityResp> findAll() {
         log.info("Find all cities");
 
         List<City> cities = cityRepository.findAll();
@@ -32,7 +32,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     @Cacheable("city")
-    public CityDTO getOne(Long id) {
+    public CityResp getOne(Long id) {
         log.info("Find city by id={}", id);
         City city = resolveById(id);
         return cityMapper.toDto(city);

@@ -3,7 +3,7 @@ package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
 import by.iba.dto.PasswordDTO;
-import by.iba.dto.UserDTO;
+import by.iba.dto.UserResp;
 import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
@@ -30,10 +30,10 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<UserDTO> save(@Valid UserDTO user) {
+    public ResponseEntity<UserResp> save(@Valid UserResp user) {
         log.info("Received a request to save user with id = {}", user.getUserId());
 
-        UserDTO savedUser = userService.save(user);
+        UserResp savedUser = userService.save(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()

@@ -10,8 +10,8 @@ import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapperDTO;
 import by.iba.exchange.common.repository.CargoStowageMethodRepository;
 import by.iba.exchange.common.repository.TruckBodyTypeRepository;
 import by.iba.exchange.truck.domain.TruckOffer;
-import by.iba.exchange.truck.dto.TruckOfferDTO;
-import by.iba.exchange.truck.dto.TruckOfferReqDTO;
+import by.iba.exchange.truck.dto.TruckOfferResp;
+import by.iba.exchange.truck.dto.TruckOfferReqResp;
 import by.iba.exchange.truck.dto.mapper.TruckOfferMapperDTO;
 import by.iba.exchange.truck.repository.TruckOfferRepository;
 import lombok.AllArgsConstructor;
@@ -38,21 +38,21 @@ public class TruckOfferServiceImpl implements TruckOfferService {
 
     @Transactional
     @Override
-    public TruckOfferDTO save(TruckOfferReqDTO truckOfferReqDTO) {
+    public TruckOfferResp save(TruckOfferReqResp truckOfferReqDTO) {
         TruckOffer truckOffer = mapToTruck(truckOfferReqDTO);
         TruckOffer saved = truckOfferRepository.save(truckOffer);
         return truckMapper.toDto(saved);
     }
 
     @Override
-    public TruckOfferDTO findById(Long id) {
+    public TruckOfferResp findById(Long id) {
         TruckOffer truckOffer = truckOfferRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("truck not found"));
         return truckMapper.toDto(truckOffer);
     }
 
     @Override
-    public PageWrapper<TruckOfferDTO> findAll(Integer page, Integer size) {
+    public PageWrapper<TruckOfferResp> findAll(Integer page, Integer size) {
         Pageable pageable =
                 PageRequest.of(page, size);
 
@@ -66,13 +66,13 @@ public class TruckOfferServiceImpl implements TruckOfferService {
                         truckPage.getTotalElements());
     }
 
-    private TruckOffer mapToTruck(TruckOfferReqDTO truckOfferReqDTO) {
+    private TruckOffer mapToTruck(TruckOfferReqResp truckOfferReqDTO) {
         TruckOffer truckOffer = new TruckOffer();
 
         truckOffer.setCarrierCompanyId(truckOfferReqDTO.getCarrierCompanyId());
 //        truckOffer.setLoadingDate(truckOfferReqDTO.getLoadingDate());
 //        truckOffer.setUnloadingDate(truckOfferReqDTO.getUnloadingDate());
-        truckOffer.setPayment(paymentMapperDTO.toEntity(truckOfferReqDTO.getPayment()));
+        //truckOffer.setPayment(paymentMapperDTO.toEntity(truckOfferReqDTO.getPayment()));
         truckOffer.setLoadingPayload(loadingPayloadMapper.toEntity(truckOfferReqDTO.getLoadingPayload()));
         truckOffer.setUnloadingPayload(unloadingPayloadMapper.toEntity(truckOfferReqDTO.getUnloadingPayload()));
 

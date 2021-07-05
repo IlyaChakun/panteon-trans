@@ -2,7 +2,7 @@ package by.iba.company.review.controller;
 
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.company.review.dto.CompanyReviewDTO;
+import by.iba.company.review.dto.CompanyReviewResp;
 import by.iba.company.review.service.CompanyReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +21,10 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     private final CompanyReviewService companyReviewService;
 
     @Override
-    public ResponseEntity<CompanyReviewDTO> findById(Long companyId, Long id) {
+    public ResponseEntity<CompanyReviewResp> findById(Long companyId, Long id) {
         log.info("Received a request to find review by id = {} and company id ={}", id, companyId);
 
-        CompanyReviewDTO companyReviewDTO = companyReviewService.findById(companyId, id);
+        CompanyReviewResp companyReviewDTO = companyReviewService.findById(companyId, id);
 
         return ResponseEntity
                 .ok()
@@ -32,12 +32,12 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CompanyReviewDTO>> findAll(Long companyId, Integer page, Integer size) {
+    public ResponseEntity<PageWrapper<CompanyReviewResp>> findAll(Long companyId, Integer page, Integer size) {
 
         log.info("Received a request to find all reviews for company with id = {} ", companyId);
 
 
-        PageWrapper<CompanyReviewDTO> allReviews =
+        PageWrapper<CompanyReviewResp> allReviews =
                 companyReviewService.findAll(companyId, page, size);//TODO: admin option to find deleted reviews
 
 
@@ -47,10 +47,10 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     }
 
     @Override
-    public ResponseEntity<CompanyReviewDTO> save(CompanyReviewDTO companyReviewDTO, Long companyId) {
+    public ResponseEntity<CompanyReviewResp> save(CompanyReviewResp companyReviewDTO, Long companyId) {
         log.info("Received a request to save rating of the company with id = {}", companyId);
 
-        CompanyReviewDTO savedReview = companyReviewService.save(companyReviewDTO);
+        CompanyReviewResp savedReview = companyReviewService.save(companyReviewDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()

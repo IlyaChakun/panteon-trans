@@ -1,8 +1,8 @@
 package by.iba.common.service;
 
 
-import by.iba.common.dto.RegionDTO;
-import by.iba.common.dto.mapper.RegionMapperDTO;
+import by.iba.common.dto.RegionResp;
+import by.iba.common.dto.mapper.RegionMapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.RegionRepository;
 import by.iba.common.entity.Region;
@@ -19,12 +19,12 @@ import java.util.List;
 public class RegionServiceImpl implements RegionService {
 
     private final RegionRepository regionRepository;
-    private final RegionMapperDTO regionMapper;
+    private final RegionMapper regionMapper;
 
 
     @Override
     @Cacheable("regions")
-    public List<RegionDTO> findAll() {
+    public List<RegionResp> findAll() {
         log.info("find all regions");
 
         List<Region> regions = regionRepository.findAll();
@@ -33,7 +33,7 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     @Cacheable("region")
-    public RegionDTO getOne(Long id) {
+    public RegionResp getOne(Long id) {
         log.info("get one region by id={}", id);
 
         Region region = resolveById(id);

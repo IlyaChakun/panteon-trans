@@ -1,8 +1,8 @@
 package by.iba.common.service;
 
 
-import by.iba.common.dto.CountryDTO;
-import by.iba.common.dto.mapper.CountryMapperDTO;
+import by.iba.common.dto.CountryResp;
+import by.iba.common.dto.mapper.CountryMapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.repository.CountryRepository;
 import by.iba.common.entity.Country;
@@ -19,11 +19,11 @@ import java.util.List;
 public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
-    private final CountryMapperDTO countryMapper;
+    private final CountryMapper countryMapper;
 
     @Override
     @Cacheable("countries")
-    public List<CountryDTO> findAll() {
+    public List<CountryResp> findAll() {
         log.info("find all countries");
 
         List<Country> countries = countryRepository.findAll();
@@ -32,7 +32,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     @Cacheable("country")
-    public CountryDTO getOne(Long id) {
+    public CountryResp getOne(Long id) {
         log.info("get one country by id={}", id);
 
         Country country = findCountryById(id);

@@ -1,8 +1,8 @@
 package by.iba.company.blacklist.service;
 
 import by.iba.company.blacklist.domain.Blacklist;
-import by.iba.company.blacklist.dto.BlacklistDTO;
-import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.dto.BlacklistResp;
+import by.iba.company.blacklist.dto.BlacklistDeleteResp;
 import by.iba.company.blacklist.dto.mapper.BlacklistMapperDTO;
 import by.iba.company.blacklist.repository.BlacklistRepository;
 import by.iba.company.blacklist.scpecifications.BlacklistSpecifications;
@@ -42,7 +42,7 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     })
     @Transactional
-    public BlacklistDTO save(BlacklistDTO blacklistDTO) {
+    public BlacklistResp save(BlacklistResp blacklistDTO) {
 
         log.info("Adding to blacklist company with id = {} ", blacklistDTO.getCompanyId());
 
@@ -63,7 +63,7 @@ public class BlacklistServiceImpl implements BlacklistService {
     }
 
     @Override
-    public PageWrapper<BlacklistDTO> findAll(Integer page, Integer size) {
+    public PageWrapper<BlacklistResp> findAll(Integer page, Integer size) {
         log.info("Received a request to find all companies in black list");
 
         Specification<Blacklist> specification =
@@ -86,7 +86,7 @@ public class BlacklistServiceImpl implements BlacklistService {
 
 
     @Override
-    public BlacklistDTO findById(Long id) {
+    public BlacklistResp findById(Long id) {
         log.info("Finding blacklist information with id = {} ", id);
 
         Blacklist blacklist = blacklistRepository
@@ -103,7 +103,7 @@ public class BlacklistServiceImpl implements BlacklistService {
             @CacheEvict(value = "id", key = "#id")
     })
     @Transactional
-    public Long delete(BlacklistDeleteDTO blacklistDeleteDTO, Long id) {
+    public Long delete(BlacklistDeleteResp blacklistDeleteDTO, Long id) {
         log.info("Received request to delete company from blacklist with id = {}", id);
 
         Blacklist blacklist = blacklistRepository.findById(id)
@@ -119,7 +119,7 @@ public class BlacklistServiceImpl implements BlacklistService {
     }
 
     @Override
-    public PageWrapper<BlacklistDTO> findAllByCompanyId(Integer page, Integer size, Long companyId) {
+    public PageWrapper<BlacklistResp> findAllByCompanyId(Integer page, Integer size, Long companyId) {
         log.info("Received a request to find all information about company with id ={} in black list", companyId);
 
         Pageable pageable =

@@ -1,19 +1,19 @@
 package by.iba.company.companies.service;
 
 import by.iba.common.dto.PageWrapper;
-import by.iba.company.companies.dto.CompanyDTO;
+import by.iba.company.companies.dto.CompanyCriteria;
+import by.iba.company.companies.dto.CompanyReq;
+import by.iba.company.companies.dto.CompanyResp;
 
 public interface CompanyService {
 
-    CompanyDTO save(final CompanyDTO companyDTO);
-
-    CompanyDTO update(final Long companyId, final CompanyDTO companyDTO);
+    CompanyResp save(final CompanyReq companyReq);
 
     Long deleteByUnp(final String unp);
 
-    CompanyDTO findByUnp(final String unp);
+    CompanyResp findByUnp(final String unp);
 
-    CompanyDTO findById(final Long id);
+    CompanyResp findById(final Long id);
 
-    PageWrapper<CompanyDTO> findAll(final Integer page, final Integer size);
+    PageWrapper<CompanyResp> findAll(CompanyCriteria companyCriteria);
 }

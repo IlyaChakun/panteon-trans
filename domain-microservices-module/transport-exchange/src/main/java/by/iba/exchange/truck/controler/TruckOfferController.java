@@ -2,8 +2,8 @@ package by.iba.exchange.truck.controler;
 
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
-import by.iba.exchange.truck.dto.TruckOfferReqDTO;
-import by.iba.exchange.truck.dto.TruckOfferDTO;
+import by.iba.exchange.truck.dto.TruckOfferReqResp;
+import by.iba.exchange.truck.dto.TruckOfferResp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +15,14 @@ import javax.validation.Valid;
 public interface TruckOfferController {
 
     @PostMapping
-    ResponseEntity<TruckOfferDTO> save(@Valid @RequestBody TruckOfferReqDTO truckDTO,
-                                       final BindingResult bindingResult);
+    ResponseEntity<TruckOfferResp> save(@Valid @RequestBody TruckOfferReqResp truckDTO,
+                                        final BindingResult bindingResult);
 
     @GetMapping("/{id}")
-    ResponseEntity<TruckOfferDTO> findById(@PathVariable("id") @PositiveLong String truckId);
+    ResponseEntity<TruckOfferResp> findById(@PathVariable("id") @PositiveLong String truckId);
 
     @GetMapping
-    ResponseEntity<PageWrapper<TruckOfferDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                       @RequestParam(defaultValue = "10", required = false) Integer size);
+    ResponseEntity<PageWrapper<TruckOfferResp>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                        @RequestParam(defaultValue = "10", required = false) Integer size);
 
 }

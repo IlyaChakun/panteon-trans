@@ -1,7 +1,7 @@
 package by.iba.exchange.cargo.controler;
 
-import by.iba.exchange.cargo.dto.CargoOfferDTO;
-import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
+import by.iba.exchange.cargo.dto.CargoOfferResp;
+import by.iba.exchange.cargo.dto.CargoOfferReqResp;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
@@ -16,17 +16,17 @@ import javax.validation.Valid;
 public interface CargoOfferController {
 
     @PostMapping
-    ResponseEntity<CargoOfferDTO> save(@Valid @RequestBody CargoOfferReqDTO cargoOfferReqDTO,
-                                       final BindingResult bindingResult);
+    ResponseEntity<CargoOfferResp> save(@Valid @RequestBody CargoOfferReqResp cargoOfferReqDTO,
+                                        final BindingResult bindingResult);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable("id") @PositiveLong String cargoId);
 
     @GetMapping("/{id}")
-    ResponseEntity<CargoOfferDTO> findById(@PathVariable("id") @PositiveLong String cargoId);
+    ResponseEntity<CargoOfferResp> findById(@PathVariable("id") @PositiveLong String cargoId);
 
     @GetMapping()
-    ResponseEntity<PageWrapper<CargoOfferDTO>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                       @RequestParam(defaultValue = "10", required = false) Integer size,
-                                                       @Valid @RequestBody CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
+    ResponseEntity<PageWrapper<CargoOfferResp>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+                                                        @RequestParam(defaultValue = "10", required = false) Integer size,
+                                                        @Valid @RequestBody CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
 }

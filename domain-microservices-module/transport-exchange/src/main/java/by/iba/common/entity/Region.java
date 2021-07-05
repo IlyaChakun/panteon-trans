@@ -1,6 +1,6 @@
 package by.iba.common.entity;
 
-import by.iba.common.domain.BaseAbstractEntity;
+import by.iba.common.domain.core.BaseAbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

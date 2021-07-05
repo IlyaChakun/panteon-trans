@@ -1,7 +1,8 @@
 package by.iba.company.companies.domain;
 
+
 public enum BusinessType {
-    FREIGHT_OWNER,
-    FREIGHT_OPERATOR,
-    FREIGHT_FORWARDER;
+    FREIGHT_OWNER, //грузовладелец
+    FREIGHT_OPERATOR, //грузоперевозчик
+    FREIGHT_FORWARDER //экспедитор
 }

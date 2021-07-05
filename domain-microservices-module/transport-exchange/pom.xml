@@ -19,8 +19,6 @@
             <artifactId>lib-internationalization</artifactId>
         </dependency>
 
-
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>lib-common-payload</artifactId>

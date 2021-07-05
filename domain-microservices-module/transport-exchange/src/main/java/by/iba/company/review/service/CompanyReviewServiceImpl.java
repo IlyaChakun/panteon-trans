@@ -3,7 +3,7 @@ package by.iba.company.review.service;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.company.review.domain.CompanyReview;
-import by.iba.company.review.dto.CompanyReviewDTO;
+import by.iba.company.review.dto.CompanyReviewResp;
 import by.iba.company.review.dto.mapper.CompanyReviewMapper;
 import by.iba.company.review.repository.CompanyReviewRepository;
 import by.iba.company.review.specifications.CompanyReviewSpecifications;
@@ -36,7 +36,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
     })
     @Transactional
-    public CompanyReviewDTO save(CompanyReviewDTO companyReviewDTO) {
+    public CompanyReviewResp save(CompanyReviewResp companyReviewDTO) {
         log.info("Start saving the company review with id = {}",
                 companyReviewMapper
                         .toEntity(companyReviewDTO)
@@ -76,7 +76,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     }
 
     @Override
-    public CompanyReviewDTO findById(Long companyId, Long id) {
+    public CompanyReviewResp findById(Long companyId, Long id) {
         log.info("Finding review by id = {} for company with id = {}", id, companyId);
 
         CompanyReview companyReview = companyReviewRepository
@@ -88,7 +88,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     }
 
     @Override
-    public PageWrapper<CompanyReviewDTO> findAll(Long companyId, final Integer page, final Integer size) {
+    public PageWrapper<CompanyReviewResp> findAll(Long companyId, final Integer page, final Integer size) {
 
         Specification<CompanyReview> specification = Specification
                 .where(CompanyReviewSpecifications

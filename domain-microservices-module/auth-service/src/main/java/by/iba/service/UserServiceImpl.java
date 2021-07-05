@@ -4,7 +4,7 @@ import by.iba.common.exception.ServiceException;
 import by.iba.domain.ConfirmationToken;
 import by.iba.domain.User;
 import by.iba.dto.PasswordDTO;
-import by.iba.dto.UserDTO;
+import by.iba.dto.UserResp;
 import by.iba.dto.mapper.UserMapperDTO;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordHashEncoder hashEncoder;
 
     @Override
-    public UserDTO save(UserDTO userDTO) {
+    public UserResp save(UserResp userDTO) {
         log.info("Saving user, email = {} , password = {} , firstName = {} , lastName = {} ",
                 userDTO.getEmail(),
                 userDTO.getPassword(),
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO) {
+    public UserResp recoverPasswordWithToken(String confirmationToken, PasswordDTO passwordDTO) {
 
         Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
                 findByConfirmationToken(confirmationToken);
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO updatePassword(Long userId, PasswordDTO passwordDTO) {
+    public UserResp updatePassword(Long userId, PasswordDTO passwordDTO) {
 
         User user = userRepository.getUserByUserId(userId);
 

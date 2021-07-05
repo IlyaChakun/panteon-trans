@@ -1,7 +1,7 @@
 package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
-import by.iba.dto.AccountDTO;
+import by.iba.dto.AccountResp;
 import by.iba.dto.PasswordReqDTO;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
@@ -24,9 +24,9 @@ public class AccountControllerImpl implements AccountController {
 
 
     @Override
-    public ResponseEntity<AccountDTO> save(@Valid AccountDTO accountDTO) {
+    public ResponseEntity<AccountResp> save(@Valid AccountResp accountDTO) {
         log.info("Received a request to save new account with id = {} ", accountDTO.getAccountId());
-        AccountDTO savedAccount = accountService.save(accountDTO);
+        AccountResp savedAccount = accountService.save(accountDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -40,13 +40,13 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<AccountDTO> findById(String accountId, Principal principal) {
+    public ResponseEntity<AccountResp> findById(String accountId, Principal principal) {
 
         System.out.println(principal);
         System.out.println(principal.getName());
         log.info("Received a request to find account by id = {} ", accountId);
 
-        AccountDTO savedAccount = accountService.findById(Long.valueOf(accountId));
+        AccountResp savedAccount = accountService.findById(Long.valueOf(accountId));
 
         return ResponseEntity
                 .ok()

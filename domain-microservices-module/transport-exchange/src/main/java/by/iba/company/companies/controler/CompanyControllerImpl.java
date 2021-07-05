@@ -2,7 +2,9 @@ package by.iba.company.companies.controler;
 
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
-import by.iba.company.companies.dto.CompanyDTO;
+import by.iba.company.companies.dto.CompanyCriteria;
+import by.iba.company.companies.dto.CompanyReq;
+import by.iba.company.companies.dto.CompanyResp;
 import by.iba.company.companies.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +24,12 @@ public class CompanyControllerImpl implements CompanyController {
     private final CompanyService companyService;
 
     @Override
-    public ResponseEntity<CompanyDTO> save(@Valid final CompanyDTO companyDTO,
-                                           final BindingResult bindingResult) {
+    public ResponseEntity<CompanyResp> save(@Valid final CompanyReq companyReq,
+                                            final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
-        log.info("Received a request to save the company with unp = {}", companyDTO.getUnp());
-
-        final CompanyDTO savedCompany = companyService.save(companyDTO);
+        final CompanyResp savedCompany = companyService.save(companyReq);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -43,18 +43,6 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<CompanyDTO> update(final Long companyId, final @Valid CompanyDTO companyDTO,
-                                             final BindingResult bindingResult) {
-        log.info("Received a request to update the company with id = {}", companyDTO);
-
-        final CompanyDTO updatedCompany = companyService.update(companyId, companyDTO);
-
-        return ResponseEntity
-                .ok()
-                .body(updatedCompany);
-    }
-
-    @Override
     public ResponseEntity<Void> delete(final String unp) {
         log.info("Received a request to delete the company with unp = {}", unp);
 
@@ -64,32 +52,32 @@ public class CompanyControllerImpl implements CompanyController {
     }
 
     @Override
-    public ResponseEntity<CompanyDTO> findByUNP(final String unp) {
+    public ResponseEntity<CompanyResp> findByUNP(final String unp) {
         log.info("Received a request to find the company with unp = {}", unp);
 
-        final CompanyDTO companyDTO = companyService.findByUnp(unp);
+        final CompanyResp companyResp = companyService.findByUnp(unp);
 
         return ResponseEntity
                 .ok()
-                .body(companyDTO);
+                .body(companyResp);
     }
 
     @Override
-    public ResponseEntity<CompanyDTO> findById(final Long id) {
+    public ResponseEntity<CompanyResp> findById(final Long id) {
         log.info("Received a request to find the company by id = {}", id);
 
-        final CompanyDTO companyDTO = companyService.findById(id);
+        final CompanyResp companyResp = companyService.findById(id);
 
         return ResponseEntity
                 .ok()
-                .body(companyDTO);
+                .body(companyResp);
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CompanyDTO>> findAll(final Integer page, final Integer size) {
+    public ResponseEntity<PageWrapper<CompanyResp>> findAll(CompanyCriteria companyCriteria) {
         log.info("Received a request to find all companies");
 
-        final PageWrapper<CompanyDTO> allCompanies = companyService.findAll(page, size);
+        final PageWrapper<CompanyResp> allCompanies = companyService.findAll(companyCriteria);
 
         return ResponseEntity
                 .ok()

@@ -5,7 +5,7 @@ import by.iba.common.entity.City;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CityRepository extends BaseAbstractRepository<City> {
+public interface CityRepository extends BaseAbstractLongKeyRepository<City> {
 
 }
 

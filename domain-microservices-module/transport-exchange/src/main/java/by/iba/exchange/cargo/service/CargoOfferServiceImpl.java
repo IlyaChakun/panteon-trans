@@ -2,10 +2,9 @@ package by.iba.exchange.cargo.service;
 
 import by.iba.exchange.cargo.domain.CargoOffer;
 import by.iba.exchange.cargo.domain.CargoType;
-import by.iba.exchange.cargo.dto.CargoOfferDTO;
-import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
+import by.iba.exchange.cargo.dto.CargoOfferResp;
+import by.iba.exchange.cargo.dto.CargoOfferReqResp;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
-import by.iba.exchange.cargo.dto.mapper.CargoDimensionsMapperDTO;
 import by.iba.exchange.cargo.dto.mapper.CargoOfferMapperDTO;
 import by.iba.exchange.cargo.mail.CargoMailServiceImpl;
 import by.iba.exchange.cargo.repository.CargoOfferRepository;
@@ -39,7 +38,6 @@ import java.time.LocalDate;
 @Slf4j
 public class CargoOfferServiceImpl implements CargoOfferService {
 
-    private final CargoDimensionsMapperDTO cargoDimensionsMapper;
     private final CargoMailServiceImpl cargoMailService;
     private final LoadingPayloadMapperDTO loadingPayloadMapper;
     private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
@@ -55,7 +53,7 @@ public class CargoOfferServiceImpl implements CargoOfferService {
     @Transactional
     @CachePut(value = "id", key = "#p0")
     @Override
-    public CargoOfferDTO save(CargoOfferReqDTO cargoOfferReqDTO) {
+    public CargoOfferResp save(CargoOfferReqResp cargoOfferReqDTO) {
         log.info("Start saving the cargo");
       //  String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
         CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
@@ -83,7 +81,7 @@ public class CargoOfferServiceImpl implements CargoOfferService {
     }
 
     @Override
-    public CargoOfferDTO findById(Long cargoId) {
+    public CargoOfferResp findById(Long cargoId) {
 
         log.info("Start findById cargo with id = {} ", cargoId);
 
@@ -97,7 +95,7 @@ public class CargoOfferServiceImpl implements CargoOfferService {
 
     @Transactional
     @Override
-    public PageWrapper<CargoOfferDTO> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
+    public PageWrapper<CargoOfferResp> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
 
         log.info("There was a request to findAll cargo with page " + page + "and size" + size);
 
@@ -122,7 +120,7 @@ public class CargoOfferServiceImpl implements CargoOfferService {
     }
 
 
-    private CargoOffer mapToCargo(CargoOfferReqDTO cargoOfferReqDTO) {
+    private CargoOffer mapToCargo(CargoOfferReqResp cargoOfferReqDTO) {
         CargoOffer cargoOffer = new CargoOffer();
 
         cargoOffer.setCustomerCompanyId(cargoOfferReqDTO.getCustomerCompanyId());
@@ -130,8 +128,8 @@ public class CargoOfferServiceImpl implements CargoOfferService {
 //        cargoOffer.setUnloadingDate(cargoOfferReqDTO.getUnloadingDate());
         cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
         cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
-        cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));
-        cargoOffer.setCargoDimensions(cargoDimensionsMapper.toEntity(cargoOfferReqDTO.getCargoDimensions()));
+        //cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));
+        //cargoOffer.setCargoDimensions(cargoDimensionsMapper.toEntity(cargoOfferReqDTO.getCargoDimensions()));
         cargoOffer.setLoadingPayload(loadingPayloadMapper.toEntity(cargoOfferReqDTO.getLoadingPayload()));
         cargoOffer.setUnloadingPayload(unloadingPayloadMapper.toEntity(cargoOfferReqDTO.getUnloadingPayload()));
 

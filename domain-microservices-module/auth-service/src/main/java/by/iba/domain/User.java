@@ -1,6 +1,6 @@
 package by.iba.domain;
 
-import by.iba.common.domain.BaseEntity;
+import by.iba.common.domain.core.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

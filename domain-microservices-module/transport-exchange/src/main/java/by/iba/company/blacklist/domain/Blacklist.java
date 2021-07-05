@@ -1,6 +1,6 @@
 package by.iba.company.blacklist.domain;
 
-import by.iba.common.domain.BaseEntity;
+import by.iba.common.domain.core.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

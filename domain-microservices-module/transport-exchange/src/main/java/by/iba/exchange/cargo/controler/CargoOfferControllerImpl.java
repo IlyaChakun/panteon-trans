@@ -1,7 +1,7 @@
 package by.iba.exchange.cargo.controler;
 
-import by.iba.exchange.cargo.dto.CargoOfferDTO;
-import by.iba.exchange.cargo.dto.CargoOfferReqDTO;
+import by.iba.exchange.cargo.dto.CargoOfferResp;
+import by.iba.exchange.cargo.dto.CargoOfferReqResp;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.exchange.cargo.service.CargoOfferService;
 import by.iba.common.controller.ControllerHelper;
@@ -25,13 +25,13 @@ public class CargoOfferControllerImpl implements CargoOfferController {
     private final CargoOfferService cargoOfferService;
 
     @Override
-    public ResponseEntity<CargoOfferDTO> save(@Valid final CargoOfferReqDTO cargoOfferReqDTO,
-                                              final BindingResult bindingResult) {
+    public ResponseEntity<CargoOfferResp> save(@Valid final CargoOfferReqResp cargoOfferReqDTO,
+                                               final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         log.info("Received a request to save the cargo ");
-         final CargoOfferDTO savedCargo = cargoOfferService.save(cargoOfferReqDTO);
+         final CargoOfferResp savedCargo = cargoOfferService.save(cargoOfferReqDTO);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -54,10 +54,10 @@ public class CargoOfferControllerImpl implements CargoOfferController {
     }
 
     @Override
-    public ResponseEntity<CargoOfferDTO> findById(String cargoId) {
+    public ResponseEntity<CargoOfferResp> findById(String cargoId) {
         log.info("Received a request to find the cargo by id = {}", cargoId);
 
-        final CargoOfferDTO cargoOfferDTO = cargoOfferService.findById(Long.valueOf(cargoId));
+        final CargoOfferResp cargoOfferDTO = cargoOfferService.findById(Long.valueOf(cargoId));
 
         return ResponseEntity
                 .ok()
@@ -65,10 +65,10 @@ public class CargoOfferControllerImpl implements CargoOfferController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<CargoOfferDTO>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
+    public ResponseEntity<PageWrapper<CargoOfferResp>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
         log.info("Received a request to find all cargo");
 
-        final PageWrapper<CargoOfferDTO> cargo = cargoOfferService.findAll(page, size, cargoSearchCriteriaDTO);
+        final PageWrapper<CargoOfferResp> cargo = cargoOfferService.findAll(page, size, cargoSearchCriteriaDTO);
 
         return ResponseEntity
                 .ok()

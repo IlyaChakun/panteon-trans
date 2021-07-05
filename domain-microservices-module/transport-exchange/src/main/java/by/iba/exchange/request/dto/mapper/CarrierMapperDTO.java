@@ -1,15 +1,15 @@
 package by.iba.exchange.request.dto.mapper;
 
-import by.iba.common.dto.mapper.AbstractMapperDTO;
-import by.iba.exchange.request.dto.CarrierDTO;
+import by.iba.common.mapper.core.SimpleAbstractMapper;
+import by.iba.exchange.request.dto.CarrierResp;
 import by.iba.exchange.request.entity.Carrier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CarrierMapperDTO extends AbstractMapperDTO<Carrier, CarrierDTO> {
+public class CarrierMapperDTO extends SimpleAbstractMapper<Carrier, CarrierResp> {
 
     public CarrierMapperDTO() {
-        super(Carrier.class, CarrierDTO.class);
+        super(Carrier.class, CarrierResp.class);
     }
 
 }

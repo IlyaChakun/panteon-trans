@@ -1,6 +1,6 @@
 package by.iba.exchange.request.entity;
 
-import by.iba.common.domain.BaseAbstractEntity;
+import by.iba.common.domain.core.BaseAbstractEntity;
 import by.iba.exchange.common.domain.LoadingPayload;
 import by.iba.exchange.common.domain.UnloadingPayload;
 import lombok.Getter;

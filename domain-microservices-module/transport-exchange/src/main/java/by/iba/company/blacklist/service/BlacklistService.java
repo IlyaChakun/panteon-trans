@@ -1,19 +1,19 @@
 package by.iba.company.blacklist.service;
 
-import by.iba.company.blacklist.dto.BlacklistDTO;
-import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.dto.BlacklistResp;
+import by.iba.company.blacklist.dto.BlacklistDeleteResp;
 import by.iba.common.dto.PageWrapper;
 
 public interface BlacklistService {
 
-    BlacklistDTO save(BlacklistDTO blacklistDTO);
+    BlacklistResp save(BlacklistResp blacklistDTO);
 
-    PageWrapper<BlacklistDTO> findAll(final Integer page, final Integer size);
+    PageWrapper<BlacklistResp> findAll(final Integer page, final Integer size);
 
-    BlacklistDTO findById(Long id);
+    BlacklistResp findById(Long id);
 
-    Long delete(BlacklistDeleteDTO blacklistDeleteDTO, final Long id);
+    Long delete(BlacklistDeleteResp blacklistDeleteDTO, final Long id);
 
-    PageWrapper<BlacklistDTO> findAllByCompanyId(final Integer page, final Integer size, final Long companyId);
+    PageWrapper<BlacklistResp> findAllByCompanyId(final Integer page, final Integer size, final Long companyId);
 
 }

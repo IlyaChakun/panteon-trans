@@ -62,6 +62,8 @@ public class BaseErrorHandlerController {
 
         ex.getStackTrace();
 
+        ex.getErrors().forEach(System.out::println);
+
         List<ValidationErrorMessage> errors = new ArrayList<>();
 
         ex.getErrors()

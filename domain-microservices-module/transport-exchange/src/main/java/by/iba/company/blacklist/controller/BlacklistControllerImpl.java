@@ -1,7 +1,7 @@
 package by.iba.company.blacklist.controller;
 
-import by.iba.company.blacklist.dto.BlacklistDTO;
-import by.iba.company.blacklist.dto.BlacklistDeleteDTO;
+import by.iba.company.blacklist.dto.BlacklistResp;
+import by.iba.company.blacklist.dto.BlacklistDeleteResp;
 import by.iba.company.blacklist.service.BlacklistService;
 import by.iba.common.dto.PageWrapper;
 import lombok.AllArgsConstructor;
@@ -20,10 +20,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     private final BlacklistService blacklistService;
 
     @Override
-    public ResponseEntity<BlacklistDTO> findById(Long id) {
+    public ResponseEntity<BlacklistResp> findById(Long id) {
         log.info("Finding company in blacklist by id = {}", id);
 
-        BlacklistDTO blacklistDTO = blacklistService.findById(id);
+        BlacklistResp blacklistDTO = blacklistService.findById(id);
 
         return ResponseEntity
                 .ok()
@@ -31,10 +31,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<BlacklistDTO>> findAll(Integer page, Integer size) {
+    public ResponseEntity<PageWrapper<BlacklistResp>> findAll(Integer page, Integer size) {
         log.info("Finding all companies in blacklist");
 
-        PageWrapper<BlacklistDTO> blacklistDTOS = blacklistService
+        PageWrapper<BlacklistResp> blacklistDTOS = blacklistService
                 .findAll(page, size);
 
         return ResponseEntity
@@ -43,10 +43,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     }
 
     @Override
-    public ResponseEntity<BlacklistDTO> save(BlacklistDTO blacklistDTO) {
+    public ResponseEntity<BlacklistResp> save(BlacklistResp blacklistDTO) {
         log.info("Received a request to add to blacklist company with id = {}", blacklistDTO.getCompanyId());
 
-        BlacklistDTO savedInfo = blacklistService.save(blacklistDTO);
+        BlacklistResp savedInfo = blacklistService.save(blacklistDTO);
 
 
         final URI location = ServletUriComponentsBuilder
@@ -60,7 +60,7 @@ public class BlacklistControllerImpl implements BlacklistController {
                 .body(savedInfo);
     }
 
-    public ResponseEntity<Void> delete(BlacklistDeleteDTO blacklistDeleteDTO, Long id) {
+    public ResponseEntity<Void> delete(BlacklistDeleteResp blacklistDeleteDTO, Long id) {
         log.info("Received a request to delete blacklist info with id = {}", id);
 
         blacklistService.delete(blacklistDeleteDTO, id);
@@ -71,10 +71,10 @@ public class BlacklistControllerImpl implements BlacklistController {
     }
 
     @Override
-    public ResponseEntity<PageWrapper<BlacklistDTO>> findAllByCompanyId(Integer page, Integer size, Long companyId) {
+    public ResponseEntity<PageWrapper<BlacklistResp>> findAllByCompanyId(Integer page, Integer size, Long companyId) {
         log.info("Finding all information about company with id = {} in blacklist", companyId);
 
-        PageWrapper<BlacklistDTO> blacklistDTOS = blacklistService
+        PageWrapper<BlacklistResp> blacklistDTOS = blacklistService
                 .findAllByCompanyId(page, size, companyId);
 
         return ResponseEntity
