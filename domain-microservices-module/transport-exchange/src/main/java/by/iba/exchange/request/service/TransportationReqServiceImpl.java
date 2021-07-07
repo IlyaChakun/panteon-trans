@@ -33,11 +33,11 @@ public class TransportationReqServiceImpl implements TransportationReqService {
     private final TransportationReqRepository transportationReqRepository;
     private final CarrierRepository carrierRepository;
     private final CustomerRepository customerRepository;
-    private final CustomerMapperDTO customerMapperDTO;
-    private final CarrierMapperDTO carrierMapperDTO;
-    private final TransportationRequestMapperDTO transportationRequestMapperDTO;
-    private final LoadingPayloadMapperDTO loadingPayloadMapperDTO;
-    private final UnloadingPayloadMapperDTO unloadingPayloadMapperDTO;
+    private final CustomerMapperDTO customerMapper;
+    private final CarrierMapperDTO carrierMapper;
+    private final TransportationRequestMapperDTO transportationRequestMapper;
+    private final LoadingPayloadMapperDTO loadingPayloadMapper;
+    private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
 
 
     @Override
@@ -47,7 +47,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
         TransportationReq transportationReq = mapToRequest(transportationRequestDTO);
         TransportationReq savedRequest = transportationReqRepository.save(transportationReq);
 
-        return transportationRequestMapperDTO.toDto(savedRequest);
+        return transportationRequestMapper.toDto(savedRequest);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
                 .orElseThrow(() -> new ResourceNotFoundException("exception.request.not_found_by_id" + id));
 
 
-        return transportationRequestMapperDTO.toDto(request);
+        return transportationRequestMapper.toDto(request);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
                 transportationReqRepository.findAll(specification, pageable);
 
         return
-                new PageWrapper<>(transportationRequestMapperDTO
+                new PageWrapper<>(transportationRequestMapper
                         .toDtoList(requests.toList()),
                         requests.getTotalPages(),
                         requests.getTotalElements());
@@ -94,7 +94,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
                 transportationReqRepository.findAll(specification, pageable);
 
         return
-                new PageWrapper<>(transportationRequestMapperDTO
+                new PageWrapper<>(transportationRequestMapper
                         .toDtoList(requests.toList()),
                         requests.getTotalPages(),
                         requests.getTotalElements());
@@ -112,7 +112,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
                 transportationReqRepository.findAll(pageable);
 
         return
-                new PageWrapper<>(transportationRequestMapperDTO
+                new PageWrapper<>(transportationRequestMapper
                         .toDtoList(requests.toList()),
                         requests.getTotalPages(),
                         requests.getTotalElements());
@@ -132,18 +132,16 @@ public class TransportationReqServiceImpl implements TransportationReqService {
         TransportationReq mappedReq = PatchUtil.applyPatchToRequest(patch, transportationReq);
         TransportationReq savedReq =  transportationReqRepository.save(mappedReq);
 
-        return transportationRequestMapperDTO.toDto(savedReq);
-
-
+        return transportationRequestMapper.toDto(savedReq);
     }
 
     private TransportationReq mapToRequest(TransportationReqResp transportationRequestDTO) {
         TransportationReq transportationReq = new TransportationReq();
 
-        transportationReq.setLoadingPayload(loadingPayloadMapperDTO
+        transportationReq.setLoadingPayload(loadingPayloadMapper
                 .toEntity(transportationRequestDTO.getLoadingPayload()));
 
-        transportationReq.setUnloadingPayload(unloadingPayloadMapperDTO
+        transportationReq.setUnloadingPayload(unloadingPayloadMapper
                 .toEntity(transportationRequestDTO.getUnloadingPayload()));
 
         final String carrierUNP = transportationRequestDTO.getCarrier().getUNP();
@@ -151,14 +149,14 @@ public class TransportationReqServiceImpl implements TransportationReqService {
 
         if (!carrierRepository.existsCarrierByUNP(carrierUNP)) {
 
-            transportationReq.setCarrier(carrierMapperDTO.toEntity(transportationRequestDTO.getCarrier()));
+            transportationReq.setCarrier(carrierMapper.toEntity(transportationRequestDTO.getCarrier()));
 
         } else {
             transportationReq.setCarrier(carrierRepository.findCarrierByUNP(carrierUNP).get());
         }
 
         if (!customerRepository.existsCustomerByUNP(customerUNP)) {
-            transportationReq.setCustomer(customerMapperDTO.toEntity(transportationRequestDTO.getCustomer()));
+            transportationReq.setCustomer(customerMapper.toEntity(transportationRequestDTO.getCustomer()));
         } else {
             transportationReq.setCustomer(customerRepository.findCustomerByUNP(customerUNP).get());
         }

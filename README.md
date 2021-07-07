@@ -60,7 +60,7 @@ mysql on port 3306
 Use dev profile with all services except config service.
 
 1. Run config service
-2. Run registry service
+2. Run discovery-service service
 3. Run other services
 
 

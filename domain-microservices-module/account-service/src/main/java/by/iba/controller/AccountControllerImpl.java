@@ -1,6 +1,7 @@
 package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
 import by.iba.dto.PasswordReq;
@@ -8,6 +9,7 @@ import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,7 +28,6 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<AccountResp> save(@Valid AccountReq accountReq) {
-        log.info("Received a request to save new account with id = {} ", accountReq.getAccountId());
         AccountResp savedAccount = accountService.save(accountReq);
 
         URI location = ServletUriComponentsBuilder
@@ -41,10 +42,16 @@ public class AccountControllerImpl implements AccountController {
     }
 
     @Override
-    public ResponseEntity<AccountResp> findById(String accountId, Principal principal) {
+    public ResponseEntity<AccountResp> patch(Long id, PatchReq patch) {
+        AccountResp updated = accountService.partialUpdate(patch, id);
 
-        System.out.println(principal);
-        System.out.println(principal.getName());
+        return ResponseEntity
+                .ok()
+                .body(updated);
+    }
+
+    @Override
+    public ResponseEntity<AccountResp> findById(String accountId, Principal principal) {
         log.info("Received a request to find account by id = {} ", accountId);
 
         AccountResp savedAccount = accountService.findById(Long.valueOf(accountId));

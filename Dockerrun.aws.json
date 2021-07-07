@@ -14,7 +14,7 @@
       ],
       "links": [
         "config",
-        "registry"
+        "discovery-service"
       ],
       "memory": 100
     },
@@ -38,9 +38,9 @@
       ]
     },
     {
-      "name": "registry",
-      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/registry:latest",
-      "hostname": "registry",
+      "name": "discovery-service",
+      "image": "908085288135.dkr.ecr.us-east-2.amazonaws.com/discovery-service:latest",
+      "hostname": "discovery-service",
       "essential": false,
       "environment": [
         {

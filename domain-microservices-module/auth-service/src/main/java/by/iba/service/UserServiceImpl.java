@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapperDTO userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
-    private final UserSecurityMailService userSecurityMailService;
     private final PasswordHashEncoder hashEncoder;
 
+    @Transactional
     @Override
     public UserResp save(UserResp userDTO) {
         log.info("Saving user, email = {} , password = {} , firstName = {} , lastName = {} ",
@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
 
         log.info("new user with email = {} has been created", user.getEmail());
 
-        createAndSendConfirmationToken(savedUser);
-        doSendSuccessRegistrationMessage(savedUser);
+        //createAndSendConfirmationToken(savedUser);
+       // doSendSuccessRegistrationMessage(savedUser);
         return userMapper.toDto(savedUser);
     }
 
@@ -64,18 +64,17 @@ public class UserServiceImpl implements UserService {
     }
 
     private void doSendSuccessRegistrationMessage(User user) {
-        userSecurityMailService.sendSuccessRegistrationMessage(user.getEmail());
-
+        //userSecurityMailService.sendSuccessRegistrationMessage(user.getEmail());
     }
 
     private void doSendConfirmationMail(User user, ConfirmationToken confirmationToken) {
         //
-        userSecurityMailService.sendConfirmationEmail(user.getEmail(), confirmationToken.getConfirmationToken());
+        //userSecurityMailService.sendConfirmationEmail(user.getEmail(), confirmationToken.getConfirmationToken());
         //
     }
 
     private void doSendPasswordRecoveryoken(String email, ConfirmationToken token) {
-        userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
+       // userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
     }
 
     private void createAndSendPasswordRecoveryToken(String email) {
@@ -159,7 +158,6 @@ public class UserServiceImpl implements UserService {
 
     private void validateEmailAvailabilityOrThrowException(final String email) {
         if (userRepository.existsByEmail(email)) {
-            log.error("Duplicate email");
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.user.duplicate_email_error");
         }
     }

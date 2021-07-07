@@ -1,5 +1,6 @@
 package by.iba.company.companies.service;
 
+import by.iba.client.AccountClient;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;
@@ -32,6 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
     private final CompanyMapper companyMapper;
+    private final AccountClient accountClient;
 
     @Override
     @Transactional
@@ -45,6 +47,9 @@ public class CompanyServiceImpl implements CompanyService {
         final Company savedCompany = companyRepository.save(company);
 
         //log.info("Finish saving the company with UNP = {}", savedCompany.getUNP());
+
+        //create Patch req
+        //accountClient.patch();
 
         return companyMapper.toDto(savedCompany);
     }

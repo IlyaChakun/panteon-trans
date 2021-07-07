@@ -1,6 +1,6 @@
 [
   {
-    "name": "registry",
-    "imageUri": "infrastructure-microservices-module/registry"
+    "name": "discovery-service",
+    "imageUri": "infrastructure-microservices-module/discovery-service"
   }
 ]

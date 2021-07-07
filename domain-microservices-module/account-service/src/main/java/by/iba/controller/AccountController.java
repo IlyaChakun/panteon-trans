@@ -1,6 +1,7 @@
 package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
+import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
 import by.iba.dto.PasswordReq;
@@ -17,6 +18,9 @@ public interface AccountController {
     @PostMapping
     ResponseEntity<AccountResp> save(@Valid @RequestBody AccountReq accountReq);
 
+    @PatchMapping("/{id}")
+    ResponseEntity<AccountResp> patch(@PathVariable("id") Long accountId, @Valid @RequestBody PatchReq patchReq);
+
     @GetMapping("/{id}")
     ResponseEntity<AccountResp> findById(@PathVariable("id") String accountId, Principal principal);
 
@@ -24,7 +28,7 @@ public interface AccountController {
     ResponseEntity<ApiResponse> confirmAccount(@PathVariable("token") String token);
 
     @GetMapping("/password/recover/{email}")
-    ResponseEntity<ApiResponse> sendRecoverPasswordEmail(@PathVariable("email")String userEmail);
+    ResponseEntity<ApiResponse> sendRecoverPasswordEmail(@PathVariable("email") String userEmail);
 
     @PostMapping(value = "/password/recover/{token}")
     ResponseEntity<ApiResponse> recoverPasswordConfirmation(@PathVariable("token") String token,

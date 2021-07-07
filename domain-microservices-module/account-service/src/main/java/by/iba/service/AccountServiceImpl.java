@@ -4,7 +4,9 @@ import by.iba.client.AuthServiceClient;
 import by.iba.client.CompanyServiceClient;
 import by.iba.client.dto.CompanyResp;
 import by.iba.client.dto.UserResp;
+import by.iba.common.dto.PatchReq;
 import by.iba.common.exception.ResourceNotFoundException;
+import by.iba.common.patch.PatchUtil;
 import by.iba.domain.Account;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
@@ -32,22 +34,30 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public AccountResp save(AccountReq accountReq) {
-        log.info("Creating account with id = {}", accountReq.getAccountId());
 
         UserResp savedUser = saveUser(accountReq);
 
-        //CompanyDTO savedCompany = saveCompany(accountDTO);
-
         log.info("Saved user id = {}, email = {}", savedUser.getUserId(), savedUser.getEmail());
-        log.info("New account has been created: email = {} ", savedUser.getEmail());
-        //  log.info("saved company id={}, unp={}", savedCompany.getCompanyId(), savedCompany.getUnp());
 
         Account account = new Account();
-        account.setUserId(savedUser.getUserId());//account.setCompanyId(savedCompany.getCompanyId());
-        //account.setCompanyId(accountReq.getCompany().getcom());
+        account.setUserId(savedUser.getUserId());
         Account savedAccount = accountRepository.save(account);
 
         return accountMapper.toDto(savedAccount);
+    }
+
+    @Override
+    @Transactional
+    public AccountResp partialUpdate(PatchReq patch, Long id) {
+        Account account =
+                accountRepository.findByAccountId(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("exception.request.not_found_by_id"
+                                + id));
+
+        Account mappedReq = PatchUtil.applyPatchToRequest(patch, account);
+        Account savedReq = accountRepository.save(mappedReq);
+
+        return accountMapper.toDto(savedReq);
     }
 
     @Override
@@ -101,7 +111,6 @@ public class AccountServiceImpl implements AccountService {
     public void updatePassword(Long userId, PasswordReq passwordReq) {
         authClient.updatePassword(passwordReq, userId);
     }
-
 
     private void sendRecoverPasswordMessage(String userEmail) {
         authClient.recoverPassword(userEmail);

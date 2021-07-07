@@ -4,7 +4,6 @@ import by.iba.common.domain.core.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
@@ -24,7 +23,7 @@ public class Account extends BaseEntity {
     @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;
 
-    @Column(name = "company_id", nullable = false)
+    @Column(name = "company_id")
     private Long companyId;
 
     @Column(name = "status")

@@ -19,11 +19,11 @@ services:
 #      - backend
 #
 #
-#  registry:
+#  discovery-service:
 #    environment:
 #      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
 #      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-#    build: infrastructure-microservices-module/registry
+#    build: infrastructure-microservices-module/discovery-service
 #    restart: always
 #    depends_on:
 #      config:

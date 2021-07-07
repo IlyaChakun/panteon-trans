@@ -1,4 +1,4 @@
-package by.iba.registry;
+package by.iba.discovery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

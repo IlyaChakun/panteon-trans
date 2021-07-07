@@ -1,10 +1,8 @@
 package by.iba.controller;
 
-
 import by.iba.common.dto.ApiResponse;
 import by.iba.dto.PasswordDTO;
 import by.iba.dto.UserResp;
-import by.iba.security.mail.UserSecurityMailServiceImpl;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +20,6 @@ import java.security.Principal;
 public class UserControllerImpl implements UserController {
 
     private final UserService userService;
-    private final UserSecurityMailServiceImpl userSecurityMailService;
 
     @Override
     public Principal getUser(Principal principal) {
