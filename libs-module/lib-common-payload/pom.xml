@@ -20,10 +20,14 @@
             <artifactId>lib-internationalization</artifactId>
         </dependency>
 
-        <dependency>
+        <dependency><!-- password stuff -->
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
-            <version>1.6.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.java-json-tools</groupId>
+            <artifactId>json-patch</artifactId>
         </dependency>
 
         <dependency>
