@@ -48,7 +48,7 @@ public class TransportationRequest extends BaseAbstractEntity {
     private Double freightCost;//стоимость фрахта
 
     @Column(name = "additional_info")
-    private String additionalInfo;
+    private String additionalInformation;
 
     @Column(name = "status")
     private TransportationRequestStatus status;

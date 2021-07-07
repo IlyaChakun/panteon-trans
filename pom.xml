@@ -23,6 +23,8 @@
         <model-mapper-version>2.3.8</model-mapper-version>
         <lombok-version>1.18.12</lombok-version>
         <db.postgre-version>42.2.20</db.postgre-version>
+        <passay-version>1.6.0</passay-version>
+        <json-patch-version>1.12</json-patch-version>
     </properties>
 
     <modules>
