@@ -12,7 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Setter
 public class PatchReq implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     private JsonPatch patch;
-
 }

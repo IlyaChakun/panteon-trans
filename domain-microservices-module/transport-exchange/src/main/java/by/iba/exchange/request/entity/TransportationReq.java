@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TransportationRequest extends BaseAbstractEntity {
+public class TransportationReq extends BaseAbstractEntity {
 
 //https://www.trakto.su/library/obrazes-zayavka-perevozki-gruza/zaru-min.png
 

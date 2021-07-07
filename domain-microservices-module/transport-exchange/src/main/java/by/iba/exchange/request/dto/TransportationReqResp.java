@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TransportationRequestResp extends BaseResp {
+public class TransportationReqResp extends BaseResp {
 
     @NotNull
     private Long id;
