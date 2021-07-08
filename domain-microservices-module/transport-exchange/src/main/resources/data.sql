@@ -1,6 +1,6 @@
 
 
-
+/*
 INSERT INTO cargo_stowage_methods(id, stowage_method_name)
 VALUES (1, 'полная'),
        (2, 'частичная') ON CONFLICT DO NOTHING;
@@ -16,3 +16,4 @@ VALUES (1, 'цистерна пищ'),
 INSERT INTO cargo_types(id, type_name)
 VALUES (1, 'Пища'),
        (2, 'другое') ON CONFLICT DO NOTHING;
+*/

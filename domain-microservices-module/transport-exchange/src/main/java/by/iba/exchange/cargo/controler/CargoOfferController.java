@@ -1,7 +1,8 @@
 package by.iba.exchange.cargo.controler;
 
+import by.iba.common.dto.PatchReq;
 import by.iba.exchange.cargo.dto.CargoOfferResp;
-import by.iba.exchange.cargo.dto.CargoOfferReqResp;
+import by.iba.exchange.cargo.dto.CargoOfferReq;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.validation.annotation.PositiveLong;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 public interface CargoOfferController {
 
     @PostMapping
-    ResponseEntity<CargoOfferResp> save(@Valid @RequestBody CargoOfferReqResp cargoOfferReqDTO,
+    ResponseEntity<CargoOfferResp> save(@Valid @RequestBody CargoOfferReq cargoOfferReqDTO,
                                         final BindingResult bindingResult);
 
     @DeleteMapping("/{id}")
@@ -29,4 +30,8 @@ public interface CargoOfferController {
     ResponseEntity<PageWrapper<CargoOfferResp>> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
                                                         @RequestParam(defaultValue = "10", required = false) Integer size,
                                                         @Valid @RequestBody CargoSearchCriteriaDTO cargoSearchCriteriaDTO);
+    @PatchMapping("/{id}")
+    ResponseEntity<CargoOfferResp>patch(@RequestBody PatchReq patch,
+                                        @PathVariable Long id);
+
 }

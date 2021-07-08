@@ -2,7 +2,8 @@ package by.iba.exchange.truck.controler;
 
 import by.iba.common.controller.ControllerHelper;
 import by.iba.common.dto.PageWrapper;
-import by.iba.exchange.truck.dto.TruckOfferReqResp;
+import by.iba.common.dto.PatchReq;
+import by.iba.exchange.truck.dto.TruckOfferReq;
 import by.iba.exchange.truck.service.TruckOfferService;
 import by.iba.exchange.truck.dto.TruckOfferResp;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class TruckOfferControllerImpl implements TruckOfferController {
     private final TruckOfferService truckOfferService;
 
     @Override
-    public ResponseEntity<TruckOfferResp> save(TruckOfferReqResp truckDTO, final BindingResult bindingResult) {
+    public ResponseEntity<TruckOfferResp> save(TruckOfferReq truckDTO, final BindingResult bindingResult) {
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
         final TruckOfferResp saved = truckOfferService.save(truckDTO);
@@ -60,4 +61,18 @@ public class TruckOfferControllerImpl implements TruckOfferController {
                 .ok()
                 .body(pageWrapper);
     }
+
+    @Override
+    public ResponseEntity<TruckOfferResp> patch(PatchReq patch, Long id) {
+        log.info("Received a request to update offer with id ={}", id);
+
+        final TruckOfferResp offerResp = truckOfferService.partialUpdate(patch, id);
+
+
+        return ResponseEntity
+                .ok()
+                .body(offerResp);
+    }
+
+
 }

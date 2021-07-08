@@ -1,7 +1,8 @@
 package by.iba.exchange.cargo.controler;
 
+import by.iba.common.dto.PatchReq;
 import by.iba.exchange.cargo.dto.CargoOfferResp;
-import by.iba.exchange.cargo.dto.CargoOfferReqResp;
+import by.iba.exchange.cargo.dto.CargoOfferReq;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.exchange.cargo.service.CargoOfferService;
 import by.iba.common.controller.ControllerHelper;
@@ -25,7 +26,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
     private final CargoOfferService cargoOfferService;
 
     @Override
-    public ResponseEntity<CargoOfferResp> save(@Valid final CargoOfferReqResp cargoOfferReqDTO,
+    public ResponseEntity<CargoOfferResp> save(@Valid final CargoOfferReq cargoOfferReqDTO,
                                                final BindingResult bindingResult) {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
@@ -73,5 +74,16 @@ public class CargoOfferControllerImpl implements CargoOfferController {
         return ResponseEntity
                 .ok()
                 .body(cargo);
+    }
+
+    @Override
+    public ResponseEntity<CargoOfferResp> patch(PatchReq patch, Long id) {
+        log.info("Received a request for partial update of cargo offer wih id = {}",id);
+
+        CargoOfferResp cargoOfferResp = cargoOfferService.partialUpdate(patch,id);
+
+        return ResponseEntity
+                .ok()
+                .body(cargoOfferResp);
     }
 }
