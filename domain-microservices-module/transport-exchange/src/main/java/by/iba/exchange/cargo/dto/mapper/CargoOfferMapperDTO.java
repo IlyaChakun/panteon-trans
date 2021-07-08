@@ -5,9 +5,12 @@ import by.iba.exchange.cargo.domain.CargoOffer;
 import by.iba.exchange.cargo.dto.CargoOfferReq;
 import by.iba.exchange.cargo.dto.CargoOfferResp;
 import by.iba.exchange.cargo.repository.CargoTypeRepository;
+import by.iba.exchange.common.domain.CargoStowageMethod;
 import by.iba.exchange.common.dto.mapper.TruckBodyTypeMapperDTO;
 import by.iba.exchange.common.repository.CargoStowageMethodRepository;
 import by.iba.exchange.common.repository.TruckBodyTypeRepository;
+import by.iba.exchange.truck.domain.TruckOffer;
+import by.iba.exchange.truck.dto.TruckOfferResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,13 +38,25 @@ public class CargoOfferMapperDTO extends FullAbstractMapper<CargoOffer, CargoOff
     @PostConstruct
     public void setupMapper() {
 
-
+        mapper.createTypeMap(CargoOffer.class, CargoOfferResp.class)
+                .addMappings(m -> m.skip(CargoOfferResp::setCargoStowageMethodIds))
+                .setPostConverter(toDtoConverter());
         mapper.createTypeMap(CargoOfferReq.class, CargoOffer.class)
                 .addMappings(m -> m.skip(CargoOffer::setCargoStowageMethods))
                 .addMappings(m->m.skip(CargoOffer::setTruckBodyTypes))
                 .addMappings(m->m.skip(CargoOffer::setCargoType))
-                .addMappings(m->m.skip(CargoOffer::setCargoDimensions))
                 .setPostConverter(toEntityFromReqConverter());
+    }
+
+    @Override
+    protected void mapSpecificFields(final CargoOffer source, final CargoOfferResp destination) {
+
+        destination.setCargoStowageMethodIds(
+                source.getCargoStowageMethods()
+                        .stream()
+                        .map(CargoStowageMethod::getId)
+                        .collect(Collectors.toSet())
+        );
     }
 
     @Override
@@ -50,7 +65,8 @@ public class CargoOfferMapperDTO extends FullAbstractMapper<CargoOffer, CargoOff
         destination.setCargoType(cargoTypeRepository.getOne(source.getCargoTypeId()));
         destination.setCargoStowageMethods(
                 source.getCargoStowageMethodIds()
-                .stream().map(cargoStowageMethodRepository::getOne)
+                        .stream()
+                        .map(cargoStowageMethodRepository::getOne)
                 .collect(Collectors.toSet())
         );
         destination.setTruckBodyTypes(
