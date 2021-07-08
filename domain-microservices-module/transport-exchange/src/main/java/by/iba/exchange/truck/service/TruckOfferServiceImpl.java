@@ -4,17 +4,10 @@ import by.iba.common.dto.PageWrapper;
 import by.iba.common.dto.PatchReq;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.patch.PatchUtil;
-import by.iba.exchange.common.domain.CargoStowageMethod;
-import by.iba.exchange.common.domain.TruckBodyType;
-import by.iba.exchange.common.dto.mapper.LoadingPayloadMapperDTO;
-import by.iba.exchange.common.dto.mapper.PaymentMapperDTO;
-import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapperDTO;
-import by.iba.exchange.common.repository.CargoStowageMethodRepository;
-import by.iba.exchange.common.repository.TruckBodyTypeRepository;
 import by.iba.exchange.truck.domain.TruckOffer;
-import by.iba.exchange.truck.dto.TruckOfferResp;
 import by.iba.exchange.truck.dto.TruckOfferReq;
-import by.iba.exchange.truck.dto.mapper.TruckOfferMapperDTO;
+import by.iba.exchange.truck.dto.TruckOfferResp;
+import by.iba.exchange.truck.dto.mapper.TruckOfferMapper;
 import by.iba.exchange.truck.repository.TruckOfferRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +24,7 @@ import javax.transaction.Transactional;
 public class TruckOfferServiceImpl implements TruckOfferService {
 
     private final TruckOfferRepository truckOfferRepository;
-    private final TruckOfferMapperDTO truckMapper;
+    private final TruckOfferMapper truckMapper;
 
     @Transactional
     @Override
@@ -64,6 +57,7 @@ public class TruckOfferServiceImpl implements TruckOfferService {
     }
 
     @Override
+    @Transactional
     public TruckOfferResp partialUpdate(PatchReq patch, Long id) {
         log.info("Partial updating for cargo with id = {}", id);
 

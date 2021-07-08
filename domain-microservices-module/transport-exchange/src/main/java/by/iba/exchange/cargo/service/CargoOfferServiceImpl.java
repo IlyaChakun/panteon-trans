@@ -3,24 +3,14 @@ package by.iba.exchange.cargo.service;
 import by.iba.common.dto.PatchReq;
 import by.iba.common.patch.PatchUtil;
 import by.iba.exchange.cargo.domain.CargoOffer;
-import by.iba.exchange.cargo.domain.CargoType;
 import by.iba.exchange.cargo.dto.CargoOfferResp;
 import by.iba.exchange.cargo.dto.CargoOfferReq;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
-import by.iba.exchange.cargo.dto.mapper.CargoOfferMapperDTO;
-import by.iba.exchange.cargo.mail.CargoMailServiceImpl;
+import by.iba.exchange.cargo.dto.mapper.CargoOfferMapper;
 import by.iba.exchange.cargo.repository.CargoOfferRepository;
-import by.iba.exchange.cargo.repository.CargoTypeRepository;
 import by.iba.exchange.cargo.specifications.CargoOfferSpecifications;
-import by.iba.exchange.common.domain.CargoStowageMethod;
-import by.iba.exchange.common.domain.TruckBodyType;
 import by.iba.common.dto.PageWrapper;
-import by.iba.exchange.common.dto.mapper.LoadingPayloadMapperDTO;
-import by.iba.exchange.common.dto.mapper.PaymentMapperDTO;
-import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapperDTO;
 import by.iba.common.exception.ResourceNotFoundException;
-import by.iba.exchange.common.repository.CargoStowageMethodRepository;
-import by.iba.exchange.common.repository.TruckBodyTypeRepository;
 //import by.iba.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +31,7 @@ import java.time.LocalDate;
 public class CargoOfferServiceImpl implements CargoOfferService {
 
     private final CargoOfferRepository cargoOfferRepository;
-    private final CargoOfferMapperDTO cargoMapper;
+    private final CargoOfferMapper cargoMapper;
 
 
     @Transactional

@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "trucks_offres")
+@Table(name = "trucks_offres")//todo fix name
 @Getter
 @Setter
 @NoArgsConstructor

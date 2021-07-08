@@ -19,15 +19,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class TruckOfferMapperDTO extends FullAbstractMapper<TruckOffer, TruckOfferResp, TruckOfferReq> {
+public class TruckOfferMapper extends FullAbstractMapper<TruckOffer, TruckOfferResp, TruckOfferReq> {
 
     private final CargoStowageMethodRepository cargoStowageMethodRepository;
     private final TruckBodyTypeRepository truckBodyTypeRepository;
 
 
     @Autowired
-    public TruckOfferMapperDTO(CargoStowageMethodRepository cargoStowageMethodRepository,
-                               TruckBodyTypeRepository truckBodyTypeRepository) {
+    public TruckOfferMapper(CargoStowageMethodRepository cargoStowageMethodRepository,
+                            TruckBodyTypeRepository truckBodyTypeRepository) {
         super(TruckOffer.class, TruckOfferResp.class);
         this.cargoStowageMethodRepository = cargoStowageMethodRepository;
         this.truckBodyTypeRepository = truckBodyTypeRepository;
