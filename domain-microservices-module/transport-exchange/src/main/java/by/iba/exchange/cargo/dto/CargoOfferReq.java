@@ -1,6 +1,9 @@
 package by.iba.exchange.cargo.dto;
 
+import by.iba.common.dto.core.BaseAbstractReq;
+import by.iba.exchange.common.domain.LoadingPayload;
 import by.iba.exchange.common.domain.TemperatureMode;
+import by.iba.exchange.common.domain.UnloadingPayload;
 import by.iba.exchange.common.dto.CommonAttributesResp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CargoOfferReqResp extends CommonAttributesResp {
+public class CargoOfferReq extends BaseAbstractReq {
 
     private Long cargoTypeId;
 
@@ -22,10 +25,16 @@ public class CargoOfferReqResp extends CommonAttributesResp {
 
     private Set<Long> truckBodyTypeIds = new HashSet<>();
 
+    private Set<Long> cargoStowageMethodIds = new HashSet<>();
+
     private Long userId;
 
     private Long customerCompanyId;
 
     private TemperatureMode temperatureMode;
+
+    private LoadingPayload loadingPayload;
+
+    private UnloadingPayload unloadingPayload;
 
 }

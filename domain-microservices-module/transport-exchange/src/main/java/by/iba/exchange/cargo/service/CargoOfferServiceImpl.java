@@ -1,9 +1,11 @@
 package by.iba.exchange.cargo.service;
 
+import by.iba.common.dto.PatchReq;
+import by.iba.common.patch.PatchUtil;
 import by.iba.exchange.cargo.domain.CargoOffer;
 import by.iba.exchange.cargo.domain.CargoType;
 import by.iba.exchange.cargo.dto.CargoOfferResp;
-import by.iba.exchange.cargo.dto.CargoOfferReqResp;
+import by.iba.exchange.cargo.dto.CargoOfferReq;
 import by.iba.exchange.cargo.dto.CargoSearchCriteriaDTO;
 import by.iba.exchange.cargo.dto.mapper.CargoOfferMapperDTO;
 import by.iba.exchange.cargo.mail.CargoMailServiceImpl;
@@ -38,27 +40,19 @@ import java.time.LocalDate;
 @Slf4j
 public class CargoOfferServiceImpl implements CargoOfferService {
 
-    private final CargoMailServiceImpl cargoMailService;
-    private final LoadingPayloadMapperDTO loadingPayloadMapper;
-    private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
     private final CargoOfferRepository cargoOfferRepository;
     private final CargoOfferMapperDTO cargoMapper;
-    private final CargoStowageMethodRepository cargoStowageMethodRepository;
-    private final TruckBodyTypeRepository truckBodyTypeRepository;
-    private final CargoTypeRepository cargoTypeRepository;
-    private final PaymentMapperDTO paymentMapper;
-    //private final UserRepository userRepository;
 
 
     @Transactional
     @CachePut(value = "id", key = "#p0")
     @Override
-    public CargoOfferResp save(CargoOfferReqResp cargoOfferReqDTO) {
+    public CargoOfferResp save(CargoOfferReq cargoOfferReqDTO) {
         log.info("Start saving the cargo");
-      //  String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
-        CargoOffer cargoOffer = mapToCargo(cargoOfferReqDTO);
+        //  String email = userRepository.findByUserId(cargoOfferReqDTO.getUserId()).getEmail();
+        CargoOffer cargoOffer = cargoMapper.toEntityFromReq(cargoOfferReqDTO);
         CargoOffer savedCargoOffer = cargoOfferRepository.save(cargoOffer);
-       // cargoMailService.sendSaveCargoNotification(email);
+        // cargoMailService.sendSaveCargoNotification(email);
         log.info("Finish saving cargo with id =" + savedCargoOffer.getId());
         return cargoMapper.toDto(savedCargoOffer);
     }
@@ -93,7 +87,6 @@ public class CargoOfferServiceImpl implements CargoOfferService {
         return cargoMapper.toDto(cargoOffer);
     }
 
-    @Transactional
     @Override
     public PageWrapper<CargoOfferResp> findAll(Integer page, Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
 
@@ -119,36 +112,19 @@ public class CargoOfferServiceImpl implements CargoOfferService {
                         cargoPage.getTotalElements());
     }
 
+    @Override
+    @Transactional
+    public CargoOfferResp partialUpdate(PatchReq patch, Long id) {
+        log.info("Partial updating for cargo offer with id = {} ", id);
 
-    private CargoOffer mapToCargo(CargoOfferReqResp cargoOfferReqDTO) {
-        CargoOffer cargoOffer = new CargoOffer();
+        CargoOffer cargoOffer = cargoOfferRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.cargo_offer.not_found_by_id"
+                        + id));
 
-        cargoOffer.setCustomerCompanyId(cargoOfferReqDTO.getCustomerCompanyId());
-//        cargoOffer.setLoadingDate(cargoOfferReqDTO.getLoadingDate());
-//        cargoOffer.setUnloadingDate(cargoOfferReqDTO.getUnloadingDate());
-        cargoOffer.setTemperatureMode(cargoOfferReqDTO.getTemperatureMode());
-        cargoOffer.setDescription(cargoOfferReqDTO.getDescription());
-        //cargoOffer.setPayment(paymentMapper.toEntity(cargoOfferReqDTO.getPayment()));
-        //cargoOffer.setCargoDimensions(cargoDimensionsMapper.toEntity(cargoOfferReqDTO.getCargoDimensions()));
-        cargoOffer.setLoadingPayload(loadingPayloadMapper.toEntity(cargoOfferReqDTO.getLoadingPayload()));
-        cargoOffer.setUnloadingPayload(unloadingPayloadMapper.toEntity(cargoOfferReqDTO.getUnloadingPayload()));
+        CargoOffer patchedOffer = PatchUtil.applyPatchToRequest(patch, cargoOffer);
+        CargoOffer savedOffer = cargoOfferRepository.save(patchedOffer);
 
-        for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
-            TruckBodyType truckBodyType = truckBodyTypeRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("TruckBodyType with id =" + id + " not found"));
-            cargoOffer.getTruckBodyTypes().add(truckBodyType);
-        }
-
-        for (Long id : cargoOfferReqDTO.getCargoStowageMethodIds()) {
-            CargoStowageMethod cargoStowageMethod = cargoStowageMethodRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("CargoStowageMethod with id =" + id + " not found"));
-            cargoOffer.getCargoStowageMethods().add(cargoStowageMethod);
-        }
-
-        CargoType cargoType = cargoTypeRepository.findById(cargoOfferReqDTO.getCargoTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("CargoType with id =" + cargoOfferReqDTO.getCargoTypeId() + " not found"));
-        cargoOffer.setCargoType(cargoType);
-
-        return cargoOffer;
+        return cargoMapper.toDto(savedOffer);
     }
+
 }
