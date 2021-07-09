@@ -1,6 +1,7 @@
 package by.iba.exchange.common.dto;
 
 import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.exchange.common.domain.RequestStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +23,7 @@ public abstract class CommonAttributesResp extends BaseAbstractResp {//TODO add 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
     private PaymentResp payment;
+
+    private RequestStatus status;
 
 }
