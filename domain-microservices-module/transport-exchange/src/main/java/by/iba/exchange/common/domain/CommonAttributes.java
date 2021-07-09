@@ -22,4 +22,7 @@ public abstract class CommonAttributes extends BaseAbstractEntity {
     @ManyToMany
     private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
 
+    @Enumerated
+    private RequestStatus status = RequestStatus.ACTIVE;//default status is active
+
 }
