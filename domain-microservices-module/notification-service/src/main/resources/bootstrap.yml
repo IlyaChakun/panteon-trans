@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: notification-service
+  main:
+    allow-bean-definition-overriding: true #important for security part

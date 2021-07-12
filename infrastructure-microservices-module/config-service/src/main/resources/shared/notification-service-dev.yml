@@ -1,5 +1,8 @@
-
 spring:
+  application:
+    name: notification-service
+
+
 
   ##################### SPRING MAIL PROPERTIES #################################
   mail:
@@ -21,3 +24,16 @@ spring:
   messages:
     basename: messages
     encoding: UTF-8
+
+server:
+  port: 3000
+
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000

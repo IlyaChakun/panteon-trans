@@ -1,5 +1,6 @@
 package by.iba.service;
 
+import by.iba.client.NotificationClient;
 import by.iba.common.exception.ServiceException;
 import by.iba.domain.ConfirmationToken;
 import by.iba.domain.User;
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
+  //  private final NotificationClient notificationClient;
     private final UserRepository userRepository;
     private final UserMapperDTO userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
@@ -50,10 +51,11 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
 
-        log.info("new user with email = {} has been created", user.getEmail());
 
+        log.info("new user with email = {} has been created", user.getEmail());
+     //   notificationClient.sendSuccessRegistrationMessage(savedUser.getEmail());
         //createAndSendConfirmationToken(savedUser);
-       // doSendSuccessRegistrationMessage(savedUser);
+        // doSendSuccessRegistrationMessage(savedUser);
         return userMapper.toDto(savedUser);
     }
 
@@ -74,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void doSendPasswordRecoveryoken(String email, ConfirmationToken token) {
-       // userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
+        // userSecurityMailService.sendPasswordRecoveryMessage(email, token.getConfirmationToken());
     }
 
     private void createAndSendPasswordRecoveryToken(String email) {
