@@ -2,16 +2,20 @@ package by.iba.notification.service;
 
 import by.iba.notification.email.mailchimp.MailChimpClient;
 import by.iba.notification.email.mailchimp.MailChimpTemplateConstants;
+import by.iba.notification.email.service.MailService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AuthEmailServiceImpl implements AuthEmailService {
 
     private final MailChimpClient mailChimpClient;
+    private MailService mailService;
 
     @Override
     public void welcomeMessage(String email, String name) {
@@ -28,5 +32,12 @@ public class AuthEmailServiceImpl implements AuthEmailService {
 //                .field(USERNAME, userEntity.getEmail())
 //                .field(USER_EMAIL, userEntity.getEmail())
 //                .warn(template + ", email: " + userEntity.getEmail());
+    }
+
+    @Override
+    public void sendSuccessMessage(String email) {
+        log.info("Sending success registration message to {} started",email);
+
+        mailService.sendSuccessRegistrationMessage(email);
     }
 }
