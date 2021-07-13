@@ -1,6 +1,7 @@
 package by.iba.exchange.common.domain;
 
 import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.exchange.request.entity.TransportationRequestStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,6 @@ public abstract class CommonAttributes extends BaseAbstractEntity {
     private Set<CargoStowageMethod> cargoStowageMethods = new HashSet<>(); // способ загрузки
 
     @Enumerated
-    private RequestStatus status = RequestStatus.ACTIVE;//default status is active
+    private TransportationRequestStatus status = TransportationRequestStatus.ACTIVE;//default status is active
 
 }

@@ -1,7 +1,7 @@
 package by.iba.exchange.common.dto;
 
 import by.iba.common.dto.core.BaseAbstractResp;
-import by.iba.exchange.common.domain.RequestStatus;
+import by.iba.exchange.request.entity.TransportationRequestStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +24,6 @@ public abstract class CommonAttributesResp extends BaseAbstractResp {//TODO add 
 
     private PaymentResp payment;
 
-    private RequestStatus status;
+    private TransportationRequestStatus status;
 
 }

@@ -43,7 +43,9 @@ public class AccountServiceImpl implements AccountService {
         account.setUserId(savedUser.getUserId());
         Account savedAccount = accountRepository.save(account);
 
-        return accountMapper.toDto(savedAccount);
+        AccountResp accountResp = accountMapper.toDto(savedAccount);
+        //accountResp.setUser(authClient.);
+        return accountResp;
     }
 
     @Override
