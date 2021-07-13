@@ -19,9 +19,6 @@ public class BlacklistResp extends FullAbstractResp {
     @NotBlank(message = "validation.blacklist.company_id.not_presented")
     private Long companyId;
 
-    @NotNull
-    private Long id;
-
     @NotBlank(message = "validation.blacklist.reason_is_empty")
     private String reason;
 

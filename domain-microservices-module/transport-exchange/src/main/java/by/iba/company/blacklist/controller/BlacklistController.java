@@ -17,7 +17,7 @@ public interface BlacklistController {
                                                        @RequestParam(defaultValue = "10", required = false) final Integer size);
 
     @PostMapping()
-    ResponseEntity<BlacklistResp> save(BlacklistResp blacklistDTO);
+    ResponseEntity<BlacklistResp> save(@RequestBody BlacklistResp blacklistDTO);
 
     @DeleteMapping("{id}")
     ResponseEntity<Void> delete(BlacklistDeleteResp blacklistDeleteDTO, @PathVariable("id") final Long id);
