@@ -1,6 +1,7 @@
 package by.iba.company.blacklist.domain;
 
 import by.iba.common.domain.core.BaseEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,10 +13,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "blacklist")
-public class Blacklist extends BaseEntity {
+public class Blacklist extends FullAbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
