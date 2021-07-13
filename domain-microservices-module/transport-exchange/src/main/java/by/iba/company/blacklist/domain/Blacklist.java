@@ -1,13 +1,13 @@
 package by.iba.company.blacklist.domain;
 
-import by.iba.common.domain.core.BaseEntity;
 import by.iba.common.domain.core.FullAbstractEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = false)
@@ -16,12 +16,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "blacklist")
 public class Blacklist extends FullAbstractEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id")
-    @EqualsAndHashCode.Include
-    private Long id;
 
     @Column(name = "company_id")
     private Long companyId;

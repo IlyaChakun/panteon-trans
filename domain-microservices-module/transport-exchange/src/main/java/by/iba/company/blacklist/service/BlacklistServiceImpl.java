@@ -1,19 +1,16 @@
 package by.iba.company.blacklist.service;
 
-import by.iba.company.blacklist.domain.Blacklist;
-import by.iba.company.blacklist.dto.BlacklistResp;
-import by.iba.company.blacklist.dto.BlacklistDeleteResp;
-import by.iba.company.blacklist.dto.mapper.BlacklistMapperDTO;
-import by.iba.company.blacklist.repository.BlacklistRepository;
-import by.iba.company.blacklist.scpecifications.BlacklistSpecifications;
 import by.iba.common.dto.PageWrapper;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.exception.ServiceException;
+import by.iba.company.blacklist.domain.Blacklist;
+import by.iba.company.blacklist.dto.BlacklistDeleteResp;
+import by.iba.company.blacklist.dto.BlacklistResp;
+import by.iba.company.blacklist.dto.mapper.BlacklistMapperDTO;
+import by.iba.company.blacklist.repository.BlacklistRepository;
+import by.iba.company.blacklist.scpecifications.BlacklistSpecifications;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -36,25 +33,27 @@ public class BlacklistServiceImpl implements BlacklistService {
     private final BlacklistMapperDTO blacklistMapperDTO;
 
     @Override
-    @Caching(put = {
-            @CachePut(value = "company_id", key = "#blacklistDTO.getCompanyId()"),
-            @CachePut(value = "id", key = "#blacklistDTO.getId()")
-
-    })
+//    @Caching(put = {
+//            @CachePut(value = "company_id", key = "#blacklistDTO.getCompanyId()"),
+//            @CachePut(value = "id", key = "#blacklistDTO.getId()")
+//
+//    })
     @Transactional
     public BlacklistResp save(BlacklistResp blacklistDTO) {
 
         log.info("Adding to blacklist company with id = {} ", blacklistDTO.getCompanyId());
 
-        Optional<Blacklist> duplicate =
+        List<Blacklist> duplicate =
                 blacklistRepository
                         .findBlacklistByCompanyId(
                                 blacklistDTO.getCompanyId());
 
-        if (duplicate.isPresent() &&
-                Objects.isNull(duplicate.get().getDeletionDate())) {
-            throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_company_in_blacklist");
-        }
+        duplicate.forEach(it -> {
+                    if (Objects.nonNull(it.getDeletionDate())) {
+                        throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.company.duplicate_company_in_blacklist");
+                    }
+                }
+        );
 
         Blacklist blacklist = blacklistRepository.save(
                 blacklistMapperDTO.toEntity(blacklistDTO));
@@ -98,10 +97,10 @@ public class BlacklistServiceImpl implements BlacklistService {
     }
 
     @Override
-    @Caching(evict = {
-            @CacheEvict(value = "company_id", key = "#result"),
-            @CacheEvict(value = "id", key = "#id")
-    })
+//    @Caching(evict = {
+//            @CacheEvict(value = "company_id", key = "#result"),
+//            @CacheEvict(value = "id", key = "#id")
+//    })
     @Transactional
     public Long delete(BlacklistDeleteResp blacklistDeleteDTO, Long id) {
         log.info("Received request to delete company from blacklist with id = {}", id);

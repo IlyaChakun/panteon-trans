@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BlacklistRepository extends JpaRepository<Blacklist, Long>, JpaSpecificationExecutor<Blacklist> {
 
-    Optional<Blacklist> findBlacklistByCompanyId(Long companyId);
+    List<Blacklist> findBlacklistByCompanyId(Long companyId);
 
     Page<Blacklist> findAllByCompanyId(Long companyId, Pageable var1);
 
