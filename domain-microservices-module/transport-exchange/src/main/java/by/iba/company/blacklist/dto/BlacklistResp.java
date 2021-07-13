@@ -1,6 +1,6 @@
 package by.iba.company.blacklist.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.common.dto.core.FullAbstractResp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-public class BlacklistResp extends BaseAbstractResp {
+public class BlacklistResp extends FullAbstractResp {
 
     @NotBlank(message = "validation.blacklist.company_id.not_presented")
     private Long companyId;

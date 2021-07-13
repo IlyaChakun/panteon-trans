@@ -1,8 +1,7 @@
 package by.iba.company.companies.dto.mapper;
 
 import by.iba.client.CommonClient;
-import by.iba.common.dto.core.BaseAbstractResp;
-import by.iba.common.dto.mapper.AddressMapper;
+import by.iba.common.dto.core.FullAbstractResp;
 import by.iba.common.mapper.core.FullAbstractMapper;
 import by.iba.company.companies.domain.Company;
 import by.iba.company.companies.dto.CompanyReq;
@@ -53,7 +52,7 @@ public class CompanyMapper extends FullAbstractMapper<Company, CompanyResp, Comp
         destination.setCompanyFeatures(
                 source.getCompanyFeatures()
                         .stream()
-                        .map(BaseAbstractResp::getId)
+                        .map(FullAbstractResp::getId)
                         .map(companyFeatureRepository::getOne)
                         .collect(Collectors.toSet())
         );

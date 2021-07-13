@@ -1,6 +1,6 @@
 package by.iba.company.review.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.common.dto.core.FullAbstractResp;
 import by.iba.company.review.domain.CompanyServiceConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyReviewResp extends BaseAbstractResp {
+public class CompanyReviewResp extends FullAbstractResp {
     @NotNull
     private Long userId;
 

@@ -1,6 +1,6 @@
 package by.iba.company.companies.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.common.dto.core.FullAbstractResp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyFeatureResp extends BaseAbstractResp {
+public class CompanyFeatureResp extends FullAbstractResp {
 
     private String title;
 }

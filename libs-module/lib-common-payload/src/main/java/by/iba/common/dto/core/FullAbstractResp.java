@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseResp extends MappableObjectDTO {
+public abstract class FullAbstractResp extends TrackingAbstractResp {
+
+    private Long id;
 
 }

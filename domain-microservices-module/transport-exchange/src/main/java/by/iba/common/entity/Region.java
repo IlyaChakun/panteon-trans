@@ -1,6 +1,6 @@
 package by.iba.common.entity;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Region extends BaseAbstractEntity {
+public class Region extends FullAbstractEntity {
 
     @Column(name = "region_name", nullable = false, length = 48)
     private String regionName;

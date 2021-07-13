@@ -1,9 +1,6 @@
 package by.iba.exchange.truck.dto.mapper;
 
-import by.iba.common.dto.core.BaseAbstractResp;
 import by.iba.common.mapper.core.FullAbstractMapper;
-import by.iba.company.companies.domain.Company;
-import by.iba.company.companies.dto.CompanyResp;
 import by.iba.exchange.common.domain.CargoStowageMethod;
 import by.iba.exchange.common.repository.CargoStowageMethodRepository;
 import by.iba.exchange.common.repository.TruckBodyTypeRepository;
@@ -14,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component

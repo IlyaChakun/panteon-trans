@@ -1,6 +1,6 @@
 package by.iba.company.companies.domain;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompanyFeature extends BaseAbstractEntity {
+public class CompanyFeature extends FullAbstractEntity {
 
     @Column(name = "title")
     private String title;

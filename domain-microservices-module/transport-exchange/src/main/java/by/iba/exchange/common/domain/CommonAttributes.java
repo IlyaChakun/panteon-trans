@@ -1,6 +1,6 @@
 package by.iba.exchange.common.domain;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import by.iba.exchange.request.entity.TransportationRequestStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.Set;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class CommonAttributes extends BaseAbstractEntity {
+public abstract class CommonAttributes extends FullAbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private LoadingPayload loadingPayload;

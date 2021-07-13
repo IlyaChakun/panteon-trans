@@ -1,6 +1,6 @@
 package by.iba.exchange.request.entity;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import by.iba.exchange.common.domain.LoadingPayload;
 import by.iba.exchange.common.domain.UnloadingPayload;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TransportationReq extends BaseAbstractEntity {
+public class TransportationReq extends FullAbstractEntity {
 
 //https://www.trakto.su/library/obrazes-zayavka-perevozki-gruza/zaru-min.png
 

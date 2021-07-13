@@ -1,6 +1,6 @@
 package by.iba.exchange.request.entity;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Customer extends BaseAbstractEntity {
+public class Customer extends FullAbstractEntity {
 
     @Column(name = "unp",unique = false)
     private String UNP;

@@ -1,6 +1,6 @@
 package by.iba.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.common.dto.core.FullAbstractResp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserResp extends BaseAbstractResp {
+public class UserResp extends FullAbstractResp {
 
     @Null(message = "User id could not be set")
     private Long userId;

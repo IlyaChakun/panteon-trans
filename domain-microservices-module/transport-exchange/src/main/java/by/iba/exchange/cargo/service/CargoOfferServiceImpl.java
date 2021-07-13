@@ -111,7 +111,7 @@ public class CargoOfferServiceImpl implements CargoOfferService {
                 .orElseThrow(() -> new ResourceNotFoundException("exception.cargo_offer.not_found_by_id"
                         + id));
 
-        CargoOffer patchedOffer = PatchUtil.applyPatchToRequest(patch, cargoOffer);
+        CargoOffer patchedOffer = PatchUtil.applyPatchToRequest(patch, cargoOffer   );
         CargoOffer savedOffer = cargoOfferRepository.save(patchedOffer);
 
         return cargoMapper.toDto(savedOffer);

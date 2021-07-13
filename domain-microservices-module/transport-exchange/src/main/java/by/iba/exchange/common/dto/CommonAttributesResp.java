@@ -1,6 +1,6 @@
 package by.iba.exchange.common.dto;
 
-import by.iba.common.dto.core.BaseAbstractResp;
+import by.iba.common.dto.core.FullAbstractResp;
 import by.iba.exchange.request.entity.TransportationRequestStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.Set;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class CommonAttributesResp extends BaseAbstractResp {//TODO add validation
+public abstract class CommonAttributesResp extends FullAbstractResp {//TODO add validation
 
     private Long id;
 

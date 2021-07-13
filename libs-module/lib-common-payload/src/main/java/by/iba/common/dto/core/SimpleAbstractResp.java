@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-public abstract class BaseAbstractResp extends BaseResp {
+public abstract class SimpleAbstractResp extends BaseResp {
 
     private Long id;
 

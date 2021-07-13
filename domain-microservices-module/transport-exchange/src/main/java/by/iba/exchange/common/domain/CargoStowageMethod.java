@@ -1,6 +1,6 @@
 package by.iba.exchange.common.domain;
 
-import by.iba.common.domain.core.BaseAbstractEntity;
+import by.iba.common.domain.core.SimpleAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CargoStowageMethod extends BaseAbstractEntity {//способ погрузки
+public class CargoStowageMethod extends SimpleAbstractEntity {//способ погрузки
 
     @Column(name = "stowage_method_name")
     private String stowageMethodName;
