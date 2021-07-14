@@ -37,7 +37,13 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .withClient("account-service")
                 .secret(env.getProperty("ACCOUNT_SERVICE_PASSWORD"))
                 .authorizedGrantTypes("client_credentials", "refresh_token")
-                .scopes("server");
+                .scopes("server")
+                .and()
+                .withClient("notification-service")
+                .authorizedGrantTypes("client_credentials", "refresh_token")
+                .secret(env.getProperty("NOTIFICATION_SERVICE_PASSWORD"))
+                .scopes("server")
+        ;
         // @formatter:on
     }
 
@@ -54,6 +60,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         oauthServer
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients()
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());//TODO
         //тут приколы с паролем @ilya вниматльено посмтореть кишки что он энкодит и как влияет на секурите между серивсами
         //.passwordEncoder(AESEncoder.builder().build());

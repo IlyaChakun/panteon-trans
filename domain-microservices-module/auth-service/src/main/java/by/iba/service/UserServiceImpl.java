@@ -28,7 +28,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-  //  private final NotificationClient notificationClient;
+    private final NotificationClient notificationClient;
     private final UserRepository userRepository;
     private final UserMapperDTO userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
@@ -53,9 +53,8 @@ public class UserServiceImpl implements UserService {
 
 
         log.info("new user with email = {} has been created", user.getEmail());
-     //   notificationClient.sendSuccessRegistrationMessage(savedUser.getEmail());
         //createAndSendConfirmationToken(savedUser);
-        // doSendSuccessRegistrationMessage(savedUser);
+        doSendSuccessRegistrationMessage(savedUser);
         return userMapper.toDto(savedUser);
     }
 
@@ -66,6 +65,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private void doSendSuccessRegistrationMessage(User user) {
+        notificationClient.sendSuccessRegistrationMessage(user.getEmail());
+
         //userSecurityMailService.sendSuccessRegistrationMessage(user.getEmail());
     }
 
