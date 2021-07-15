@@ -49,8 +49,9 @@ public class CompanyServiceImpl implements CompanyService {
         //log.info("Finish saving the company with UNP = {}", savedCompany.getUNP());
 
         //create Patch req
+        accountClient.addCompanyToAccount(savedCompany.getOwnerId(), savedCompany.getCompanyId());
         //accountClient.patch();
-
+        //сделать в  отдельном потоке
         return companyMapper.toDto(savedCompany);
     }
 

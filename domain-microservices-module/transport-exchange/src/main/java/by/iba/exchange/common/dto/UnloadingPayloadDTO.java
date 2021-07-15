@@ -1,5 +1,6 @@
 package by.iba.exchange.common.dto;
 
+import by.iba.common.dto.AddressDTO;
 import by.iba.common.dto.core.FullAbstractResp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +12,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoadingPayloadResp extends FullAbstractResp {
+public class UnloadingPayloadDTO extends FullAbstractResp {
 
-    private Long countryId;
+    private AddressDTO address;
 
-    private Long regionId;
+    private LocalDate unloadingDate;
 
-    private Long cityId;
-
-    private LocalDate loadingDate;
 }

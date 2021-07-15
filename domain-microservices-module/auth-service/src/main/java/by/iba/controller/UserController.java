@@ -2,6 +2,7 @@ package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
 import by.iba.dto.PasswordDTO;
+import by.iba.dto.UserReq;
 import by.iba.dto.UserResp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +21,7 @@ public interface UserController {
 
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping()
-    ResponseEntity<UserResp> save(@Valid @RequestBody UserResp user);
+    ResponseEntity<UserResp> save(@Valid @RequestBody UserReq user);
 
     @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping(value = "/confirm-account/{token}")

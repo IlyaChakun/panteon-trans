@@ -1,9 +1,11 @@
 package by.iba.controller;
 
+import by.iba.client.dto.CompanyResp;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
+import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,8 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<AccountResp> patch(Long id, PatchReq patch) {
+
+
         AccountResp updated = accountService.partialUpdate(patch, id);
 
         return ResponseEntity
@@ -102,6 +106,17 @@ public class AccountControllerImpl implements AccountController {
 
         return ResponseEntity.ok(
                 new ApiResponse(true, "password updated")
+        );
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> addCompanyToAccount(Long id, Long companyId) {
+        log.info("Received a request to add company with id = {} to user with id = {} ", companyId, id);
+
+        accountService.addCompanyToAccount(id, companyId);
+
+        return ResponseEntity.ok(
+                new ApiResponse(true, "company created")
         );
     }
 }

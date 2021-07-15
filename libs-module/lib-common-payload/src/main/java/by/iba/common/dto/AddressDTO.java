@@ -24,5 +24,5 @@ public class AddressDTO extends MappableObjectDTO {
     @Min(value = 1, message = "Apartment number min = 1")
     @Max(value = 5000, message = "Apartment number max = 5000")
     private Integer apartment;
-
+// cityId
 }

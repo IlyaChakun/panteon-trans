@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CargoDimensionsResp extends MappableObjectDTO {
+public class CargoDimensionsDTO extends MappableObjectDTO {
 
     private Double weight;
 

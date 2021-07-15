@@ -4,7 +4,8 @@ import by.iba.common.dto.core.BaseAbstractReq;
 import by.iba.exchange.common.domain.LoadingPayload;
 import by.iba.exchange.common.domain.TemperatureMode;
 import by.iba.exchange.common.domain.UnloadingPayload;
-import by.iba.exchange.common.dto.CommonAttributesResp;
+import by.iba.exchange.common.dto.LoadingPayloadDTO;
+import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,20 +22,18 @@ public class CargoOfferReq extends BaseAbstractReq {
 
     private String description;
 
-    private CargoDimensionsResp cargoDimensions;
+    private CargoDimensionsDTO cargoDimensions;
 
     private Set<Long> truckBodyTypeIds = new HashSet<>();
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
-    private Long userId;
-
     private Long customerCompanyId;
 
-    private TemperatureMode temperatureMode;
+    private TemperatureMode temperatureMode = TemperatureMode.A;
 
-    private LoadingPayload loadingPayload;
+    private LoadingPayloadDTO loadingPayload;
 
-    private UnloadingPayload unloadingPayload;
+    private UnloadingPayloadDTO unloadingPayload;
 
 }

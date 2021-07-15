@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PaymentMapperDTO extends SimpleAbstractMapper<Payment, PaymentResp> {
+public class PaymentMapper extends SimpleAbstractMapper<Payment, PaymentResp> {
 
     @Autowired
-    public PaymentMapperDTO() {
+    public PaymentMapper() {
         super(Payment.class, PaymentResp.class);
     }
 }

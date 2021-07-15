@@ -10,6 +10,7 @@ import by.iba.common.patch.PatchUtil;
 import by.iba.domain.Account;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
+import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 import by.iba.dto.mapper.AccountMapperDTO;
 import by.iba.repository.AccountRepository;
@@ -61,6 +62,27 @@ public class AccountServiceImpl implements AccountService {
 
         return accountMapper.toDto(savedReq);
     }
+
+    @Override
+    public AccountResp addCompanyToAccount(Long id, Long companyId) {
+
+        Account account = accountRepository.findByUserId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.request.not_found_by_user_id"));
+
+        account.setCompanyId(companyId);
+
+        Account savedAccount = accountRepository.save(account);
+
+        return accountMapper.toDto(savedAccount);
+    }
+/*
+    @Override
+    public CompanyResp saveCompany(CompanyReq companyReq) {
+
+        CompanyResp saved = saveCompanyWithClient(companyReq);
+
+        return saved;
+    }*/
 
     @Override
     public AccountResp findById(Long accountId) {
@@ -118,9 +140,9 @@ public class AccountServiceImpl implements AccountService {
         authClient.recoverPassword(userEmail);
     }
 
-    private CompanyResp saveCompany(AccountResp accountDTO) {
-        return companiesClient.save(accountDTO.getCompany()).getBody();
-    }
+   /* private CompanyResp saveCompanyWithClient(CompanyReq companyReq) {
+        return companiesClient.save(companyReq).getBody();
+    }*/
 
     private CompanyResp findCompanyById(final Long companyId) {
         return companiesClient.findById(companyId).getBody();

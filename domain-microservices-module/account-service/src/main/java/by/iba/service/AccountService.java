@@ -1,8 +1,10 @@
 package by.iba.service;
 
+import by.iba.client.dto.CompanyResp;
 import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
+import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 
 public interface AccountService {
@@ -20,4 +22,8 @@ public interface AccountService {
     void updatePassword(Long userId, PasswordReq passwordReq);
 
     AccountResp partialUpdate(PatchReq patch, Long id);
+
+    AccountResp addCompanyToAccount(Long id, Long companyId);
+   // CompanyResp saveCompany(CompanyReq companyReq);
+
 }
