@@ -20,7 +20,7 @@ public class CargoOfferResp extends CommonAttributesResp {
 
     private String description;
 
-    private CargoDimensionsResp cargoDimensions;
+    private CargoDimensionsDTO cargoDimensions;
 
     private Set<TruckBodyTypeResp> truckBodyTypes = new HashSet<>();
 

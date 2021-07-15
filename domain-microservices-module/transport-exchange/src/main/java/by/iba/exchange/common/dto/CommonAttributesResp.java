@@ -16,9 +16,9 @@ public abstract class CommonAttributesResp extends FullAbstractResp {//TODO add 
 
     private Long id;
 
-    private LoadingPayloadResp loadingPayload;
+    private LoadingPayloadDTO loadingPayload;
 
-    private UnloadingPayloadResp unloadingPayload;
+    private UnloadingPayloadDTO unloadingPayload;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 

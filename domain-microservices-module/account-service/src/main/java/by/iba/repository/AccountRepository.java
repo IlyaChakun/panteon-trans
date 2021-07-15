@@ -13,4 +13,6 @@ public interface AccountRepository extends BaseAbstractCompositeKeyRepository<Ac
 
     Optional<Account> findByAccountId(Long accountId);
 
+    Optional<Account> findByUserId(Long userId);
+
 }

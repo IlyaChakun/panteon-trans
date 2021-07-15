@@ -43,6 +43,11 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .secret(env.getProperty("NOTIFICATION_SERVICE_PASSWORD"))
                 .scopes("server")
+                .and()
+                .withClient("transport-exchange")
+                .authorizedGrantTypes("client_credentials", "refresh_token")
+                .secret(env.getProperty("TRANSPORT_EXCHANGE_SERVICE_PASSWORD"))
+                .scopes("server")
         ;
         // @formatter:on
     }

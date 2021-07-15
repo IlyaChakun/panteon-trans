@@ -2,6 +2,7 @@ package by.iba.controller;
 
 import by.iba.common.dto.ApiResponse;
 import by.iba.dto.PasswordDTO;
+import by.iba.dto.UserReq;
 import by.iba.dto.UserResp;
 import by.iba.service.UserService;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,8 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<UserResp> save(@Valid UserResp user) {
-        log.info("Received a request to save user with id = {}", user.getUserId());
+    public ResponseEntity<UserResp> save(@Valid UserReq user) {
+        log.info("Received a request to save user with email = {}", user.getEmail());
 
         UserResp savedUser = userService.save(user);
 
