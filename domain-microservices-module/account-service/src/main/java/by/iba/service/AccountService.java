@@ -1,10 +1,8 @@
 package by.iba.service;
 
-import by.iba.client.dto.CompanyResp;
 import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 
 public interface AccountService {

@@ -17,5 +17,4 @@ public interface BlacklistRepository extends JpaRepository<Blacklist, Long>, Jpa
 
     Page<Blacklist> findAllByCompanyId(Long companyId, Pageable var1);
 
-
 }

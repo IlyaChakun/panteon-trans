@@ -37,7 +37,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     })
     @Transactional
     public CompanyReviewResp save(CompanyReviewResp companyReviewDTO) {
-        log.info("Start saving the company review with id = {}",
+        
                 companyReviewMapper
                         .toEntity(companyReviewDTO)
                         .getId());
@@ -46,7 +46,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
 
         companyReviewRepository.save(savedCompanyReview);
 
-        log.info("Finish saving the company review with id = {}", companyReviewMapper
+        
                 .toEntity(companyReviewDTO)
                 .getId());
 
@@ -61,7 +61,7 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     })
     public Long deleteById(Long id, Long companyId) {
 
-        log.info("Start deleting review with id = {} from company with id = {} ", id, companyId);
+        
 
         CompanyReview review = companyReviewRepository
                 .findByIdAndCompanyId(id, companyId)
@@ -70,14 +70,14 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
         review.setDate(LocalDate.now());
         companyReviewRepository.save(review);
 
-        log.info("Review with id = {} has been deleted ", id);
+        
 
         return companyId;
     }
 
     @Override
     public CompanyReviewResp findById(Long companyId, Long id) {
-        log.info("Finding review by id = {} for company with id = {}", id, companyId);
+        
 
         CompanyReview companyReview = companyReviewRepository
                 .findByIdAndCompanyId(id, companyId)

@@ -10,9 +10,8 @@ import by.iba.common.patch.PatchUtil;
 import by.iba.domain.Account;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
-import by.iba.dto.mapper.AccountMapperDTO;
+import by.iba.dto.mapper.AccountMapper;
 import by.iba.repository.AccountRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,17 +27,14 @@ public class AccountServiceImpl implements AccountService {
 
     private final AuthServiceClient authClient;
     private final CompanyServiceClient companiesClient;
-
     private final AccountRepository accountRepository;
-    private final AccountMapperDTO accountMapper;
+    private final AccountMapper accountMapper;
 
     @Override
     @Transactional
     public AccountResp save(AccountReq accountReq) {
 
         UserResp savedUser = saveUser(accountReq);
-
-        log.info("Saved user id = {}, email = {}", savedUser.getUserId(), savedUser.getEmail());
 
         Account account = new Account();
         account.setUserId(savedUser.getUserId());
@@ -75,23 +71,12 @@ public class AccountServiceImpl implements AccountService {
 
         return accountMapper.toDto(savedAccount);
     }
-/*
-    @Override
-    public CompanyResp saveCompany(CompanyReq companyReq) {
-
-        CompanyResp saved = saveCompanyWithClient(companyReq);
-
-        return saved;
-    }*/
 
     @Override
     public AccountResp findById(Long accountId) {
-        log.info("Finding account with id = {}", accountId);
 
         Account account = accountRepository.findByAccountId(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.account.not_found_exception"));
-
-        log.info("account with id={} has been found!", accountId);
 
         final AccountResp accountDTO = accountMapper.toDto(account);
 
@@ -116,7 +101,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public void recoverPassword(String userEmail) {
-        log.info("Password recovery started");
+
         sendRecoverPasswordMessage(userEmail);
         //update pass
         //send message suc.
@@ -147,6 +132,5 @@ public class AccountServiceImpl implements AccountService {
     private CompanyResp findCompanyById(final Long companyId) {
         return companiesClient.findById(companyId).getBody();
     }
-
 
 }

@@ -89,7 +89,7 @@ public class TransportationReqControllerImpl implements TransportationReqControl
 
     @Override
     public ResponseEntity<TransportationReqResp> patch(PatchReq patch, Long id) {
-        log.info("Received request to update transportation request with id = {}", id);
+        
 
         TransportationReqResp updated = requestService.partialUpdate(patch, id);
 

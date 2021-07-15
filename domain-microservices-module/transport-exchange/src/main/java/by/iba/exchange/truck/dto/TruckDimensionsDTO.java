@@ -1,6 +1,5 @@
-package by.iba.exchange.cargo.dto;
+package by.iba.exchange.truck.dto;
 
-import by.iba.common.dto.core.MappableObjectDTO;
 import by.iba.exchange.common.dto.DimensionsDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +7,12 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class CargoDimensionsDTO extends MappableObjectDTO {
+public class TruckDimensionsDTO {
 
-    private Double weight;//TODO VALIDATION
+    private Double carryingCapacity;//TODO VALIDATION
 
     @Valid
     private DimensionsDTO dimensions;

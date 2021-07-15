@@ -122,7 +122,7 @@ public class TransportationReqServiceImpl implements TransportationReqService {
     @Override
     @Transactional
     public TransportationReqResp partialUpdate(PatchReq patch, Long id) {
-        log.info("Updating request with id = {}", id);
+        
 
         TransportationReq transportationReq =
                 transportationReqRepository.findById(id)

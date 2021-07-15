@@ -64,7 +64,7 @@ public class TruckOfferControllerImpl implements TruckOfferController {
 
     @Override
     public ResponseEntity<TruckOfferResp> patch(PatchReq patch, Long id) {
-        log.info("Received a request to update offer with id ={}", id);
+        
 
         final TruckOfferResp offerResp = truckOfferService.partialUpdate(patch, id);
 

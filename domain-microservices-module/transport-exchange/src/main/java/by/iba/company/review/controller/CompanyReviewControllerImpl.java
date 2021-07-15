@@ -22,7 +22,7 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
 
     @Override
     public ResponseEntity<CompanyReviewResp> findById(Long companyId, Long id) {
-        log.info("Received a request to find review by id = {} and company id ={}", id, companyId);
+        
 
         CompanyReviewResp companyReviewDTO = companyReviewService.findById(companyId, id);
 
@@ -34,7 +34,7 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
     @Override
     public ResponseEntity<PageWrapper<CompanyReviewResp>> findAll(Long companyId, Integer page, Integer size) {
 
-        log.info("Received a request to find all reviews for company with id = {} ", companyId);
+        
 
 
         PageWrapper<CompanyReviewResp> allReviews =
@@ -48,7 +48,7 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
 
     @Override
     public ResponseEntity<CompanyReviewResp> save(CompanyReviewResp companyReviewDTO, Long companyId) {
-        log.info("Received a request to save rating of the company with id = {}", companyId);
+        
 
         CompanyReviewResp savedReview = companyReviewService.save(companyReviewDTO);
 
@@ -65,7 +65,7 @@ public class CompanyReviewControllerImpl implements CompanyReviewController {
 
     @Override
     public ResponseEntity<Void> delete(Long id, Long companyId) {
-        log.info("Received a request to delete review with id = {} from company with id = {}", id,companyId);
+        
 
         companyReviewService.deleteById(id, companyId);
 

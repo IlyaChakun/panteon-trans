@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 
@@ -14,8 +15,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UnloadingPayloadDTO extends FullAbstractResp {
 
+    @Valid
     private AddressDTO address;
 
-    private LocalDate unloadingDate;
+    private LocalDate unloadingDate;//TODO VALIDATION
 
 }

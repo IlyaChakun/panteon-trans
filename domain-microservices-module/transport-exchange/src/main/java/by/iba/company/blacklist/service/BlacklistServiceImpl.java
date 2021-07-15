@@ -41,7 +41,6 @@ public class BlacklistServiceImpl implements BlacklistService {
     @Transactional
     public BlacklistResp save(BlacklistResp blacklistDTO) {
 
-        log.info("Adding to blacklist company with id = {} ", blacklistDTO.getCompanyId());
 
         List<Blacklist> duplicate =
                 blacklistRepository
@@ -63,7 +62,6 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     public PageWrapper<BlacklistResp> findAll(Integer page, Integer size) {
-        log.info("Received a request to find all companies in black list");
 
         Specification<Blacklist> specification =
                 Specification.where(BlacklistSpecifications
@@ -86,7 +84,6 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     public BlacklistResp findById(Long id) {
-        log.info("Finding blacklist information with id = {} ", id);
 
         Blacklist blacklist = blacklistRepository
                 .findById(id)
@@ -103,7 +100,6 @@ public class BlacklistServiceImpl implements BlacklistService {
 //    })
     @Transactional
     public Long delete(BlacklistDeleteResp blacklistDeleteDTO, Long id) {
-        log.info("Received request to delete company from blacklist with id = {}", id);
 
         Blacklist blacklist = blacklistRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("blacklist information with id = " + id + " not found "));
@@ -119,7 +115,6 @@ public class BlacklistServiceImpl implements BlacklistService {
 
     @Override
     public PageWrapper<BlacklistResp> findAllByCompanyId(Integer page, Integer size, Long companyId) {
-        log.info("Received a request to find all information about company with id ={} in black list", companyId);
 
         Pageable pageable =
                 PageRequest.of(page, size);

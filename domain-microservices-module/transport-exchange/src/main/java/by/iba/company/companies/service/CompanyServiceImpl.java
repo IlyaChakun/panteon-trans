@@ -38,7 +38,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     public CompanyResp save(final CompanyReq companyReq) {
-        log.info("Start saving the company with UNP = {}", companyReq.getUnp());
+        
 
         validateUniqueUnpEmailPhoneNumbersThrowException(companyReq);
 
@@ -46,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         final Company savedCompany = companyRepository.save(company);
 
-        //log.info("Finish saving the company with UNP = {}", savedCompany.getUNP());
+        //
 
         //create Patch req
         accountClient.addCompanyToAccount(savedCompany.getOwnerId(), savedCompany.getCompanyId());
@@ -63,7 +63,7 @@ public class CompanyServiceImpl implements CompanyService {
     })
     @Transactional
     public Long deleteByUnp(final String unp) {
-        log.info("Start deleting the company by UNP = {}", unp);
+        
 
         final Long companyId = companyRepository.findIdByUNP(unp);
         if (Objects.isNull(companyId)) {
@@ -72,7 +72,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         companyRepository.deleteCompanyByUNP(unp);
 
-        log.info("Company with unp = {} has been deleted!", unp);
+        
 
         return companyId;
     }
@@ -80,11 +80,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Cacheable(value = "company-unp")
     public CompanyResp findByUnp(final String unp) {
-        log.info("Start finding the company by UNP = {}", unp);
+        
 
         final Company company = getCompanyByUnp(unp);
 
-        log.info("Company with unp = {} has been found!", unp);
+        
 
         return companyMapper.toDto(company);
     }
@@ -92,11 +92,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Cacheable(value = "company-id")
     public CompanyResp findById(final Long id) {
-        log.info("Start finding the company by id = {}", id);
+        
 
         final Company company = getCompanyById(id);
         final CompanyResp companyResp = companyMapper.toDto(company);
-        log.info("Company with id = {} has been found!", id);
+        
 
         return companyResp;
     }
@@ -105,13 +105,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Cacheable(value = "companies")
     public PageWrapper<CompanyResp> findAll(CompanyCriteria companyCriteria) {
 
-        log.info("Start finding all companies");
+        
         Pageable pageable = companyCriteria.getPageable();//todo fix mistake
         Specification<Company> specification = CompanySpecification.findByFeatureIds(companyCriteria.getCompanyFeatureIds());
 
         final Page<Company> products = companyRepository.findAll(pageable);
 
-        log.info("Finish finding all companies");
+        
 
         return new PageWrapper<>(
                 companyMapper.toDtoList(products.toList()),

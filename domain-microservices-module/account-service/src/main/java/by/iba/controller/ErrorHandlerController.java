@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class ErrorHandlerController {
 
-
     @ExceptionHandler({FeignException.class})
     public ResponseEntity<ErrorMessage> handleFeignStatusException(FeignException ex) throws JsonProcessingException {
 
@@ -28,6 +27,5 @@ public class ErrorHandlerController {
                         HttpStatus.valueOf(errorMessage.getHttpCode())
                 );
     }
-
 
 }

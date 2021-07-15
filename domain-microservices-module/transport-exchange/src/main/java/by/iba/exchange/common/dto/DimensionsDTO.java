@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DimensionsDTO {
 
-    private Double volume;
+    private Double volume;//TODO VALIDATION
 
     private Double length;
 

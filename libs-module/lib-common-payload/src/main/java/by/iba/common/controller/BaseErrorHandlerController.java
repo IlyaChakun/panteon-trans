@@ -37,8 +37,8 @@ public class BaseErrorHandlerController {
         /*
          * Exception occurs when passed id is null. Status 400.
          */
-        log.info("in handleJsonMappingException");
-        log.info("local={}", locale);
+        
+        
 
         ex.getStackTrace();
         log.error(ex.getMessage());
@@ -57,8 +57,8 @@ public class BaseErrorHandlerController {
          * Validation exceptions handling. Status code 400.
          */
 
-        log.info("in handleValidation");
-        log.info("local={}", locale);
+        
+        
 
         ex.getStackTrace();
 
@@ -83,12 +83,12 @@ public class BaseErrorHandlerController {
         /*
         Handles AbstractException exceptions.
         */
-        log.info("in handleAbstractException");
-        log.info("local={}", locale);
+        
+        
 
         final String localizedMessage = getLocalizedMessage(ex.getError(), locale);
 
-        log.info("localizedMessage={}", localizedMessage);
+        
         return
                 new ResponseEntity<>(
                         new ErrorMessage(
@@ -101,7 +101,7 @@ public class BaseErrorHandlerController {
     }
 
     private String getLocalizedMessage(final String error, final Locale locale) {
-        log.info("Get local message by code {}", error);
+        
         return messageSource.getMessage(error, (Object[]) null, locale);
     }
 

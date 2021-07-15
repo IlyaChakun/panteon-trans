@@ -29,7 +29,6 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<UserResp> save(@Valid UserReq user) {
-        log.info("Received a request to save user with email = {}", user.getEmail());
 
         UserResp savedUser = userService.save(user);
 
@@ -46,7 +45,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<ApiResponse> confirmUserAccount(String confirmationToken) {
-        log.info("Received a request to confirm user account with token = {}", confirmationToken);
+        
 
         userService.confirmUserAccount(confirmationToken);
 
@@ -66,7 +65,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<PasswordDTO> recoverPasswordConfirmation(String token, PasswordDTO passwordDTO) {
-        log.info("Recovery with token = {} started", token);
+        
 
         userService.recoverPasswordWithToken(token, passwordDTO);
 
@@ -77,7 +76,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<ApiResponse> updatePassword(PasswordDTO passwordDTO, Long userId) {
-        log.info("Received a request to update password for user with id = {}", userId);
+        
 
         userService.updatePassword(userId,passwordDTO);
 

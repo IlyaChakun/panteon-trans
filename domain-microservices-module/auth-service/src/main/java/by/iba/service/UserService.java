@@ -1,11 +1,12 @@
 package by.iba.service;
 
 import by.iba.dto.PasswordDTO;
+import by.iba.dto.UserReq;
 import by.iba.dto.UserResp;
 
 public interface UserService {
 
-    UserResp save(UserResp userDTO);
+    UserResp save(UserReq userReq);
 
     void confirmUserAccount(final String confirmationToken);
 

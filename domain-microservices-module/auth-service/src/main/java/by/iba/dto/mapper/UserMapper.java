@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class UserMapperDTO extends FullAbstractMapper<User, UserResp, UserReq> {
+public class UserMapper extends FullAbstractMapper<User, UserResp, UserReq> {
 
     @Autowired
-    public UserMapperDTO() {
+    public UserMapper() {
         super(User.class, UserResp.class);
     }
 

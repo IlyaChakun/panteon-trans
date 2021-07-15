@@ -44,8 +44,6 @@ public class CompanyControllerImpl implements CompanyController {
 
     @Override
     public ResponseEntity<Void> delete(final String unp) {
-        log.info("Received a request to delete the company with unp = {}", unp);
-
         companyService.deleteByUnp(unp);
 
         return ResponseEntity.ok().build();
@@ -53,7 +51,6 @@ public class CompanyControllerImpl implements CompanyController {
 
     @Override
     public ResponseEntity<CompanyResp> findByUNP(final String unp) {
-        log.info("Received a request to find the company with unp = {}", unp);
 
         final CompanyResp companyResp = companyService.findByUnp(unp);
 
@@ -64,7 +61,6 @@ public class CompanyControllerImpl implements CompanyController {
 
     @Override
     public ResponseEntity<CompanyResp> findById(final Long id) {
-        log.info("Received a request to find the company by id = {}", id);
 
         final CompanyResp companyResp = companyService.findById(id);
 
@@ -75,7 +71,7 @@ public class CompanyControllerImpl implements CompanyController {
 
     @Override
     public ResponseEntity<PageWrapper<CompanyResp>> findAll(CompanyCriteria companyCriteria) {
-        log.info("Received a request to find all companies");
+        
 
         final PageWrapper<CompanyResp> allCompanies = companyService.findAll(companyCriteria);
 

@@ -1,5 +1,6 @@
 package by.iba.exchange.common.domain;
 
+import by.iba.common.domain.Address;
 import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class LoadingPayload extends FullAbstractEntity {
 
-    @Column(name = "country_id")
-    private Long countryId;
-
-    @Column(name = "region_id")
-    private Long regionId;
-
-    @Column(name = "city_id")
-    private Long cityId;
+    private Address address;
 
     @Column(name = "loading_date")
     private LocalDate loadingDate;

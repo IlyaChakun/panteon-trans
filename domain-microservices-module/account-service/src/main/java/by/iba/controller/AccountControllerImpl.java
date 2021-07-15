@@ -1,17 +1,14 @@
 package by.iba.controller;
 
-import by.iba.client.dto.CompanyResp;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 import by.iba.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,7 +23,6 @@ import java.security.Principal;
 public class AccountControllerImpl implements AccountController {
 
     private final AccountService accountService;
-
 
     @Override
     public ResponseEntity<AccountResp> save(@Valid AccountReq accountReq) {
@@ -46,7 +42,6 @@ public class AccountControllerImpl implements AccountController {
     @Override
     public ResponseEntity<AccountResp> patch(Long id, PatchReq patch) {
 
-
         AccountResp updated = accountService.partialUpdate(patch, id);
 
         return ResponseEntity
@@ -56,7 +51,6 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<AccountResp> findById(String accountId, Principal principal) {
-        log.info("Received a request to find account by id = {} ", accountId);
 
         AccountResp savedAccount = accountService.findById(Long.valueOf(accountId));
 
@@ -67,7 +61,6 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<ApiResponse> confirmAccount(String token) {
-        log.info("Received a request to confirm account using token: {}", token);
 
         accountService.confirmAccount(token);
         return ResponseEntity.ok(
@@ -77,7 +70,6 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<ApiResponse> sendRecoverPasswordEmail(String userEmail) {
-        log.info("Received a request to recover password");
 
         accountService.recoverPassword(userEmail);
 
@@ -99,10 +91,8 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<ApiResponse> updatePassword(PasswordReq passwordReq, Long userId) {
-        log.info("Received a request to update password for user with id = {} ", userId);
 
         accountService.updatePassword(userId, passwordReq);
-
 
         return ResponseEntity.ok(
                 new ApiResponse(true, "password updated")
@@ -111,7 +101,6 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public ResponseEntity<ApiResponse> addCompanyToAccount(Long id, Long companyId) {
-        log.info("Received a request to add company with id = {} to user with id = {} ", companyId, id);
 
         accountService.addCompanyToAccount(id, companyId);
 

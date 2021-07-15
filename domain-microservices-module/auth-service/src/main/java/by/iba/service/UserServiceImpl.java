@@ -5,12 +5,12 @@ import by.iba.common.exception.ServiceException;
 import by.iba.domain.ConfirmationToken;
 import by.iba.domain.User;
 import by.iba.dto.PasswordDTO;
+import by.iba.dto.UserReq;
 import by.iba.dto.UserResp;
-import by.iba.dto.mapper.UserMapperDTO;
+import by.iba.dto.mapper.UserMapper;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
 import by.iba.security.PasswordHashEncoder;
-import by.iba.security.mail.UserSecurityMailService;
 import by.iba.security.mail.exception.ConfirmationTokenBrokenLinkException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,36 +30,29 @@ public class UserServiceImpl implements UserService {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private final NotificationClient notificationClient;
     private final UserRepository userRepository;
-    private final UserMapperDTO userMapper;
+    private final UserMapper userMapper;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final PasswordHashEncoder hashEncoder;
 
     @Transactional
     @Override
-    public UserResp save(UserResp userDTO) {
-        log.info("Saving user, email = {} , password = {} , firstName = {} , lastName = {} ",
-                userDTO.getEmail(),
-                userDTO.getPassword(),
-                userDTO.getFirstName(),
-                userDTO.getLastName());
+    public UserResp save(UserReq userReq) {
 
-        validateEmailAvailabilityOrThrowException(userDTO.getEmail());
+        validateEmailAvailability(userReq.getEmail());
 
-        User user = userMapper.toEntity(userDTO);
+        User user = userMapper.toEntityFromReq(userReq);
 
         encodeUserPassword(user);
 
         User savedUser = userRepository.save(user);
 
-
-        log.info("new user with email = {} has been created", user.getEmail());
         //createAndSendConfirmationToken(savedUser);
         doSendSuccessRegistrationMessage(savedUser);
         return userMapper.toDto(savedUser);
     }
 
     private void createAndSendConfirmationToken(User savedUser) {
-        ConfirmationToken confirmationToken = new ConfirmationToken(savedUser.getUserId());
+        ConfirmationToken confirmationToken = new ConfirmationToken(savedUser.getId());
         confirmationTokenRepository.save(confirmationToken);
         doSendConfirmationMail(savedUser, confirmationToken);
     }
@@ -83,8 +76,8 @@ public class UserServiceImpl implements UserService {
     private void createAndSendPasswordRecoveryToken(String email) {
         ConfirmationToken confirmationToken = new ConfirmationToken(userRepository
                 .findByEmail(email)
-                .get()
-                .getUserId());
+                .get()///TODO FIX
+                .getId());
 
         confirmationTokenRepository.save(confirmationToken);
         doSendPasswordRecoveryoken(email, confirmationToken);
@@ -112,12 +105,12 @@ public class UserServiceImpl implements UserService {
         Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
                 findByConfirmationToken(confirmationToken);
 
-        User user = userRepository.getUserByUserId(tokenForPassword.get().getUserId());
+        User user = userRepository.getUserByUserId(tokenForPassword.get().getUserId());//todo fix
 
         user.setPassword(getHashedPassword(passwordDTO));
 
         User savedUser = userRepository.save(user);
-        log.info("Password was updated for user with id ={}", user.getUserId());
+
 
         return userMapper.toDto(savedUser);
     }
@@ -159,7 +152,7 @@ public class UserServiceImpl implements UserService {
                 .encode(passwordDTO.getNewPassword());
     }
 
-    private void validateEmailAvailabilityOrThrowException(final String email) {
+    private void validateEmailAvailability(final String email) {
         if (userRepository.existsByEmail(email)) {
             throw new ServiceException(HttpStatus.CONFLICT.value(), "exception.user.duplicate_email_error");
         }

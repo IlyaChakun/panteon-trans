@@ -31,7 +31,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
 
         ControllerHelper.checkBindingResultAndThrowExceptionIfInvalid(bindingResult);
 
-        log.info("Received a request to save the cargo ");
+        
          final CargoOfferResp savedCargo = cargoOfferService.save(cargoOfferReqDTO);
 
         final URI location = ServletUriComponentsBuilder
@@ -47,7 +47,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
 
     @Override
     public ResponseEntity<Void> delete(final String cargoId) {
-        log.info("Received a request to delete the cargo with id = {}", cargoId);
+        
 
         cargoOfferService.delete(Long.valueOf(cargoId));
 
@@ -56,7 +56,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
 
     @Override
     public ResponseEntity<CargoOfferResp> findById(String cargoId) {
-        log.info("Received a request to find the cargo by id = {}", cargoId);
+        
 
         final CargoOfferResp cargoOfferDTO = cargoOfferService.findById(Long.valueOf(cargoId));
 
@@ -67,7 +67,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
 
     @Override
     public ResponseEntity<PageWrapper<CargoOfferResp>> findAll(final Integer page, final Integer size, CargoSearchCriteriaDTO cargoSearchCriteriaDTO) {
-        log.info("Received a request to find all cargo");
+        
 
         final PageWrapper<CargoOfferResp> cargo = cargoOfferService.findAll(page, size, cargoSearchCriteriaDTO);
 
@@ -78,7 +78,7 @@ public class CargoOfferControllerImpl implements CargoOfferController {
 
     @Override
     public ResponseEntity<CargoOfferResp> patch(PatchReq patch, Long id) {
-        log.info("Received a request for partial update of cargo offer wih id = {}",id);
+        
 
         CargoOfferResp cargoOfferResp = cargoOfferService.partialUpdate(patch,id);
 

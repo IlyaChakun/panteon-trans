@@ -24,7 +24,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     @Cacheable("countries")
     public List<CountryResp> findAll() {
-        log.info("find all countries");
+        
 
         List<Country> countries = countryRepository.findAll();
         return countryMapper.toDtoList(countries);
@@ -33,7 +33,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     @Cacheable("country")
     public CountryResp getOne(Long id) {
-        log.info("get one country by id={}", id);
+        
 
         Country country = findCountryById(id);
         return countryMapper.toDto(country);
@@ -51,7 +51,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Boolean existById(Long id) {
-        log.info("exist country by id={}", id);
+        
         return countryRepository.existsById(id);
     }
 

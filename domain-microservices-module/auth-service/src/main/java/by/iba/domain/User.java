@@ -1,6 +1,6 @@
 package by.iba.domain;
 
-import by.iba.common.domain.core.BaseEntity;
+import by.iba.common.domain.core.FullAbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,20 +10,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@IdClass(UserId.class)
 @Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User extends BaseEntity {
+public class User extends FullAbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "user_id", nullable = false, unique = true)
-    private Long userId;
-
-    @Id
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password")

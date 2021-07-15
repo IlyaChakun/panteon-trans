@@ -133,11 +133,11 @@ public class HttpClient {
 //        try {
 //            userId = AuthorizedUser.id();
 //            jwtId = AuthorizedUser.jwtId();
-//            tptRequestLog.info("userId= {}, jwtId = {}, method = {} ,path = {} , reqTime= {}", userId, jwtId, httpMethod.name(), pathFull, requestTime);
+//            tptRequest
 //        } catch (Exception e) {
 //
 //        }
 //
-//        tptFullRequestResponseLog.info("userId= {}, jwtId = {}, method = {}, path = {} ,reqTime= {}, reqBody = {}, respBody = {}", userId, jwtId, httpMethod.name(), pathFull, requestTime, reqBody, respBody);
+//        tptFullRequestResponse
 //    }
 }

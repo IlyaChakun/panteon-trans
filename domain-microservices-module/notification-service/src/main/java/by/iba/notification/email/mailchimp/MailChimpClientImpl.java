@@ -56,7 +56,7 @@ public class MailChimpClientImpl implements MailChimpClient {
         //TODO переписать это на что то другое мб глянуть как собирается внутри этого клиента и подрефактроить если он норм (а он норм вроде)
         String result = new HttpClient().post("https://mandrillapp.com/api/1.0/messages/send-template.json", jsonReq, mapHeaders, new HashMap<>());
         if (result.contains("\"status\":\"sent\"")) {
-            log.info("Sent " + templateSlug + " email to " + toEmail);
+            
             return true;
         } else {
             log.error("Problem sending " + templateSlug + " email to " + toEmail);

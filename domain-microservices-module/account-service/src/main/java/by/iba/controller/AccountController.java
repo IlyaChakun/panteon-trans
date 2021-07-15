@@ -1,14 +1,11 @@
 package by.iba.controller;
 
-import by.iba.client.dto.CompanyResp;
 import by.iba.common.dto.ApiResponse;
 import by.iba.common.dto.PatchReq;
 import by.iba.dto.AccountReq;
 import by.iba.dto.AccountResp;
-import by.iba.dto.CompanyReq;
 import by.iba.dto.PasswordReq;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

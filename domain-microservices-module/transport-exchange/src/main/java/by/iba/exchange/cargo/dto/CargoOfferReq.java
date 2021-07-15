@@ -1,15 +1,14 @@
 package by.iba.exchange.cargo.dto;
 
 import by.iba.common.dto.core.BaseAbstractReq;
-import by.iba.exchange.common.domain.LoadingPayload;
 import by.iba.exchange.common.domain.TemperatureMode;
-import by.iba.exchange.common.domain.UnloadingPayload;
 import by.iba.exchange.common.dto.LoadingPayloadDTO;
 import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,10 +17,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class CargoOfferReq extends BaseAbstractReq {
 
-    private Long cargoTypeId;
+    private Long cargoTypeId;//TODO VALIDATION for all
 
     private String description;
 
+    @Valid
     private CargoDimensionsDTO cargoDimensions;
 
     private Set<Long> truckBodyTypeIds = new HashSet<>();
@@ -32,8 +32,10 @@ public class CargoOfferReq extends BaseAbstractReq {
 
     private TemperatureMode temperatureMode = TemperatureMode.A;
 
+    @Valid
     private LoadingPayloadDTO loadingPayload;
 
+    @Valid
     private UnloadingPayloadDTO unloadingPayload;
 
 }

@@ -36,7 +36,7 @@ public class AuthEmailServiceImpl implements AuthEmailService {
 
     @Override
     public void sendSuccessMessage(String email) {
-        log.info("Sending success registration message to {} started",email);
+        
 
         mailService.sendSuccessRegistrationMessage(email);
     }

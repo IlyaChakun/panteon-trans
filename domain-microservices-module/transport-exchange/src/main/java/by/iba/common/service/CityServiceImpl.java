@@ -24,7 +24,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Cacheable("cities")
     public List<CityResp> findAll() {
-        log.info("Find all cities");
+        
 
         List<City> cities = cityRepository.findAll();
         return cityMapper.toDtoList(cities);
@@ -33,7 +33,7 @@ public class CityServiceImpl implements CityService {
     @Override
     @Cacheable("city")
     public CityResp getOne(Long id) {
-        log.info("Find city by id={}", id);
+        
         City city = resolveById(id);
         return cityMapper.toDto(city);
     }
@@ -50,7 +50,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Boolean existById(Long id) {
-        log.info("exist city by id={}", id);
+        
         return cityRepository.existsById(id);
     }
 

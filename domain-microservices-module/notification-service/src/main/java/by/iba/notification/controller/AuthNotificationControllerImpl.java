@@ -17,7 +17,7 @@ public class AuthNotificationControllerImpl implements AuthNotificationControlle
 
     @Override
     public ResponseEntity<ApiResponse> sendSuccessRegistrationMessage(String email) {
-        log.info("Received a request to send success registration message to {}", email);
+        
 
         emailService.sendSuccessMessage(email);
 

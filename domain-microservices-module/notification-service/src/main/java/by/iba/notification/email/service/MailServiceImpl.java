@@ -25,7 +25,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendConfirmationEmail(String recipient, String confirmationToken) {
-        log.info("Sending message to confirm started");
+        
 
         final MimeMessage message = getConfirmAccountMessage(recipient, confirmationToken);
 
@@ -34,7 +34,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendPasswordRecoveryMessage(String recipient, String confirmationToken) {
-        log.info("Sending message to recover password started");
+        
 
         final MimeMessage message = getPasswordRecoveryMessage(recipient, confirmationToken);
 
@@ -44,7 +44,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendSuccessPasswordUpdateMessage(String recipient) {
-        log.info("Sending success password update message started");
+        
 
         final SimpleMailMessage message = getSuccessEmail(recipient,"Password was successfully updated ");
 
@@ -54,7 +54,7 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendSuccessRegistrationMessage(String recipient) {
-        log.info("Sending success registration message started");
+        
 
         final SimpleMailMessage message = getSuccessEmail(recipient,"Registration finished!");
 
@@ -66,7 +66,7 @@ public class MailServiceImpl implements MailService {
 
         try {
             this.emailSenderService.send(message);
-            log.info("Confirm message sent successfully");
+            
         } catch (EmailServiceException e) {
             log.error("Wrong email" + e.getMessage());
             throw new EmailServiceException("No such email");
@@ -77,7 +77,7 @@ public class MailServiceImpl implements MailService {
     private void sendSimpleMailMessage(SimpleMailMessage message) {
         try {
             this.emailSenderService.send(message);
-            log.info("Message sent successfully");
+            
         } catch (EmailServiceException e) {
             log.error("Wrong email" + e.getMessage());
             throw new EmailServiceException("No such email");
@@ -87,7 +87,7 @@ public class MailServiceImpl implements MailService {
     private MimeMessage getConfirmAccountMessage(final String recipient,
                                                  final String confirmationToken) {
 
-        log.info("Sending to: {} with token = {} and send from {}", recipient, confirmationToken,
+        
                 baseEmailProperties.getEmailSender());
         String html = "\n<a href=http://localhost:6000/accounts/confirm/" + confirmationToken + ">click here</a>";
 
@@ -97,7 +97,7 @@ public class MailServiceImpl implements MailService {
     private MimeMessage getPasswordRecoveryMessage(final String recipient,
                                                    final String confirmationToken) {
 
-        log.info("Sending password recovery message to: {} with token = {} and send from {}",
+        
                 recipient,
                 confirmationToken,
                 baseEmailProperties.getEmailSender());
@@ -145,9 +145,9 @@ public class MailServiceImpl implements MailService {
 
     private SimpleMailMessage getSuccessEmail(final String recipient, String text) {
 
-        log.info("Sending to: {}", recipient);
+        
 
-        log.info("Send from: {}", baseEmailProperties.getEmailSender());
+        
 
         final String subject = "Finish registration";
         final SimpleMailMessage message = new SimpleMailMessage();
@@ -159,7 +159,7 @@ public class MailServiceImpl implements MailService {
     }
 
     private Properties getPortAndHostProperties() {
-        log.info("Get properties ");
+        
 
         final Properties properties = new Properties();
         properties.put("mail.smtp.host", baseEmailProperties.getSmtpHost());

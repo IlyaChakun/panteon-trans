@@ -1,14 +1,13 @@
 package by.iba.exchange.truck.dto;
 
 import by.iba.common.dto.core.BaseAbstractReq;
-import by.iba.exchange.common.domain.LoadingPayload;
-import by.iba.exchange.common.domain.UnloadingPayload;
-import by.iba.exchange.common.dto.CommonAttributesResp;
-import by.iba.exchange.truck.domain.TruckDimensions;
+import by.iba.exchange.common.dto.LoadingPayloadDTO;
+import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,15 +16,18 @@ import java.util.Set;
 @NoArgsConstructor
 public class TruckOfferReq extends BaseAbstractReq {
 
-    private Long truckBodyTypeId;
+    private Long truckBodyTypeId;//TODO Validation
 
-    private TruckDimensions truckDimensions;
+    @Valid
+    private TruckDimensionsDTO truckDimensions;
 
     private Long carrierCompanyId;
 
     private Set<Long> cargoStowageMethodIds = new HashSet<>();
 
-    private LoadingPayload loadingPayload;
+    @Valid
+    private LoadingPayloadDTO loadingPayload;
 
-    private UnloadingPayload unloadingPayload;
+    @Valid
+    private UnloadingPayloadDTO unloadingPayload;
 }

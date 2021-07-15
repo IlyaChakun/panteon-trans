@@ -59,7 +59,7 @@ public class TruckOfferServiceImpl implements TruckOfferService {
     @Override
     @Transactional
     public TruckOfferResp partialUpdate(PatchReq patch, Long id) {
-        log.info("Partial updating for cargo with id = {}", id);
+        
 
         TruckOffer offer = truckOfferRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("exception.truck_offer.not_found_by_id"));

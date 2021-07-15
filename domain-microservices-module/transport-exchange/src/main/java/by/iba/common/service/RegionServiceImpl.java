@@ -25,7 +25,7 @@ public class RegionServiceImpl implements RegionService {
     @Override
     @Cacheable("regions")
     public List<RegionResp> findAll() {
-        log.info("find all regions");
+        
 
         List<Region> regions = regionRepository.findAll();
         return regionMapper.toDtoList(regions);
@@ -34,7 +34,7 @@ public class RegionServiceImpl implements RegionService {
     @Override
     @Cacheable("region")
     public RegionResp getOne(Long id) {
-        log.info("get one region by id={}", id);
+        
 
         Region region = resolveById(id);
         return regionMapper.toDto(region);
@@ -52,7 +52,7 @@ public class RegionServiceImpl implements RegionService {
 
     @Override
     public Boolean existById(Long id) {
-        log.info("exist region by id={}", id);
+        
 
         return regionRepository.existsById(id);
     }
