@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
         <!-- versions -->
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <model-mapper-version>2.3.8</model-mapper-version>
@@ -25,6 +25,7 @@
         <db.postgre-version>42.2.20</db.postgre-version>
         <passay-version>1.6.0</passay-version>
         <json-patch-version>1.12</json-patch-version>
+
     </properties>
 
     <modules>

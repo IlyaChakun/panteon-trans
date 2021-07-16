@@ -1,6 +1,0 @@
-[
-  {
-    "name": "discovery-service",
-    "imageUri": "infrastructure-microservices-module/discovery-service"
-  }
-]
