@@ -1,0 +1,39 @@
+##########################################################
+##########            PROD CONFIGURATION       ###########
+##########            AUTH SERVICE             ###########
+##########################################################
+
+
+##################### SERVER PROP #################################
+server:
+  port: 5000
+
+##################### SPRING GLOBAL #################################
+
+spring:
+  application:
+    name: notification-service
+
+  ##################### DATA SOURCE #################################
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+  ##################### JPA USED SPRING DATA #################################
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      format-sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        event:
+          merge:
+            entity_copy_observer: allow
+      use_sql_comments: true
+    show-sql: true
+
+
+
+
+

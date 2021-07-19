@@ -1,23 +1,10 @@
 server:
   port: 8888
 
-#spring:
-#  cloud:
-#    config:
-#      server:
-#        native:
-#          search-locations: classpath:/shared
-#  profiles:
-#    active: native
-#  security:
-#    user:
-#      password: ${CONFIG_SERVICE_PASSWORD}
-
-
-#---
+---
 spring:
   profiles:
-    active: native
+    active: dev
   cloud:
     config:
       server:
@@ -27,7 +14,7 @@ spring:
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD}
-#
+
 ---
 spring:
   profiles:

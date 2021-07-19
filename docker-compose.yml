@@ -18,7 +18,7 @@ services:
 
   config-service:
     environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_NATIVE
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: infrastructure-microservices-module/config-service
     restart: always
