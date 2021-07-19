@@ -10,8 +10,6 @@ phases:
       - echo ${APPLICATION_NAME}
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - cd infrastructure-microservices
-      - cd config-service
       - mvn clean install
       - IMAGE_TAG_CONFIG=config
 
