@@ -37,18 +37,10 @@ public class CompanyReviewServiceImpl implements CompanyReviewService {
     })
     @Transactional
     public CompanyReviewResp save(CompanyReviewResp companyReviewDTO) {
-        
-                companyReviewMapper
-                        .toEntity(companyReviewDTO)
-                        .getId());
 
         CompanyReview savedCompanyReview = companyReviewMapper.toEntity(companyReviewDTO);
 
         companyReviewRepository.save(savedCompanyReview);
-
-        
-                .toEntity(companyReviewDTO)
-                .getId());
 
         return companyReviewMapper.toDto(savedCompanyReview);
     }

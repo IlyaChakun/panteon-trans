@@ -11,7 +11,6 @@ import by.iba.dto.mapper.UserMapper;
 import by.iba.repository.ConfirmationTokenRepository;
 import by.iba.repository.UserRepository;
 import by.iba.security.PasswordHashEncoder;
-import by.iba.security.mail.exception.ConfirmationTokenBrokenLinkException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -94,7 +93,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } else {
             log.error("Link with token is broken");
-            throw new ConfirmationTokenBrokenLinkException("Link is broken!");
+           // throw new ConfirmationTokenBrokenLinkException("Link is broken!");
         }
     }
 

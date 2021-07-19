@@ -87,8 +87,6 @@ public class MailServiceImpl implements MailService {
     private MimeMessage getConfirmAccountMessage(final String recipient,
                                                  final String confirmationToken) {
 
-        
-                baseEmailProperties.getEmailSender());
         String html = "\n<a href=http://localhost:6000/accounts/confirm/" + confirmationToken + ">click here</a>";
 
         return getMimeMessage(recipient, "Confirm your email and activate Account", html);
@@ -96,11 +94,6 @@ public class MailServiceImpl implements MailService {
 
     private MimeMessage getPasswordRecoveryMessage(final String recipient,
                                                    final String confirmationToken) {
-
-        
-                recipient,
-                confirmationToken,
-                baseEmailProperties.getEmailSender());
 
         String html = "\n<a href=http://localhost:6000/accounts/password-recovery/" + confirmationToken + ">recover password</a>";
 
