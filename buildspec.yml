@@ -1,21 +1,37 @@
 version: 0.2
-
 phases:
   install:
-    commands:
-      - cp config-files/settings.xml /root/.m2/settings.xml
+    runtime-versions:
+      docker: 18
   pre_build:
     commands:
-      - echo Pre build
-      - pip3 install awscli --upgrade --user
-      - echo prepare codeartifact token
-      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain transport-exchange --domain-owner 908085288135 --query authorizationToken --output text`
+      - echo Logging in to Amazon ECR...
+      - echo def region $AWS_DEFAULT_REGION
+      - echo ${APPLICATION_NAME}
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - mvn clean install
+      - IMAGE_TAG_CONFIG=config
+
   build:
     commands:
-      - echo Started build for last commit $CODEBUILD_SOURCE_VERSION
-      - echo Start build phase `date`
-      - mvn clean install deploy
-      - echo DEPLOY ARTIFACTS
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - ls
+      - docker-compose --file=docker-compose.yml build
+
+      - echo build config-service
+      - docker build -t $REPOSITORY_URI_CONFIG_SERVICE:latest ./infrastructure-microservices-module/config-service
+      - docker tag $REPOSITORY_URI_CONFIG_SERVICE:latest $REPOSITORY_URI_CONFIG_SERVICE:latest
+
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker-compose --file=docker-compose.yml push
+
+      - echo push config
+      - docker push $REPOSITORY_URI_CONFIG_SERVICE:latest
 
 artifacts:
   files:
