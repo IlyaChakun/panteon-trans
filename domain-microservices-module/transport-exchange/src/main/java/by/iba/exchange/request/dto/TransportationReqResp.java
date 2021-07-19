@@ -1,8 +1,8 @@
 package by.iba.exchange.request.dto;
 
 import by.iba.common.dto.core.BaseResp;
-import by.iba.exchange.common.dto.LoadingPayloadResp;
-import by.iba.exchange.common.dto.UnloadingPayloadResp;
+import by.iba.exchange.common.dto.LoadingPayloadDTO;
+import by.iba.exchange.common.dto.UnloadingPayloadDTO;
 import by.iba.exchange.request.entity.TransportationRequestStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,10 +26,10 @@ public class TransportationReqResp extends BaseResp {
     private CustomerResp customer;
 
     @NotNull
-    private LoadingPayloadResp loadingPayload;
+    private LoadingPayloadDTO loadingPayload;
 
     @NotNull
-    private UnloadingPayloadResp unloadingPayload;
+    private UnloadingPayloadDTO unloadingPayload;
 
     @NotNull
     private Long cargoOfferId;

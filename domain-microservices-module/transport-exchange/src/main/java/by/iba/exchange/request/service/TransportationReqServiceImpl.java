@@ -4,8 +4,8 @@ import by.iba.common.dto.PageWrapper;
 import by.iba.common.dto.PatchReq;
 import by.iba.common.exception.ResourceNotFoundException;
 import by.iba.common.patch.PatchUtil;
-import by.iba.exchange.common.dto.mapper.LoadingPayloadMapperDTO;
-import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapperDTO;
+import by.iba.exchange.common.dto.mapper.LoadingPayloadMapper;
+import by.iba.exchange.common.dto.mapper.UnloadingPayloadMapper;
 import by.iba.exchange.request.dto.TransportationReqResp;
 import by.iba.exchange.request.dto.mapper.CarrierMapperDTO;
 import by.iba.exchange.request.dto.mapper.CustomerMapperDTO;
@@ -36,8 +36,8 @@ public class TransportationReqServiceImpl implements TransportationReqService {
     private final CustomerMapperDTO customerMapper;
     private final CarrierMapperDTO carrierMapper;
     private final TransportationRequestMapperDTO transportationRequestMapper;
-    private final LoadingPayloadMapperDTO loadingPayloadMapper;
-    private final UnloadingPayloadMapperDTO unloadingPayloadMapper;
+    private final LoadingPayloadMapper loadingPayloadMapper;
+    private final UnloadingPayloadMapper unloadingPayloadMapper;
 
 
     @Override
