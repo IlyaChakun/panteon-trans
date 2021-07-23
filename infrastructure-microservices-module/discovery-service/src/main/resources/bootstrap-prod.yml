@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      uri: http://config-service:8888
+      uri: http://52.59.251.67:8888 #HERE should be placed dns or
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
