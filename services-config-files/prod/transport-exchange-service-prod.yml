@@ -36,6 +36,9 @@ spring:
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
+    url: jdbc:postgresql://nikita-db.csjgoepskieq.eu-central-1.rds.amazonaws.com:5432/transport_exchange
+    username: transport_exchange_app
+    password: transport_exchange_pw
   ##################### JPA USED SPRING DATA #####################################
   jpa:
     hibernate:
