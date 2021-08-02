@@ -21,10 +21,10 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://discovery-service:8761/eureka/
+      defaultZone: http://transport-exchange-lb-1181109775.eu-central-1.elb.amazonaws.com/api/discovery-service/eureka/
 
 security:
   oauth2:
     resource:
-      user-info-uri: http://auth-service:5000/users/current
+      user-info-uri: http://config.panteontrans.be/api/auth-service/users/current
 
