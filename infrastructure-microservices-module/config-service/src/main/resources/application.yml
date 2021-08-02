@@ -4,20 +4,6 @@ server:
 ---
 spring:
   profiles:
-    active: dev
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/shared
-
-  security:
-    user:
-      password: ${CONFIG_SERVICE_PASSWORD}
-
----
-spring:
-  profiles:
     active: prod
   cloud:
     config:

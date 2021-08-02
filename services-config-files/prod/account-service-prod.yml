@@ -8,7 +8,7 @@ security:
     client:
       clientId: account-service
       clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
-      accessTokenUri: http://auth-service:5000/oauth/token
+      accessTokenUri: http://config.panteontrans.be/api/auth-service/oauth/token
       grant-type: client_credentials
       scope: server
 
@@ -36,6 +36,9 @@ spring:
     hikari:
       maximum-pool-size: 100
     initialization-mode: always
+    url: jdbc:postgresql://nikita-db.csjgoepskieq.eu-central-1.rds.amazonaws.com:5432/account
+    username: account_app
+    password: account_pw
   ##################### JPA USED SPRING DATA #####################################
   jpa:
     hibernate:
