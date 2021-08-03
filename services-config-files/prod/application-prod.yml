@@ -28,3 +28,5 @@ security:
     resource:
       user-info-uri: http://config.panteontrans.be/api/auth-service/users/current
 
+security.basic.enable: false
+security.ignored: /**
