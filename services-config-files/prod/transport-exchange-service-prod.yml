@@ -3,14 +3,14 @@
 ##########        TRANSPORT EXCHANGE SERVICE   ###########
 ##########################################################
 
-security:
-  oauth2:
-    client:
-      clientId: transport-exchange-service
-      clientSecret: ${TRANSPORT-EXCHANGE-SERVICE-PASSWORD}
-      accessTokenUri: http://config.panteontrans.be/api/auth-service/oauth/token
-      grant-type: client_credentials
-      scope: server
+# security:
+#   oauth2:
+#     client:
+#       clientId: transport-exchange-service
+#       clientSecret: ${TRANSPORT-EXCHANGE-SERVICE-PASSWORD}
+#       accessTokenUri: http://config.panteontrans.be/api/auth-service/oauth/token
+#       grant-type: client_credentials
+#       scope: server
 
 server:
   port: 8082
@@ -55,3 +55,5 @@ spring:
     show-sql: true
 
 
+security.basic.enable: false
+security.ignored: /**
