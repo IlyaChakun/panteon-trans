@@ -8,7 +8,7 @@ security:
     client:
       clientId: transport-exchange-service
       clientSecret: ${TRANSPORT-EXCHANGE-SERVICE-PASSWORD}
-      accessTokenUri: http://auth-service:5000/oauth/token
+      accessTokenUri: http://config.panteontrans.be/api/auth-service/oauth/token
       grant-type: client_credentials
       scope: server
 

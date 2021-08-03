@@ -37,7 +37,7 @@ public class User extends FullAbstractEntity {
                     CascadeType.MERGE
             })
     @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id"), @JoinColumn(name = "email")},
+            joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();

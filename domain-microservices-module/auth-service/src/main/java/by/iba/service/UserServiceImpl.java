@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
         Optional<ConfirmationToken> token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
         if (token.isPresent()) {
-            User user = userRepository.findByUserId(token.get().getUserId());
+            User user = userRepository.findById(token.get().getUserId()).get();
             user.setIsEmailConfirmed(true);
             userRepository.save(user);
         } else {
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         Optional<ConfirmationToken> tokenForPassword = confirmationTokenRepository.
                 findByConfirmationToken(confirmationToken);
 
-        User user = userRepository.getUserByUserId(tokenForPassword.get().getUserId());//todo fix
+        User user = userRepository.getUserById(tokenForPassword.get().getUserId());//todo fix
 
         user.setPassword(getHashedPassword(passwordDTO));
 
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResp updatePassword(Long userId, PasswordDTO passwordDTO) {
 
-        User user = userRepository.getUserByUserId(userId);
+        User user = userRepository.getUserById(userId);
 
         if (checkPassword(passwordDTO.getOldPassword(), user)) {
 

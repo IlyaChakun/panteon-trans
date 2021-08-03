@@ -4,20 +4,6 @@ server:
 ---
 spring:
   profiles:
-    active: dev
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/shared
-
-  security:
-    user:
-      password: ${CONFIG_SERVICE_PASSWORD}
-
----
-spring:
-  profiles:
     active: prod
   cloud:
     config:
@@ -28,7 +14,7 @@ spring:
             - "services-config-files/{profile}"
           username: IlyaChakun
           password: d129ee899613dee601e94138cb66446aa29cb67f
-      label: master
+      label: auth
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD}
