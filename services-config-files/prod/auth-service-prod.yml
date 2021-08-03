@@ -18,6 +18,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
+    url: jdbc:postgresql://nikita-db.csjgoepskieq.eu-central-1.rds.amazonaws.com:5432/auth
+    username: auth_app
+    password: auth_pw
   ##################### JPA USED SPRING DATA #################################
   jpa:
     hibernate:
@@ -34,6 +37,13 @@ spring:
     show-sql: true
 
 
-
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
 
 
