@@ -1,35 +1,35 @@
 version: '2.1'
 
 services:
-#  db_panteon:
-#    image: postgres:13
-#    ports:
-#      - "5432:5432"
-#    command: postgres -c 'max_connections=500'
-#    environment:
-#      POSTGRES_USER: admin_user
-#      POSTGRES_PASSWORD: password
-#    volumes:
-#      - postgres:/var/lib/postgresql/data
-#      - ./pg-init-scripts:/docker-entrypoint-initdb.d
-#    networks:
-#      - backend
-#
-
-  config-service:
-    environment:
-      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: infrastructure-microservices-module/config-service
-    restart: always
+  db_panteon:
+    image: postgres:13
     ports:
-      - 8888:8888
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
+      - "5432:5432"
+    command: postgres -c 'max_connections=500'
+    environment:
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
     networks:
       - backend
+#
+
+#  config-service:
+#    environment:
+#      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+#      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+#    build: infrastructure-microservices-module/config-service
+#    restart: always
+#    ports:
+#      - 8888:8888
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "10"
+#    networks:
+#      - backend
 
 
 #  discovery-service:
@@ -175,5 +175,5 @@ services:
 networks:
   backend:
 
-#volumes:
-#  postgres:
+volumes:
+  postgres:

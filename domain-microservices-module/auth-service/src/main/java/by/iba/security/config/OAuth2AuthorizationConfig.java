@@ -1,6 +1,5 @@
 package by.iba.security.config;
 
-import by.iba.security.AESEncoder;
 import by.iba.security.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // @formatter:off
         clients.inMemory()
                 .withClient("browser")
                 .authorizedGrantTypes("refresh_token", "password")
@@ -49,7 +47,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .secret(env.getProperty("TRANSPORT_EXCHANGE_SERVICE_PASSWORD"))
                 .scopes("server")
         ;
-        // @formatter:on
     }
 
     @Override
