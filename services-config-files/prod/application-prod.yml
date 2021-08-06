@@ -26,5 +26,6 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://config.panteontrans.be/api/auth-service/users/current
+      user-info-uri: http://config.panteontrans.be:5000/users/current
+
 
